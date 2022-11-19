@@ -12,6 +12,14 @@ The workspace contains two folders by default, where:
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
 
-## Dependency Management
+## INSTRUCCIONES GIT
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+### or create a new repository on the command line
+
+git remote add origin https://github.com/JeffersonDaviid/Grupo_II_Pragramacion.git
+git push -u origin main
+
+### …or push an existing repository from the command line
+
+git remote add origin https://github.com/JeffersonDaviid/Grupo_II_Pragramacion.git
+git push -u origin main
