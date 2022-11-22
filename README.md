@@ -16,10 +16,10 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 
 ### or create a new repository on the command line
 
-git remote add origin https://github.com/JeffersonDaviid/Grupo_II_Pragramacion.git
+git remote add origin https://github.com/JeffersonDaviid/Grupo_II_Programacion.git
 git push -u origin main
 
 ### …or push an existing repository from the command line
 
-git remote add origin https://github.com/JeffersonDaviid/Grupo_II_Pragramacion.git
+git remote add origin https://github.com/JeffersonDaviid/Grupo_II_Programacion.git
 git push -u origin main
