@@ -1,10 +1,10 @@
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import pkMascota.Mascota;
+import pkPersona.Propietario;
 
-public class App extends Mascota {
+public class App {
 
     public static int menu() {
         Scanner sc = new Scanner(System.in);
@@ -30,39 +30,41 @@ public class App extends Mascota {
         String nombre;
         String tipo;
         String raza;
-        int edad;
-        boolean estadoMatch;
-        String propietario;
+        String edad;
+        String nombrePropietario;
         String observacion;
 
         System.out.println("\n\n\n\tBienvenido al sistema de registro de TINDER-PET");
-        System.out.print("Datos de la mascota: ");
-        System.out.println("Ingrese nombre de la mascota: ");
-        nombre = sc.nextLine();
-        sc.nextLine();
-        // nombre = ingresarDatoString("Ingrese nombre de la mascota: ");
-        System.out.println("Ingrese genero de la mascota (M = Masculino, F = Femenino): ");
-        tipo = sc.nextLine().toUpperCase();
-        sc.nextLine();
-        System.out.println("Ingrese la raza de la mascota: ");
-        raza = sc.nextLine();
-        sc.nextLine();
-        System.out.println("Ingrese edad de la mascota: ");
-        edad = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Ingrese propietario de la mascota: ");
-        propietario = sc.nextLine();
-        sc.nextLine();
-        System.out.println("Ingrese observacion de la mascota: ");
+        do {
+            System.out.print("Datos de la mascota: ");
+            nombre = sc.nextLine();
+        } while (!ingresarDatoString(nombre));
+        do {
+            System.out.print("Ingrese genero de la mascota (M = Masculino, F = Femenino): ");
+            tipo = sc.nextLine();
+        } while (!ingresarDatoChar(tipo));
+        do {
+            System.out.print("Ingrese la raza de la mascota: ");
+            raza = sc.nextLine();
+        } while (!ingresarDatoString(raza));
+        do {
+            System.out.print("Ingrese edad de la mascota: ");
+            edad = sc.nextLine();
+        } while (!ingresarDatoInt(edad));
+        do {
+            System.out.print("Ingrese propietario de la mascota: ");
+            nombrePropietario = sc.nextLine();
+        } while (!ingresarDatoString(nombrePropietario));
+        Propietario propietario = new Propietario(nombrePropietario);
+        // do {
+        System.out.print("Ingrese observacion de la mascota: ");
         observacion = sc.nextLine();
-        sc.nextLine();
-
-        estadoMatch = true;
+        // } while (!ingresarDatoString(observacion));
 
         // ingresar mascota
-        Mascota pet = new Mascota(nombre, tipo, raza, edad, estadoMatch, propietario, observacion);
+        Mascota pet = new Mascota(nombre, tipo, raza, Integer.parseInt(edad), propietario, observacion);
         lsMascotas.add(pet);
-        System.out.println("\n\n\n" + pet.nombre + " ha sido agredado exitosamente :)");
+        System.out.println("\n\n\n" + pet.getNombre() + " ha sido agredado exitosamente :)");
 
     }
 
@@ -71,15 +73,15 @@ public class App extends Mascota {
         System.out.println("\n\n\tListado de user-pets en TINDER-PET\n\n");
         for (Mascota pet : lsMascotas) {
             numMacota++;
-            if (pet.estadoMatch == true) {
+            if (pet.getEstadoMatch() == true) {
                 System.out.println("Mascota #" + numMacota);
-                System.out.println("\tNombre:\t\t" + pet.nombre);
-                System.out.println("\tTipo:\t\t" + pet.tipo);
-                System.out.println("\tRaza:\t\t" + pet.raza);
-                System.out.println("\tEdad:\t\t" + pet.edad);
-                System.out.println("\tEstadoMatch:\t" + pet.estadoMatch);
-                System.out.println("\tPropietario:\t" + pet.propietario);
-                System.out.println("\tObservacion:\t" + pet.observacion);
+                System.out.println("\tNombre:\t\t" + pet.getNombre());
+                System.out.println("\tTipo:\t\t" + pet.getTipo());
+                System.out.println("\tRaza:\t\t" + pet.getRaza());
+                System.out.println("\tEdad:\t\t" + pet.getEdad());
+                System.out.println("\tEstadoMatch:\t" + pet.getEstadoMatch());
+                System.out.println("\tPropietario:\t" + pet.getPropietario().getNombre());
+                System.out.println("\tObservacion:\t" + pet.getObservacion());
                 System.out.println();
             }
         }
@@ -94,26 +96,29 @@ public class App extends Mascota {
         // vamos a pedir las posciones de las mascotas que se van a enlazar
 
         for (int i = 0; i < lsMascotas.size(); i++) {
-            if (i == posicion1 && lsMascotas.get(i).estadoMatch == true)
-                lsMascotas.get(i).estadoMatch = false;
-            if (i == posicion2 && lsMascotas.get(i).estadoMatch == true)
-                lsMascotas.get(i).estadoMatch = false;
+            if (i == posicion1 && lsMascotas.get(i).getEstadoMatch() == true)
+                lsMascotas.get(i).setEstadoMatch(false);
+            if (i == posicion2 && lsMascotas.get(i).getEstadoMatch() == true)
+                lsMascotas.get(i).setEstadoMatch(false);
         }
-        System.out.println("\t" + lsMascotas.get(posicion1).nombre + " y " + lsMascotas.get(posicion2).nombre
+        System.out.println("\t" + lsMascotas.get(posicion1).getNombre() + " y " + lsMascotas.get(posicion2).getNombre()
                 + " ahora están enlazados <3 \n\n\n\n\n");
-        sc.reset();
     }
 
     public static void main(String[] args) throws Exception {
         // lista de todas las mascotas de la App
         ArrayList<Mascota> lsMascotas = new ArrayList<Mascota>();
+        Propietario propietario1 = new Propietario("Jefferson");
+        Propietario propietario2 = new Propietario("Evelyn");
+        Propietario propietario3 = new Propietario("Alanis");
+        Propietario propietario4 = new Propietario("Joselyn");
         // pets por defecto
-        Mascota p1 = new Mascota("Daniela", "F", "calle", 12, true, "Jefferson", "Es muy linda xd");
-        Mascota p2 = new Mascota("Daniel", "M", "cool", 12, true, "Peter", "Es un crack");
-        Mascota p3 = new Mascota("Daniela", "M", "calle", 12, true, "Pedro", "Le gusta el helado");
-        Mascota p4 = new Mascota("Daniela", "M", "calle", 12, true, "Jefferson", "Es muy linda xd");
-        Mascota p5 = new Mascota("Daniela", "M", "calle", 12, true, "Jefferson", "Es muy linda xd");
-        Mascota p6 = new Mascota("Daniela", "M", "calle", 12, true, "Jefferson", "Es muy linda xd");
+        Mascota p1 = new Mascota("Daniela", "F", "calle", 12, propietario2, "Es muy linda xd");
+        Mascota p2 = new Mascota("Daniel", "M", "cool", 12, propietario3, "Es un crack");
+        Mascota p3 = new Mascota("Daniela", "M", "calle", 12, propietario1, "Le gusta el helado");
+        Mascota p4 = new Mascota("Daniela", "M", "calle", 12, propietario2, "Es muy linda xd");
+        Mascota p5 = new Mascota("Daniela", "M", "calle", 12, propietario4, "Es muy linda xd");
+        Mascota p6 = new Mascota("Daniela", "M", "calle", 12, propietario3, "Es muy linda xd");
         lsMascotas.add(p1);
         lsMascotas.add(p2);
         lsMascotas.add(p3);
@@ -142,16 +147,28 @@ public class App extends Mascota {
     }
 
     public static boolean ingresarDatoString(String dato) {
-        return dato.matches("^([A-Z]{1}[a-z]{1,16})( [A-Z]{1}[a-z]{1,16})*$");
+        return dato.matches("^([A-Z]{1}[a-z]{1,16})( [A-Z]{1}[a-z]{1,16}){0,1}$");
     }
 
-    public static int ingresarDatoInt(String leyenda) {
-        Scanner sc = new Scanner(System.in);
-        int dato;
-        do {
-            System.out.println(leyenda);
-            dato = sc.nextInt();
-        } while (dato < 0);
-        return dato;
+    /**
+     * Permite validar que el dato ingresado sea un solo caracter en mayuscula sea M
+     * o F
+     * 
+     * @param dato string
+     * @return true if it's true/correct
+     */
+    public static boolean ingresarDatoChar(String dato) {
+        return dato.matches("^[M,F]$");
+    }
+
+    /**
+     * 
+     * @param dato
+     * @return
+     */
+    public static boolean ingresarDatoInt(String dato) {
+        // float
+        // return dato.matches("^0|[1-9]+|1[1-9](.0|[1-9]+|1[1-9])*$");
+        return dato.matches("^0|[1-9]+|1[1-9]$");
     }
 }
