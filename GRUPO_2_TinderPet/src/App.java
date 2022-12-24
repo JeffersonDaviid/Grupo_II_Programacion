@@ -1,3 +1,4 @@
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,8 +40,9 @@ public class App extends Mascota {
         System.out.println("Ingrese nombre de la mascota: ");
         nombre = sc.nextLine();
         sc.nextLine();
+        // nombre = ingresarDatoString("Ingrese nombre de la mascota: ");
         System.out.println("Ingrese genero de la mascota (M = Masculino, F = Femenino): ");
-        tipo = sc.nextLine();
+        tipo = sc.nextLine().toUpperCase();
         sc.nextLine();
         System.out.println("Ingrese la raza de la mascota: ");
         raza = sc.nextLine();
@@ -99,13 +101,25 @@ public class App extends Mascota {
         }
         System.out.println("\t" + lsMascotas.get(posicion1).nombre + " y " + lsMascotas.get(posicion2).nombre
                 + " ahora están enlazados <3 \n\n\n\n\n");
-
+        sc.reset();
     }
 
     public static void main(String[] args) throws Exception {
         // lista de todas las mascotas de la App
         ArrayList<Mascota> lsMascotas = new ArrayList<Mascota>();
-
+        // pets por defecto
+        Mascota p1 = new Mascota("Daniela", "F", "calle", 12, true, "Jefferson", "Es muy linda xd");
+        Mascota p2 = new Mascota("Daniel", "M", "cool", 12, true, "Peter", "Es un crack");
+        Mascota p3 = new Mascota("Daniela", "M", "calle", 12, true, "Pedro", "Le gusta el helado");
+        Mascota p4 = new Mascota("Daniela", "M", "calle", 12, true, "Jefferson", "Es muy linda xd");
+        Mascota p5 = new Mascota("Daniela", "M", "calle", 12, true, "Jefferson", "Es muy linda xd");
+        Mascota p6 = new Mascota("Daniela", "M", "calle", 12, true, "Jefferson", "Es muy linda xd");
+        lsMascotas.add(p1);
+        lsMascotas.add(p2);
+        lsMascotas.add(p3);
+        lsMascotas.add(p4);
+        lsMascotas.add(p5);
+        lsMascotas.add(p6);
         do {
             switch (menu()) {
                 case 1:
@@ -125,5 +139,19 @@ public class App extends Mascota {
                     break;
             }
         } while (true);
+    }
+
+    public static boolean ingresarDatoString(String dato) {
+        return dato.matches("^([A-Z]{1}[a-z]{1,16})( [A-Z]{1}[a-z]{1,16})*$");
+    }
+
+    public static int ingresarDatoInt(String leyenda) {
+        Scanner sc = new Scanner(System.in);
+        int dato;
+        do {
+            System.out.println(leyenda);
+            dato = sc.nextInt();
+        } while (dato < 0);
+        return dato;
     }
 }
