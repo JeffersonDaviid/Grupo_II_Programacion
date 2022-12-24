@@ -1,10 +1,10 @@
 package pkPersona;
 
 public class Propietario extends Persona {
-    private String nombre;
-
-    public Propietario() {
-    }
+    // variable
+    // private String nombre;
+    // constante | no existe setter
+    private final String nombre;
 
     public Propietario(String nombre) {
         this.nombre = nombre;
@@ -13,11 +13,6 @@ public class Propietario extends Persona {
     // GETTERS
     public String getNombre() {
         return nombre;
-    }
-
-    // SETTERS
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
 }

@@ -8,10 +8,12 @@ public class App {
 
     public static int menu() {
         Scanner sc = new Scanner(System.in);
+        sc.reset();
         System.out.println("\n\n\n\t\tBienvenido a TINDER-PET GRUPO II\n\n");
         System.out.println("1. Registrar mascota\n2. Listar mascotas\n3. Establecer match\n0. Salir");
         int opcion = sc.nextInt();
         sc.nextLine(); // limpiar buffer
+        // sc.close();
 
         if (opcion == 1)
             return 1;
@@ -27,6 +29,7 @@ public class App {
 
     public static void registrarMascota(ArrayList<Mascota> lsMascotas) {
         Scanner sc = new Scanner(System.in);
+        // sc.reset();
         String nombre;
         String tipo;
         String raza;
@@ -35,8 +38,9 @@ public class App {
         String observacion;
 
         System.out.println("\n\n\n\tBienvenido al sistema de registro de TINDER-PET");
+        System.out.println("Datos de la mascota: ");
         do {
-            System.out.print("Datos de la mascota: ");
+            System.out.print("Ingrese el nombre de la mascota: ");
             nombre = sc.nextLine();
         } while (!ingresarDatoString(nombre));
         do {
@@ -65,6 +69,7 @@ public class App {
         Mascota pet = new Mascota(nombre, tipo, raza, Integer.parseInt(edad), propietario, observacion);
         lsMascotas.add(pet);
         System.out.println("\n\n\n" + pet.getNombre() + " ha sido agredado exitosamente :)");
+        // sc.close();
 
     }
 
@@ -89,6 +94,7 @@ public class App {
 
     public static void establecerMatch(ArrayList<Mascota> lsMascotas) {
         Scanner sc = new Scanner(System.in);
+        sc.reset();
         System.out.println("Ingrese el numero de mascota con la que desea enlazar <3");
         int posicion1 = sc.nextInt();
         System.out.println("Ingrese el numero de mascota con la que desea enlazar <3");
@@ -103,6 +109,7 @@ public class App {
         }
         System.out.println("\t" + lsMascotas.get(posicion1).getNombre() + " y " + lsMascotas.get(posicion2).getNombre()
                 + " ahora están enlazados <3 \n\n\n\n\n");
+        // sc.close();
     }
 
     public static void main(String[] args) throws Exception {
@@ -169,6 +176,6 @@ public class App {
     public static boolean ingresarDatoInt(String dato) {
         // float
         // return dato.matches("^0|[1-9]+|1[1-9](.0|[1-9]+|1[1-9])*$");
-        return dato.matches("^0|[1-9]+|1[1-9]$");
+        return dato.matches("^0|[1-9]|1[0-9]$");
     }
 }
