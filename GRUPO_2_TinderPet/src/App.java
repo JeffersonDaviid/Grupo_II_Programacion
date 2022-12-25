@@ -8,12 +8,9 @@ public class App {
 
     public static int menu() {
         Scanner sc = new Scanner(System.in);
-        sc.reset();
         System.out.println("\n\n\n\t\tBienvenido a TINDER-PET GRUPO II\n\n");
         System.out.println("1. Registrar mascota\n2. Listar mascotas\n3. Establecer match\n0. Salir");
         int opcion = sc.nextInt();
-        sc.nextLine(); // limpiar buffer
-        // sc.close();
 
         if (opcion == 1)
             return 1;
@@ -29,7 +26,6 @@ public class App {
 
     public static void registrarMascota(ArrayList<Mascota> lsMascotas) {
         Scanner sc = new Scanner(System.in);
-        // sc.reset();
         String nombre;
         String tipo;
         String raza;
@@ -60,10 +56,8 @@ public class App {
             nombrePropietario = sc.nextLine();
         } while (!ingresarDatoString(nombrePropietario));
         Propietario propietario = new Propietario(nombrePropietario);
-        // do {
         System.out.print("Ingrese observacion de la mascota: ");
         observacion = sc.nextLine();
-        // } while (!ingresarDatoString(observacion));
 
         // ingresar mascota
         Mascota pet = new Mascota(nombre, tipo, raza, Integer.parseInt(edad), propietario, observacion);
@@ -109,7 +103,6 @@ public class App {
         }
         System.out.println("\t" + lsMascotas.get(posicion1).getNombre() + " y " + lsMascotas.get(posicion2).getNombre()
                 + " ahora están enlazados <3 \n\n\n\n\n");
-        // sc.close();
     }
 
     public static void main(String[] args) throws Exception {
@@ -171,7 +164,7 @@ public class App {
     /**
      * 
      * @param dato
-     * @return
+     * @return true si esta dentro de la edad permitida
      */
     public static boolean ingresarDatoInt(String dato) {
         // float
