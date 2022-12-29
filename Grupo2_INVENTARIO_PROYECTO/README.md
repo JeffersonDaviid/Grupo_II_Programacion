@@ -15,3 +15,4 @@ bin
 .gitignore  
 *.class 
 .vscode 
+*.jar
