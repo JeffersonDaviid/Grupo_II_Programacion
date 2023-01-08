@@ -1,9 +1,18 @@
 # INVENTARIO - GRUPO 2 - PROYECTO FINAL
 
 Developers:
-- Jefferson Chileno
+- Jefferson Chileno 
+
+Roles:
+- Jefferson: code
+- Simone: Diseño y archivos
+- Luis: Diseño y archivos
+- Angel: code
+- Sebastian: code
  
-### WARNING
+ > Unicamente son referencias 
+
+ ### WARNING
 Todos los integrantes deben tener la siguiente configuración en .gitignore para subir sus archivos
 
 bin         
@@ -15,7 +24,7 @@ out
 .idea           
 *.iml 
 
-O cualquier cosa que no sea parte necesaria en el proyecto
+O cualquier archivo que no sea parte necesaria/indispensable en el proyecto
 
 #  CONVENSION DE TRABAJO
 
@@ -43,9 +52,22 @@ O cualquier cosa que no sea parte necesaria en el proyecto
   > ejemplo:
   > - panel de navegacion que contiene botones de opciones: panel_navegacionUsuario
 
+### Imagenes
+- img_nombre
+  > Ejemplo:
+  > - fondo del login: _img_fondoLogin_
+  > - imagen del producto: img_mouseGamerAzul
+
+> __NOTA 1__: Tanto el nombre de la variable y el nombre del archivo deben tener el mismo nombre y debe estar dentro de la __carpeta images__    
+> __NOTA 2__: Si se usan iconos, los archivos deben estar en la carpeta iconos y la variable debe nombrarse: _icon_nombre_
+    > ejemplo: 
+    > - icono de inicio/home: icon_inicio   
+
+
 ### Fuciones
 - todo con camelCase
 
 > En general hay que ser bastante descriptivo tanto en la asignacion de las variables como de las funciones
 
 
+> NO OLVIDARSE QUE PUEDEN PREGUNTAR Y SOBRE TODO EMITIR SUGERENCIAS :D
