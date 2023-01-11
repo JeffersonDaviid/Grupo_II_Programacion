@@ -34,13 +34,12 @@ public class IniciarSesion extends JFrame {
     private JPasswordField i_contrasena;
     private JComboBox combo_rol;
 
-    public static void main(String[] args) {
-        IniciarSesion frame = new IniciarSesion();
-        frame.setVisible(true);
-        // frame.setIconImage(new
-        // ImageIcon(getClass().getResource("images/logoEmpresa.png")).getImage());
-
-    }
+    // public static void main(String[] args) {
+    // IniciarSesion frame = new IniciarSesion();
+    // frame.setVisible(true);
+    // // frame.setIconImage(new
+    // // ImageIcon(getClass().getResource("images/logoEmpresa.png")).getImage());
+    // }
 
     public IniciarSesion() {
         // setIconImage(new
@@ -169,10 +168,15 @@ public class IniciarSesion extends JFrame {
                 if (resultado.getString("Usuario").toUpperCase().equals(i_usuario.getText().trim().toUpperCase())
                         && resultado.getString("Contrasena").equals(new String(i_contrasena.getPassword()))
                         && resultado.getString("Rol").equals(combo_rol.getSelectedItem())) {
-                    JOptionPane.showMessageDialog(null, "Bienvenido usuario " +
-                            resultado.getString("Usuario").toUpperCase() + " Su pass es "
-                            + resultado.getString("Contrasena") + " Y su selección es " + combo_rol.getSelectedItem());
-
+                    if (combo_rol.getSelectedItem().equals("Administrador")) {
+                        IAdministrador iAdmin = new IAdministrador();
+                        iAdmin.setVisible(true);
+                        this.setVisible(false);
+                    } else if (combo_rol.getSelectedItem().equals("Trabajador")) {
+                        // IAdministrador iAdmin = new IAdministrador();
+                        // iAdmin.setVisible(true);
+                        // this.setVisible(false);
+                    }
                 } else
                     JOptionPane.showMessageDialog(null, "Revise sus datos e intente nuevamente");
 
