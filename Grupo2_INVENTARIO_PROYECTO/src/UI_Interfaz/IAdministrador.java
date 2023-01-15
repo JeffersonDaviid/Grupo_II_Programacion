@@ -3,9 +3,9 @@ package UI_Interfaz;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.Icon;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,10 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.text.AttributeSet.ColorAttribute;
 
 public class IAdministrador extends JFrame {
     private JPanel contenido;
+
     // JButton btnRegistrarProducto;
     // JButton btnRegistrarTrabajador;
     // JButton btnEliminarTrabajador;
@@ -28,7 +28,7 @@ public class IAdministrador extends JFrame {
         frame.setVisible(true);
     }
 
-    public IAdministrador(){
+    public IAdministrador() {
         setTitle("Servicio Administrador");
         setBounds(0, 0, 752, 434);
         setResizable(false);
@@ -94,7 +94,6 @@ public class IAdministrador extends JFrame {
         lbtitleBanner.setBounds(490, 35, 255, 17);
         contenido.add(lbtitleBanner);
 
-
         JLabel lbLogo = new JLabel();
         lbLogo.setBounds(105, 30, 60, 60);
         ImageIcon imgLogo = new ImageIcon("Grupo2_INVENTARIO_PROYECTO/images/iconos/admin.png");
@@ -114,13 +113,13 @@ public class IAdministrador extends JFrame {
         contenido.add(lbBackground);
 
         JLabel lbBannerLateral = new JLabel();
-        lbBannerLateral.setBounds(0,-25, 260, 434);
+        lbBannerLateral.setBounds(0, -25, 260, 434);
         ImageIcon imageLateral = new ImageIcon("Grupo2_INVENTARIO_PROYECTO/images/img_fondoLateral.jpg");
         Icon iconLateral = new ImageIcon(
                 imageLateral.getImage().getScaledInstance(lbBannerLateral.getWidth(), lbBannerLateral.getHeight(),
                         Image.SCALE_SMOOTH));
         lbBannerLateral.setIcon(iconLateral);
         contenido.add(lbBannerLateral);
-    
+
     }
 }
