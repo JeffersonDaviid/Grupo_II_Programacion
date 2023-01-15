@@ -1,12 +1,11 @@
 package UI_Interfaz;
 
+import java.awt.Image;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.Image;
-import javax.swing.SwingConstants;
-import java.awt.Font;
 
 public class Disconected extends JFrame {
 

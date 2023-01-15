@@ -28,7 +28,7 @@ public class CustomButton extends JButton implements MouseListener {
         setForeground(Color.black);
         setContentAreaFilled(false);
         setFocusPainted(false);
-        setBorderPainted(false);
+        setBorderPainted(true);
         setHorizontalAlignment(SwingConstants.LEFT);
         setFont(new Font("MesloLGL Nerd Font", Font.BOLD | Font.LAYOUT_LEFT_TO_RIGHT, 12));
     }
