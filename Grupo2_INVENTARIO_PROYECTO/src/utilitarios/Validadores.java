@@ -3,6 +3,7 @@ package utilitarios;
 import java.util.Scanner;
 
 public class Validadores {
+    public final Scanner sc = new Scanner(System.in);
 
     /**
      * Obteniene y verifica un valor entero
@@ -11,7 +12,6 @@ public class Validadores {
      * @return retorna el valor entero
      */
     public int getNumberInt(String etiqueta) {
-        Scanner sc = new Scanner(System.in);
         String dato;
         do {
             System.out.println(etiqueta);
@@ -35,7 +35,6 @@ public class Validadores {
      * @return retorna el valor float
      */
     public float getNumberFloat(String etiqueta) {
-        Scanner sc = new Scanner(System.in);
         String dato;
         do {
             System.out.println(etiqueta);
@@ -58,7 +57,6 @@ public class Validadores {
      * @param etiqueta texto a mostrar de la petición
      */
     public String getChar(String etiqueta) {
-        Scanner sc = new Scanner(System.in);
         String dato;
         do {
             System.out.println(etiqueta);
@@ -75,7 +73,6 @@ public class Validadores {
      * @param etiqueta texto a mostrar de la petición
      */
     public String getString(String etiqueta) {
-        Scanner sc = new Scanner(System.in);
         String dato;
         do {
             System.out.println(etiqueta);

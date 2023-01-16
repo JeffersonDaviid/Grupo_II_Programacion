@@ -28,7 +28,7 @@ public class CustomButton extends JButton implements MouseListener {
         setForeground(Color.black);
         setContentAreaFilled(false);
         setFocusPainted(false);
-        setBorderPainted(true);
+        setBorderPainted(false);
         setHorizontalAlignment(SwingConstants.LEFT);
         setFont(new Font("MesloLGL Nerd Font", Font.BOLD | Font.LAYOUT_LEFT_TO_RIGHT, 12));
     }
@@ -47,13 +47,13 @@ public class CustomButton extends JButton implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // setForeground(Color.BLACK);
+        setForeground(new Color(255, 87, 34));
         setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // setForeground(Color.BLACK);
+        setForeground(Color.BLACK);
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 }

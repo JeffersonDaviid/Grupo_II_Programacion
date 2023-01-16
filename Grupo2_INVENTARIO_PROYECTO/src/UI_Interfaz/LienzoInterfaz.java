@@ -1,11 +1,15 @@
 package UI_Interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.Image;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,20 +18,18 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import CustomerControl.CustomButton;
-import java.awt.Color;
-import java.awt.Component;
-import javax.swing.Box;
-import java.awt.Cursor;
-import javax.swing.JSeparator;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import Ventanas.ActualizarInventario;
+import Ventanas.Bienvenida;
+import Ventanas.EliminarTrabajador;
+import Ventanas.RegistrarProducto;
+import Ventanas.RegistrarTrabajador;
+import Ventanas.RevisarInventario;
 
 public class LienzoInterfaz extends JFrame {
 
-	private JPanel contentPane;
+	JPanel contentPane = new JPanel();
+	// FondoPanel contentPane = new FondoPanel();
+	JPanel CONTENIDO_ACTUALIZABLE = new JPanel();
 
 	/**
 	 * Launch the application.
@@ -40,21 +42,25 @@ public class LienzoInterfaz extends JFrame {
 	}
 
 	public LienzoInterfaz() {
-		setBackground(new Color(255, 255, 255));
+		try {
+			setIconImage(new ImageIcon(getClass().getResource("logoEmpresa.png")).getImage());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		setTitle("BIENVENID@");
+		setBackground(new Color(255, 120, 78));
 		setMinimumSize(new Dimension(960, 540));
 		setLocationRelativeTo(null);
-		JFrame frame = new JFrame("SERVICIO ADMINISTRADOR");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		contentPane = new JPanel();
-		contentPane.setOpaque(false);
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 
-		setContentPane(contentPane);
+		this.setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		// ENCABEZADO
+		// -------------------------------------------------------------------------------------------------------------
 		JPanel header = new JPanel();
-		header.setVisible(false);
+		// header.setVisible(false);
 		contentPane.add(header, BorderLayout.NORTH);
 		header.setLayout(new GridLayout(0, 3, 0, 0));
 
@@ -68,7 +74,24 @@ public class LienzoInterfaz extends JFrame {
 		lbRol.setHorizontalAlignment(SwingConstants.CENTER);
 		header.add(lbRol);
 
+		// PIE DE APP
+		// -------------------------------------------------------------------------------------------------------------
+		JPanel footer = new JPanel();
+		footer.setOpaque(false);
+		contentPane.add(footer, BorderLayout.SOUTH);
+
+		JLabel lblNewLabel = new JLabel("© EASY SELL | Todos los derechos reservados 2023");
+		footer.add(lblNewLabel);
+
+		// CONTENIDO ACTUALIZABLE
+		// -------------------------------------------------------------------------------------------------------------
+		contentPane.add(CONTENIDO_ACTUALIZABLE, BorderLayout.CENTER);
+		CONTENIDO_ACTUALIZABLE.setLayout(new GridLayout(0, 1, 0, 0));
+		Bienvenida bienvenida = new Bienvenida();
+		cambiarPagina(bienvenida);
+
 		// PANEL DE NAVEGACION PRINCIPAL
+		// -------------------------------------------------------------------------------------------------------------
 		JPanel panelNavegacion = new JPanel();
 		panelNavegacion.setOpaque(false);
 		panelNavegacion.setAutoscrolls(true);
@@ -77,7 +100,6 @@ public class LienzoInterfaz extends JFrame {
 		panelNavegacion.setBorder(new EmptyBorder(10, 10, 10, 10));
 		contentPane.add(panelNavegacion, BorderLayout.WEST);
 		panelNavegacion.setLayout(new GridLayout(0, 1, 0, 25));
-		ImageIcon img_userIcon = new ImageIcon("Grupo2_INVENTARIO_PROYECTO/images/img_UserIcon.png");
 
 		// PANEL DE NAVEGACION INFORMACION DE USUARIO
 		JPanel panelNavegacion_UsuarioDatos = new JPanel();
@@ -88,87 +110,111 @@ public class LienzoInterfaz extends JFrame {
 		panelNavegacion_UsuarioDatos.setLayout(null);
 
 		JLabel img_User = new JLabel();
-		img_User.setLocation(29, 12);
+		ImageIcon img_userIcon = new ImageIcon("images/img_UserIcon.png");
+		img_User.setLocation(13, 11);
+		img_User.setSize(127, 127);
+		img_User.setIcon(img_userIcon);
 		panelNavegacion_UsuarioDatos.add(img_User);
-		img_User.setHorizontalTextPosition(SwingConstants.CENTER);
-		img_User.setHorizontalAlignment(SwingConstants.CENTER);
-		img_User.setOpaque(true);
-		img_User.setRequestFocusEnabled(false);
-		img_User.setSize(new Dimension(127, 127));
-		img_User.setAlignmentX(Component.CENTER_ALIGNMENT);
-		Icon img_UserIconResize = new ImageIcon(
-				img_userIcon.getImage().getScaledInstance(img_User.getWidth(), img_User.getHeight(),
-						Image.SCALE_SMOOTH));
-		img_User.setIcon(img_UserIconResize);
 
 		JLabel lblAdminitrado = new JLabel("ADMINISTRADOR");
 		lblAdminitrado.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblAdminitrado.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAdminitrado.setBounds(12, 126, 158, 38);
+		lblAdminitrado.setBounds(0, 126, 140, 38);
 		panelNavegacion_UsuarioDatos.add(lblAdminitrado);
 
 		CustomButton btnCerrarSesion = new CustomButton("CERRAR SESION");
-		btnCerrarSesion.setHorizontalAlignment(SwingConstants.CENTER);
-		btnCerrarSesion.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnCerrarSesion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnCerrarSesion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				IniciarSesion Inicio = new IniciarSesion();
+				Inicio.setVisible(true);
+				setVisible(false);
 			}
 		});
-		btnCerrarSesion.setBounds(12, 176, 158, 25);
+		btnCerrarSesion.setHorizontalAlignment(SwingConstants.CENTER);
+		btnCerrarSesion.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnCerrarSesion.setBounds(0, 175, 140, 25);
 		panelNavegacion_UsuarioDatos.add(btnCerrarSesion);
 		btnCerrarSesion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		JLabel lbBackground = new JLabel();
-		lbBackground.setLocation(-12, -13);
-		lbBackground.setSize(966, 504);
-		ImageIcon img_fondoPantalla = new ImageIcon("Grupo2_INVENTARIO_PROYECTO/images/img_fondoLoginLienzo.jpg");
-		Icon icon_fondoPantalla = new ImageIcon(
-				img_fondoPantalla.getImage().getScaledInstance(700, 700,
-						Image.SCALE_SMOOTH));
-		lbBackground.setIcon(icon_fondoPantalla);
-		panelNavegacion_UsuarioDatos.add(lbBackground);
 
 		// PANEL DE NAVEGACION ACCIONES
 		JPanel panelNavegacion_Acciones = new JPanel();
 		panelNavegacion_Acciones.setOpaque(false);
 		panelNavegacion.add(panelNavegacion_Acciones);
-		panelNavegacion_Acciones.setLayout(new GridLayout(7, 0, 0, 17));
+		panelNavegacion_Acciones.setLayout(new GridLayout(7, 0, 0, 15));
 
-		CustomButton btnRegistrarProducto = new CustomButton("Registrar Producto",
-				"Grupo2_INVENTARIO_PROYECTO/images/iconos/bird.png");
+		CustomButton btnRegistrarProducto = new CustomButton("Registrar Producto", "images/iconos/paquete.png");
+		btnRegistrarProducto.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				RegistrarProducto registro = new RegistrarProducto();
+				cambiarPagina(registro);
+				setTitle("AGREGAR NUEVO PRODUCTO");
+			}
+		});
+		btnRegistrarProducto.setHorizontalTextPosition(SwingConstants.LEFT);
 		panelNavegacion_Acciones.add(btnRegistrarProducto);
 		btnRegistrarProducto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		CustomButton btnRegistrarTrabajador = new CustomButton("Registrar Trabajador");
+		btnRegistrarTrabajador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				RegistrarTrabajador registro = new RegistrarTrabajador();
+				cambiarPagina(registro);
+				setTitle("NUEVO TRABAJADOR");
+			}
+		});
+		btnRegistrarTrabajador.setHorizontalTextPosition(SwingConstants.LEFT);
 		panelNavegacion_Acciones.add(btnRegistrarTrabajador);
 		btnRegistrarTrabajador.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		CustomButton btnEliminarTrabajador = new CustomButton("Eliminar Trabajador");
+		btnEliminarTrabajador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				EliminarTrabajador et = new EliminarTrabajador();
+				cambiarPagina(et);
+				setTitle("ELIMINAR TRABAJADOR");
+			}
+		});
+		btnEliminarTrabajador.setHorizontalTextPosition(SwingConstants.LEFT);
 		panelNavegacion_Acciones.add(btnEliminarTrabajador);
 		btnEliminarTrabajador.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		CustomButton btnListaInventario = new CustomButton("Revisar Inventario");
+		btnListaInventario.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				RevisarInventario inventario = new RevisarInventario();
+				cambiarPagina(inventario);
+				setTitle("INVENTARIO");
+			}
+		});
+		btnListaInventario.setHorizontalTextPosition(SwingConstants.LEFT);
 		panelNavegacion_Acciones.add(btnListaInventario);
 		btnListaInventario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		CustomButton btnActualizarInventario = new CustomButton("Actualizar Inventario");
+		btnActualizarInventario.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ActualizarInventario inventario = new ActualizarInventario();
+				cambiarPagina(inventario);
+				setTitle("ACTUALIZAR INVENTARIO");
+			}
+		});
+		btnActualizarInventario.setHorizontalTextPosition(SwingConstants.LEFT);
 		panelNavegacion_Acciones.add(btnActualizarInventario);
 		btnActualizarInventario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		// PIE DE APP
-		JPanel footer = new JPanel();
-		footer.setOpaque(false);
-		contentPane.add(footer, BorderLayout.SOUTH);
+	}
 
-		JLabel lblNewLabel = new JLabel("© EASY SELL | Todos los derechos reservados 2023");
-		footer.add(lblNewLabel);
-
-		// CONTENIDO ACTULIZABLE
-		JPanel xxxxxContenidoTEMPORAL = new JPanel();
-		xxxxxContenidoTEMPORAL.setBorder(null);
-		xxxxxContenidoTEMPORAL.setBackground(new Color(153, 102, 204));
-		contentPane.add(xxxxxContenidoTEMPORAL, BorderLayout.CENTER);
-		xxxxxContenidoTEMPORAL.setLayout(null);
+	private void cambiarPagina(JPanel p) {
+		CONTENIDO_ACTUALIZABLE.removeAll();
+		CONTENIDO_ACTUALIZABLE.add(p, BorderLayout.CENTER);
+		CONTENIDO_ACTUALIZABLE.revalidate();
+		CONTENIDO_ACTUALIZABLE.repaint();
 	}
 
 	public void insertarPanelNavegacion(JPanel footer) {
@@ -176,5 +222,19 @@ public class LienzoInterfaz extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("© EASY SELL | Todos los derechos reservados 2023");
 		footer.add(lblNewLabel);
+	}
+
+	class FondoPanel extends JPanel {
+		private Image imagenBackground;
+
+		@Override
+		public void paint(Graphics g) {
+			imagenBackground = new ImageIcon(getClass().getResource("images/img_fondoLoginLienzo.jpg"))
+					.getImage();
+
+			g.drawImage(imagenBackground, 0, 0, getWidth(), getHeight(), this);
+			setOpaque(true);
+			super.paint(g);
+		}
 	}
 }

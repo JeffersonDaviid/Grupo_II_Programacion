@@ -34,18 +34,19 @@ public class IniciarSesion extends JFrame {
     private JPasswordField i_contrasena;
     private JComboBox combo_rol;
 
-    // public static void main(String[] args) {
-    // IniciarSesion frame = new IniciarSesion();
-    // frame.setVisible(true);
-    // // frame.setIconImage(new
-    // // ImageIcon(getClass().getResource("images/logoEmpresa.png")).getImage());
-    // }
+    public static void main(String[] args) {
+        // IniciarSesion frame = new IniciarSesion();
+        // frame.setVisible(true);
+    }
 
     public IniciarSesion() {
-        // setIconImage(new
-        // ImageIcon(getClass().getResource("images/logoEmpresa.png")).getImage());
+        try {
+            setIconImage(new ImageIcon(getClass().getResource("logoEmpresa.png")).getImage());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
-        setTitle("Iniciar sesión");
+        setTitle("INICIAR SESION");
         setBounds(0, 0, 752, 434);
         panel_principal = new JPanel();
         panel_principal.setAutoscrolls(true);
@@ -80,7 +81,7 @@ public class IniciarSesion extends JFrame {
 
         JLabel lblUsuario_icon = new JLabel();
         lblUsuario_icon.setBounds(415, 141, 30, 30);
-        ImageIcon imgUsuario = new ImageIcon("Grupo2_INVENTARIO_PROYECTO/images/iconos/user.png");
+        ImageIcon imgUsuario = new ImageIcon("images/iconos/user.png");
         Icon iconUsuario = new ImageIcon(
                 imgUsuario.getImage().getScaledInstance(lblUsuario_icon.getWidth(), lblUsuario_icon.getHeight(),
                         Image.SCALE_SMOOTH));
@@ -89,7 +90,7 @@ public class IniciarSesion extends JFrame {
 
         JLabel lbContrasena_icon = new JLabel();
         lbContrasena_icon.setBounds(415, 261, 30, 30);
-        ImageIcon img_contrasena = new ImageIcon("Grupo2_INVENTARIO_PROYECTO/images/iconos/password.png");
+        ImageIcon img_contrasena = new ImageIcon("images/iconos/password.png");
         Icon icon_contrasena = new ImageIcon(
                 img_contrasena.getImage().getScaledInstance(lbContrasena_icon.getWidth(),
                         lbContrasena_icon.getHeight(),
@@ -136,7 +137,7 @@ public class IniciarSesion extends JFrame {
 
         JLabel lb_imgLogo = new JLabel();
         lb_imgLogo.setBounds(0, 142, 385, 264);
-        ImageIcon img_logo = new ImageIcon("Grupo2_INVENTARIO_PROYECTO/images/img_fondoLogin.png");
+        ImageIcon img_logo = new ImageIcon("images/img_fondoLogin.png");
         Icon icon_logo = new ImageIcon(
                 img_logo.getImage().getScaledInstance(lb_imgLogo.getWidth(), lb_imgLogo.getHeight(),
                         Image.SCALE_SMOOTH));
@@ -145,7 +146,7 @@ public class IniciarSesion extends JFrame {
 
         JLabel lbBackground = new JLabel();
         lbBackground.setBounds(0, -25, 827, 431);
-        ImageIcon img_fondoPantalla = new ImageIcon("Grupo2_INVENTARIO_PROYECTO/images/img_fondoLoginLienzo.jpg");
+        ImageIcon img_fondoPantalla = new ImageIcon("images/img_fondoLoginLienzo.jpg");
         Icon icon_fondoPantalla = new ImageIcon(
                 img_fondoPantalla.getImage().getScaledInstance(lbBackground.getWidth(), lbBackground.getHeight(),
                         Image.SCALE_SMOOTH));
@@ -169,7 +170,7 @@ public class IniciarSesion extends JFrame {
                         && resultado.getString("Contrasena").equals(new String(i_contrasena.getPassword()))
                         && resultado.getString("Rol").equals(combo_rol.getSelectedItem())) {
                     if (combo_rol.getSelectedItem().equals("Administrador")) {
-                        IAdministrador iAdmin = new IAdministrador();
+                        LienzoInterfaz iAdmin = new LienzoInterfaz();
                         iAdmin.setVisible(true);
                         this.setVisible(false);
                     } else if (combo_rol.getSelectedItem().equals("Trabajador")) {

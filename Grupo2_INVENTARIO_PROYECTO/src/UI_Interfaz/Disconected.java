@@ -10,6 +10,12 @@ import javax.swing.JLabel;
 public class Disconected extends JFrame {
 
     public Disconected() {
+        try {
+            setIconImage(new ImageIcon(getClass().getResource("logoEmpresa.png")).getImage());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
         setTitle("DESCONECTADO");
         setBounds(0, 0, 630, 440);
         setLayout(null);
@@ -26,7 +32,7 @@ public class Disconected extends JFrame {
 
         JLabel lbBackground = new JLabel();
         lbBackground.setBounds(0, 0, this.getWidth(), this.getHeight());
-        ImageIcon imageBackground = new ImageIcon("Grupo2_INVENTARIO_PROYECTO/images/img_perdidaConeccion");
+        ImageIcon imageBackground = new ImageIcon("images/img_perdidaConeccion");
         Icon iconBackgound = new ImageIcon(
                 imageBackground.getImage().getScaledInstance(lbBackground.getWidth(), lbBackground.getHeight(),
                         Image.SCALE_SMOOTH));
