@@ -1,29 +1,25 @@
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import UI_Interfaz.Disconected;
-import UI_Interfaz.IniciarSesion;
+import Data.ConnectionMySQL;
+import UserInterface.UI_Interfaz.Disconected;
+import UserInterface.UI_Interfaz.IniciarSesion;
 
 public class App extends JFrame {
 
     public static void main(String[] args) throws Exception {
-        try {
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/bd_inventario", "root", "");
-            IniciarSesion app = new IniciarSesion();
-            app.setVisible(true);
-            conexion.close();
-        } catch (SQLException errorConectionInitial) {
+        ConnectionMySQL conexion = new ConnectionMySQL();
+
+        if (conexion.conexion() == null) {
             Disconected d = new Disconected();
             d.setVisible(true);
-            System.out.println(errorConectionInitial);
+        } else {
             // // sudo /opt/lampp/lampp start -> inicar
             // // sudo /opt/lampp/lampp stop -> parar
+            IniciarSesion app = new IniciarSesion();
+            app.setVisible(true);
         }
+
     }
 
     public App() {

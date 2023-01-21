@@ -1,4 +1,4 @@
-package UI_Interfaz;
+package UserInterface.UI_Interfaz;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -159,8 +159,7 @@ public class IniciarSesion extends JFrame {
             // Consultar la base de datos
             // ("RUTA Y NOMBRE DE LA BASE DE DATOS","USUARIO","CONTRASEÑA")
             Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/bd_inventario", "root", "");
-            PreparedStatement consulta = conexion
-                    .prepareStatement("select * from usuarios where Usuario = ?");
+            PreparedStatement consulta = conexion.prepareStatement("select * from usuarios where Usuario = ?");
             consulta.setString(1, i_usuario.getText().trim());// otra opcion
             // permite conocer si encontro los datos
             ResultSet resultado = consulta.executeQuery();
@@ -195,12 +194,13 @@ public class IniciarSesion extends JFrame {
             // inputDataBase.setString(2, "271001");
             // inputDataBase.setString(3, "Trabajador");
             // inputDataBase.setString(4, "ACTIVO");
-            // inputDataBase.setString(5, "Thomas");
-            // inputDataBase.setString(6, "Daniel");
-            // inputDataBase.setString(7, "Germain");
-            // inputDataBase.setString(8, "Lennox");
-            // inputDataBase.setString(9, "17xxxxxxxx");
-            // inputDataBase.setString(10, "0000000000");
+            // inputDataBase.setString(5, "thomasgermain17@gmail.com");
+            // inputDataBase.setString(6, "Thomas");
+            // inputDataBase.setString(7, "Daniel");
+            // inputDataBase.setString(8, "Germain");
+            // inputDataBase.setString(9, "Lennox");
+            // inputDataBase.setString(10, "17xxxxxxxx");
+            // inputDataBase.setString(11, "0000000000");
             // inputDataBase.executeUpdate(); // ENVIAR A LA BASE
             conexion.close();
         } catch (SQLException errorSesion) {

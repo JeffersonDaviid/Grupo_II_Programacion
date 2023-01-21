@@ -1,4 +1,4 @@
-package UI_Interfaz;
+package UserInterface.UI_Interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,13 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import CustomerControl.CustomButton;
-import Ventanas.ActualizarInventario;
-import Ventanas.Bienvenida;
-import Ventanas.EliminarTrabajador;
-import Ventanas.RegistrarProducto;
-import Ventanas.RegistrarTrabajador;
-import Ventanas.RevisarInventario;
+import UserInterface.CustomerControl.CustomButton;
+import UserInterface.Ventanas.ActualizarInventario;
+import UserInterface.Ventanas.Bienvenida;
+import UserInterface.Ventanas.EliminarTrabajador;
+import UserInterface.Ventanas.RegistrarProducto;
+import UserInterface.Ventanas.RegistrarTrabajador;
+import UserInterface.Ventanas.RevisarInventario;
 
 public class LienzoInterfaz extends JFrame {
 
@@ -60,7 +60,7 @@ public class LienzoInterfaz extends JFrame {
 		// ENCABEZADO
 		// -------------------------------------------------------------------------------------------------------------
 		JPanel header = new JPanel();
-		// header.setVisible(false);
+		header.setVisible(false);
 		contentPane.add(header, BorderLayout.NORTH);
 		header.setLayout(new GridLayout(0, 3, 0, 0));
 

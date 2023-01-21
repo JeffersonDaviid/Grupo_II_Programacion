@@ -1,4 +1,4 @@
-package pkPersona;
+package Businness.Persona;
 
 public class Trabajador extends Persona {
     private final int codigo;

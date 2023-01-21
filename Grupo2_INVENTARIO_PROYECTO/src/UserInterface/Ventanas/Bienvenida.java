@@ -1,4 +1,4 @@
-package Ventanas;
+package UserInterface.Ventanas;
 
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;

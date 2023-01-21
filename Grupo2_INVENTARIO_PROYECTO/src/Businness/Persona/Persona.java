@@ -1,4 +1,4 @@
-package pkPersona;
+package Businness.Persona;
 
 public class Persona {
     private final String nombre;
