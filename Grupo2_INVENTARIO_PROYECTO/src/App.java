@@ -1,16 +1,16 @@
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import Data.ConnectionMySQL;
+import Data.DataHelper;
 import UserInterface.UI_Interfaz.Disconected;
 import UserInterface.UI_Interfaz.IniciarSesion;
 
 public class App extends JFrame {
 
     public static void main(String[] args) throws Exception {
-        ConnectionMySQL conexion = new ConnectionMySQL();
+        DataHelper conexion = new DataHelper();
 
-        if (conexion.conexion() == null) {
+        if (conexion.getConexion() == null) {
             Disconected d = new Disconected();
             d.setVisible(true);
         } else {
