@@ -1,4 +1,4 @@
-package UserInterface.CustomerControl;
+package UserInterface.UI_Component;
 
 import java.awt.Font;
 import java.awt.Color;

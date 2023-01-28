@@ -1,2 +1,0 @@
-insert into usuarios(`Usuario`,`Contrasena`,`Rol`,`Estado`,`Email`,`PrimerNombre`,`SegundoNombre`,`ApellidoPaterno`,`ApellidoMaterno`,`Cedula`,`Telefono`) values('Developer','12345','Administrador','ACTIVO','',' ',' ',' ',' ','17xxxxxxxx','0000000000');
-insert into usuarios(`Usuario`,`Contrasena`,`Rol`,`Estado`,`Email`,`PrimerNombre`,`SegundoNombre`,`ApellidoPaterno`,`ApellidoMaterno`,`Cedula`,`Telefono`) values('thomas.germain17','271001','Trabajador','ACTIVO','','Thomas','Daniel','Germain','Lennox','17xxxxxxxx','0000000000');

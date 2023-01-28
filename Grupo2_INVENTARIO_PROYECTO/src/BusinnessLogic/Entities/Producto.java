@@ -1,4 +1,4 @@
-package Businness.Producto;
+package BusinnessLogic.Entities;
 
 public class Producto {
     private String codigo;

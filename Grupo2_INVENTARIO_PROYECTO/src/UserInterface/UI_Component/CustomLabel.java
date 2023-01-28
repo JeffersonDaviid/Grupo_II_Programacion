@@ -1,4 +1,4 @@
-package UserInterface.CustomerControl;
+package UserInterface.UI_Component;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;

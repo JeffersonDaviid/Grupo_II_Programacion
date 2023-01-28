@@ -1,4 +1,4 @@
-package Businness.Persona;
+package BusinnessLogic.Entities;
 
 public class Trabajador extends Persona {
     private final int codigo;

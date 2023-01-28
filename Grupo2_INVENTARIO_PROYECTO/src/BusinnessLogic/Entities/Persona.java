@@ -1,10 +1,10 @@
-package Businness.Persona;
+package BusinnessLogic.Entities;
 
 public class Persona {
-    private final String nombre;
-    private final String cedula;
+    private String nombre;
+    private String cedula;
     private int edad;
-    private final String sexo;
+    private String sexo;
 
     public Persona(String nombre, String cedula, int edad, String sexo) {
         this.nombre = nombre;

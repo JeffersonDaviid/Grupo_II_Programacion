@@ -2,7 +2,10 @@ package UserInterface.Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,33 +19,24 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Businness.Producto.Producto;
-import Data.ConnectionMySQL;
+import BusinnessLogic.Entities.Producto;
+import Data.DataHelper;
+import UserInterface.UI_Component.CustomText;
 
 public class ActualizarInventario extends JPanel {
     DefaultTableModel modelo = null;;
     public ArrayList<Producto> lsProductos;
 
-    ConnectionMySQL cc = new ConnectionMySQL();
-    Connection conexion = cc.conexion();
+    DataHelper cc = new DataHelper();
+    Connection conexion = cc.getConexion();
     private JTable tblInventario = new JTable();
 
     public ActualizarInventario() {
         setBackground(new Color(156, 84, 75));
         setLayout(new BorderLayout(0, 0));
 
-        // String[] titulos = { "Código", "Artículo", "Unidad", "Precio", "Comentario",
-        // "Fecha" };
         cargarInventario();
-        // String[][] datos = {
-        // { "HOLA 1", "HOLA 2", "HOLA 3", "HOLA 4", "HOLA 5", "HOLA 6" },
-        // { "HOLA 1", "HOLA 2", "HOLA 3", "HOLA 4", "HOLA 5", "HOLA 6" },
-        // { "HOLA 1", "HOLA 2", "HOLA 3", "HOLA 4", "HOLA 5", "HOLA 6" },
-        // { "HOLA 1", "HOLA 2", "HOLA 3", "HOLA 4", "HOLA 5", "HOLA 6" }
-        // };
-        // tblInventario = new JTable(datos, titulos);
         add(tblInventario, BorderLayout.CENTER);
-        // add(modelo, BorderLayout.CENTER);
 
         JPanel panel = new JPanel();
         add(panel, BorderLayout.NORTH);
@@ -56,18 +50,80 @@ public class ActualizarInventario extends JPanel {
 
         JPanel panel_2 = new JPanel();
         panel.add(panel_2);
+        GridBagLayout gbl_panel_2 = new GridBagLayout();
+        gbl_panel_2.columnWidths = new int[] { 150, 150, 150, 0 };
+        gbl_panel_2.rowHeights = new int[] { 24, 0 };
+        gbl_panel_2.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
+        gbl_panel_2.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+        panel_2.setLayout(gbl_panel_2);
 
         JButton btnNewButton = new JButton("SALIR");
-        panel_2.add(btnNewButton);
+        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+        gbc_btnNewButton.fill = GridBagConstraints.BOTH;
+        gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+        gbc_btnNewButton.gridx = 0;
+        gbc_btnNewButton.gridy = 0;
+        panel_2.add(btnNewButton, gbc_btnNewButton);
 
         JButton btnNewButton_2 = new JButton("ACTUALIZAR");
-        panel_2.add(btnNewButton_2);
+        GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
+        gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
+        gbc_btnNewButton_2.insets = new Insets(0, 0, 0, 5);
+        gbc_btnNewButton_2.gridx = 1;
+        gbc_btnNewButton_2.gridy = 0;
+        panel_2.add(btnNewButton_2, gbc_btnNewButton_2);
 
+        // textField = new JTextField("Ingrese un valor");
+        // textField.setForeground(Color.GRAY);
+        // textField.setMinimumSize(new Dimension(20, 20));
+        // textField.addFocusListener(new FocusAdapter() {
+        // @Override
+        // public void focusGained(FocusEvent e) {
+        // if (textField.getText().trim().equalsIgnoreCase("No pueden dejar campos sin
+        // llenar")) {
+        // textField.setText("");
+        // }
+
+        // if (textField.getText().trim().equalsIgnoreCase("Ingrese un valor")) {
+        // textField.setText("");
+        // }
+        // textField.setForeground(Color.BLACK);
+        // }
+
+        // @Override
+        // public void focusLost(FocusEvent e) {
+        // if (textField.getText().trim().length() == 0) {
+        // textField.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.RED));
+        // textField.setForeground(Color.GRAY);
+        // textField.setText("No pueden dejar campos sin llenar");
+        // } else {
+        // // textField.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLACK));
+        // textField.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.BLACK));
+        // }
+
+        // if (validarNombre(textField.getText())) {
+        // // JOptionPane.showMessageDialog(null, "El dato es valido");
+        // } else {
+        // JOptionPane.showMessageDialog(null, "El dato NO es valido");
+        // }
+
+        // }
+        // });
+        // textField.setCaretColor(Color.BLACK);
+        // textField.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.BLACK));
+        // // textField.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        CustomText textField = new CustomText("Ingrese un valor", "Campo vacio");
+        GridBagConstraints gbc_textField = new GridBagConstraints();
+        gbc_textField.fill = GridBagConstraints.BOTH;
+        gbc_textField.gridx = 2;
+        gbc_textField.gridy = 0;
+        panel_2.add(textField, gbc_textField);
+        textField.setColumns(10);
     }
 
     private void cargarInventario() {
-        String[] titulos = { "Código", "Artículo", "Unidad", "Precio", "Comentario", "Fecha" };
-        String[] registros = new String[6];
+        String[] titulos = { "Código", "Artículo", "Unidad", "Precio", "Comentario", "Fecha", "Botones" };
+        String[] registros = new String[7];
         DefaultTableModel modelo = new DefaultTableModel(null, titulos);
 
         // Almacenar consulta SELECT
@@ -113,6 +169,10 @@ public class ActualizarInventario extends JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se podido actulizar el inventario " + e.getMessage());
         }
+    }
+
+    public boolean validarNombre(String valor) {
+        return valor.trim().matches("^([a-z]|[A-Z]| [a-z]| [A-Z])+$");
     }
 
 }

@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import UserInterface.CustomerControl.CustomButton;
+import UserInterface.UI_Component.CustomButton;
 import UserInterface.Ventanas.ActualizarInventario;
 import UserInterface.Ventanas.Bienvenida;
 import UserInterface.Ventanas.EliminarTrabajador;
@@ -217,24 +217,26 @@ public class LienzoInterfaz extends JFrame {
 		CONTENIDO_ACTUALIZABLE.repaint();
 	}
 
-	public void insertarPanelNavegacion(JPanel footer) {
-		contentPane.add(footer, BorderLayout.SOUTH);
+	// public void insertarPanelNavegacion(JPanel footer) {
+	// contentPane.add(footer, BorderLayout.SOUTH);
 
-		JLabel lblNewLabel = new JLabel("© EASY SELL | Todos los derechos reservados 2023");
-		footer.add(lblNewLabel);
-	}
+	// JLabel lblNewLabel = new JLabel("© EASY SELL | Todos los derechos reservados
+	// 2023");
+	// footer.add(lblNewLabel);
+	// }
 
-	class FondoPanel extends JPanel {
-		private Image imagenBackground;
+	// class FondoPanel extends JPanel {
+	// private Image imagenBackground;
 
-		@Override
-		public void paint(Graphics g) {
-			imagenBackground = new ImageIcon(getClass().getResource("images/img_fondoLoginLienzo.jpg"))
-					.getImage();
+	// @Override
+	// public void paint(Graphics g) {
+	// imagenBackground = new
+	// ImageIcon(getClass().getResource("images/img_fondoLoginLienzo.jpg"))
+	// .getImage();
 
-			g.drawImage(imagenBackground, 0, 0, getWidth(), getHeight(), this);
-			setOpaque(true);
-			super.paint(g);
-		}
-	}
+	// g.drawImage(imagenBackground, 0, 0, getWidth(), getHeight(), this);
+	// setOpaque(true);
+	// super.paint(g);
+	// }
+	// }
 }

@@ -71,3 +71,84 @@ O cualquier archivo que no sea parte necesaria/indispensable en el proyecto
 
 
 > NO OLVIDARSE QUE PUEDEN PREGUNTAR Y SOBRE TODO EMITIR SUGERENCIAS :D
+
+
+
+
+<br>
+
+## BASE DE DATOS USUARIOS  
+<br>
+
+### TABLA - ESTADO DEL USUARIO
+
+| ID_ESTADO | ESTADO        |
+| --------- | ------------- |
+| 0         | NO DISPONIBLE |
+| 1         | DISPONIBLE    |
+
+<br>
+
+### TABLA - CATEGORIA ROL DEL USUARIO
+
+| ID_CATEGORIA_ROL | FK_ID_ESTADO | ROL           |
+| ---------------- | ------------ | ------------- |
+| 1                | 1            | ADMINISTRADOR |
+| 2                | 2            | TRABAJADOR    |
+
+
+<br>
+
+### TABLA - USUARIOS
+| ID_USUARIO | FK_ID_ESTADO | FK_CATEGORIA_ROL | USUARIO          | CONTRASENA | EMAIL                   | PRIMER_NOMBRE | SEGUNDO_NOMBRE | APELLIDO_PATERNO | APELLIDO_MATERNO | CEDULA     | TELEFONO   | FOTO |
+| ---------- | ------------ | ---------------- | ---------------- | ---------- | ----------------------- | ------------- | -------------- | ---------------- | ---------------- | ---------- | ---------- | ---- |
+| 1          | 1            | 1                | Developer        | 12345      |                         |               |                |                  |                  |            | 09XXXXXXXX | url  |
+| 2          | 1            | 2                | thomas.germain17 | 271001     | thomasgermain@gmail.com | Thomas        | Daniel         | Germain          | Lennox           | 1748968418 | 09927XXXXX | url  |
+<br>
+
+<br>
+<br>
+
+## BASE DE DATOS INVENTARIO  
+<br>
+
+### TABLA - ESTADO DEL PRUDUCTO
+
+| ID_ESTADO | ESTADO        |
+| --------- | ------------- |
+| 0         | NO DISPONIBLE |
+| 1         | DISPONIBLE    |
+
+<br>
+
+### TABLA - CATEGORIA DE PRODUCTO
+
+| ID_CATEGORIA_PRODUCTO | ID_ESTADO | NOMBRE            |
+| --------------------- | --------- | ----------------- |
+| 1                     | 1         | Granos            |
+| 2                     | 2         | electrodomesticos |
+
+
+<br>
+
+### TABLA - IVA
+
+| ID_IVA | NOMBRE |
+| ------ | ------ |
+| 0      | No     |
+| 1      | Si     |
+
+
+<br>
+
+### TABLA - PRODUCTO0
+| ID_PRODUCTO | CODIGO_PRODUCTO | FK_ID_ESTADO | FK_ID_CATEGORIA_PRODUCTO | PK_IVA | PRODUCTO         | STOCK | PRECIO_COMPRA | PRECIO_VENTA | DESCRIPCION | IMAGEN | FECHA      |
+| ----------- | --------------- | ------------ | ------------------------ | ------ | ---------------- | ----- | ------------- | ------------ | ----------- | ------ | ---------- |
+| S2X3        | 1112021100029   | 1            | 1                        | 1      | Arroz Rico 25 lb | 700   | 17.85         | 25.00        | rico        | url    | 25/01/2022 |
+| X2S5        | 9200011202111   | 1            | 2                        | 1      | Television 4k    | 100   | 870.00        | 960.00       | Samsung     | url    | 16/01/2023 |
+| WS55        | 9200159881881   | 2            | 1                        | 1      | Aceite 1 litro   | 2500  | 1.00          | 1.25         | Samsung     | url    | 16/01/2023 |
+
+
+> NOTA: Si se el producto se acaba debe cambiar la disponibilidad del producto
+
+CAMEL CASE
