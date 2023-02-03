@@ -1,3 +1,5 @@
+-- Active: 1674251157284@@127.0.0.1@3306@db_inventario
+
 /** 
  @AUTOR : JEFFERSON CHILENO
  @EMAIL : JEFFERSONCHILE2001@GMAIL.COM
@@ -9,7 +11,15 @@ CREATE DATABASE DB_INVENTARIO CHARACTER SET = 'utf8';
 
 USE DB_INVENTARIO ;
 
+SHOW DATABASES;
+
+DROP DATABASE DB_INVENTARIO;
+
+SHOW TABLES;
+
 --------------------------- ESTADO -----------------------------
+
+DROP TABLE IF EXISTS Estado;
 
 CREATE TABLE
     Estado (
@@ -29,6 +39,8 @@ INSERT INTO Estado(ESTADO) VALUES ("DISPONIBLE"), ("NO DISPONIBLE");
 --------------------------------------------------------INVENTARIO---------------------------------------------
 
 ---------------------CATEGORIA DE PRODUCTO-------------------------------
+
+DROP TABLE IF EXISTS CategoriaProducto;
 
 CREATE TABLE
     CategoriaProducto(
@@ -54,6 +66,8 @@ VALUES ("Escolar"), ("Cereales"), ("Higiene");
 
 ------------------------------------IVA-------------------------------
 
+DROP TABLE IF EXISTS Iva;
+
 CREATE TABLE
     Iva (
         ID_IVA INTEGER NOT NULL AUTO_INCREMENT,
@@ -71,6 +85,8 @@ INSERT INTO Iva (NOMBRE) VALUES ("SI" ),("NO") ;
 
 -------------------------------PRODUCTOS-------------------------------
 
+DROP TABLE IF EXISTS Producto;
+
 CREATE TABLE
     Producto(
         ID_PRODUCTO VARCHAR(10) NOT NULL,
@@ -83,8 +99,9 @@ CREATE TABLE
         PRECIO_COMPRA FLOAT NOT NULL DEFAULT(1),
         PRECIO_VENTA FLOAT NOT NULL DEFAULT(1),
         DESCRIPCION VARCHAR(30),
-        -- IMAGEN longblob NOT NULL,
-        FECHA DATE,
+        IMAGEN longblob,
+        FECHA_CREACION VARCHAR(20) NOT NULL DEFAULT(CURRENT_TIMESTAMP()),
+        FECHA_MODIFICA VARCHAR(20) NOT NULL DEFAULT(CURRENT_TIMESTAMP()),
         PRIMARY KEY(ID_PRODUCTO)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
@@ -100,11 +117,11 @@ ALTER TABLE Producto
 ADD
     FOREIGN KEY(PK_ID_IVA) REFERENCES Iva(ID_IVA);
 
--- DROP TABLE PRODUCTO;
+DROP TABLE Producto;
 
 DESCRIBE Producto;
 
-SELECT * FROM PRODUCTO;
+SELECT * FROM Producto;
 
 -- DELETE FROM Producto WHERE FK_ID_ESTADO = 1;
 
@@ -118,9 +135,7 @@ INSERT INTO
         STOCK,
         PRECIO_COMPRA,
         PRECIO_VENTA,
-        DESCRIPCION,
-        -- IMAGEN,
-        FECHA
+        DESCRIPCION
     )
 VALUES (
         "2CD6S5",
@@ -131,8 +146,7 @@ VALUES (
         200,
         0.80,
         1.10,
-        "",
-        "2023-08-13"
+        " "
     ), (
         "2CSP6S8",
         "1112015100029",
@@ -142,8 +156,7 @@ VALUES (
         150,
         0.75,
         1.00,
-        "",
-        "2023-10-25"
+        " "
     );
 
 -----------------------------------------------------------USUARIOS---------------------------------------------
@@ -158,7 +171,7 @@ CREATE TABLE
         PRIMARY KEY(ID_ROL)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
-DROP TABLE Rol;
+-- DROP TABLE Rol;
 
 DESCRIBE Rol;
 
@@ -169,6 +182,8 @@ SELECT * FROM Rol;
 -- DELETE FROM Rol;
 
 -------------------------------- USUARIOS -----------------------------
+
+DROP TABLE IF EXISTS Usuario;
 
 CREATE TABLE
     Usuario(
@@ -184,7 +199,7 @@ CREATE TABLE
         APELLIDO_MATERNO VARCHAR(15) NOT NULL,
         CEDULA VARCHAR(15) NOT NULL,
         TELEFONO VARCHAR(15) NOT NULL,
-        -- FOTO longblob NOT NULL,
+        FOTO longblob,
         PRIMARY KEY (ID_USUARIO)
     );
 
@@ -218,7 +233,7 @@ INSERT INTO
         TELEFONO
     )
 VALUES (
-        5,
+        1,
         "DEVELOPER",
         "12345",
         "developer@dominio.com",
@@ -229,7 +244,7 @@ VALUES (
         "XXXXXXXXXX",
         "09XXXXXXXX"
     ), (
-        6,
+        2,
         "thomas.germain17",
         "271001",
         "thomasgermain@gmail.com",

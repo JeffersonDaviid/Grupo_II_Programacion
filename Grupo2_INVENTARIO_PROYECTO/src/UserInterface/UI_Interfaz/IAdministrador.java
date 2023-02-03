@@ -23,10 +23,10 @@ public class IAdministrador extends JFrame {
     // JButton btnEliminarTrabajador;
     // JButton btnInventario;
     // JButton btnActualizarInventario;
-    public static void main(String[] args) {
-        IAdministrador frame = new IAdministrador();
-        frame.setVisible(true);
-    }
+    // public static void main(String[] args) {
+    // IAdministrador frame = new IAdministrador();
+    // frame.setVisible(true);
+    // }
 
     public IAdministrador() {
         setTitle("Servicio Administrador");

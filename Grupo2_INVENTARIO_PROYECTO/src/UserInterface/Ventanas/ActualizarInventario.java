@@ -19,16 +19,17 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import BusinnessLogic.ProductoBL;
 import BusinnessLogic.Entities.Producto;
-import Data.DataHelper;
+import DataAccess.DataHelper;
 import UserInterface.UI_Component.CustomText;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ActualizarInventario extends JPanel {
     DefaultTableModel modelo = null;;
     public ArrayList<Producto> lsProductos;
 
-    DataHelper cc = new DataHelper();
-    Connection conexion = cc.getConexion();
     private JTable tblInventario = new JTable();
 
     public ActualizarInventario() {
@@ -58,8 +59,14 @@ public class ActualizarInventario extends JPanel {
         panel_2.setLayout(gbl_panel_2);
 
         JButton btnNewButton = new JButton("SALIR");
+        btnNewButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setVisible(false);
+                removeAll();
+            }
+        });
         GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-        gbc_btnNewButton.fill = GridBagConstraints.BOTH;
         gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
         gbc_btnNewButton.gridx = 0;
         gbc_btnNewButton.gridy = 0;
@@ -123,28 +130,23 @@ public class ActualizarInventario extends JPanel {
 
     private void cargarInventario() {
         String[] titulos = { "Código", "Artículo", "Unidad", "Precio", "Comentario", "Fecha", "Botones" };
-        String[] registros = new String[7];
+        String[] registros = new String[12];
         DefaultTableModel modelo = new DefaultTableModel(null, titulos);
 
-        // Almacenar consulta SELECT
-        String SQL = "select * from inventario";
-
         try {
-            // Objeto igualado a conexion
-            Statement st = conexion.createStatement();
-            // Obtener resultado
-            ResultSet rs = st.executeQuery(SQL);
-
-            while (rs.next()) {
+            ProductoBL producto = new ProductoBL();
+            for (Producto p : producto.getAllProducto()) {
                 // Mostrar datos en fila de tabla
-                registros[0] = rs.getString("Codigo");
-                registros[1] = rs.getString("Articulo");
-                registros[2] = rs.getString("Unidad");
-                registros[3] = rs.getString("Precio");
-                registros[4] = rs.getString("Comentario");
-                registros[5] = rs.getString("Fecha");
+                registros[0] = p.getIdProducto().toString();
+                registros[1] = p.getCodigoProducto();
+                registros[2] = p.getFkEstado().getEstado();
+                registros[3] = p.getFkCategoriaProducto().getNombre();
+                registros[4] = p.getFkIva().getNombre();
+                registros[5] = p.getProducto();
+                registros[6] = p.getStock().toString();
                 modelo.addRow(registros);
             }
+
             tblInventario.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar datos " + e);
@@ -154,21 +156,24 @@ public class ActualizarInventario extends JPanel {
 
     public void actualizarPorCodigo() {
 
-        try {
-            // Variable que almacena sentencia UPDATE
-            String SQL = "update inventario set Articulo=?,Unidad=?,Precio=?,Comentario=?,Foto=?,Fecha=?,Hora=? where Codigo=?";
+        // try {
+        // // Variable que almacena sentencia UPDATE
+        // String SQL = "update inventario set
+        // Articulo=?,Unidad=?,Precio=?,Comentario=?,Foto=?,Fecha=?,Hora=? where
+        // Codigo=?";
 
-            // Crear objeto para igualar a conexion
-            PreparedStatement pat = conexion.prepareStatement(SQL);
-            // Referencia a columnas
-            pat.setString(1, "hola");
-            pat.execute();
+        // // Crear objeto para igualar a conexion
+        // PreparedStatement pat = conexion.prepareStatement(SQL);
+        // // Referencia a columnas
+        // pat.setString(1, "hola");
+        // pat.execute();
 
-            JOptionPane.showMessageDialog(null, "ACTUALIZACION EXITOSA");
+        // JOptionPane.showMessageDialog(null, "ACTUALIZACION EXITOSA");
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se podido actulizar el inventario " + e.getMessage());
-        }
+        // } catch (Exception e) {
+        // JOptionPane.showMessageDialog(null, "No se podido actulizar el inventario " +
+        // e.getMessage());
+        // }
     }
 
     public boolean validarNombre(String valor) {

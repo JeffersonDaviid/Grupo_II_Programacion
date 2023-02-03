@@ -27,6 +27,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+import BusinnessLogic.UsuarioBL;
+import BusinnessLogic.Entities.Usuario;
+import Framework.AppException;
+
 public class IniciarSesion extends JFrame {
 
     private JPanel panel_principal;
@@ -35,8 +39,8 @@ public class IniciarSesion extends JFrame {
     private JComboBox combo_rol;
 
     public static void main(String[] args) {
-        // IniciarSesion frame = new IniciarSesion();
-        // frame.setVisible(true);
+        IniciarSesion frame = new IniciarSesion();
+        frame.setVisible(true);
     }
 
     public IniciarSesion() {
@@ -124,7 +128,12 @@ public class IniciarSesion extends JFrame {
         JButton btn_ingresar = new JButton("Ingresar");
         btn_ingresar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                iniciarSesion();
+                try {
+                    iniciarSesion();
+                } catch (AppException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
         btn_ingresar.setBackground(new Color(255, 140, 0));
@@ -154,57 +163,39 @@ public class IniciarSesion extends JFrame {
         panel_principal.add(lbBackground);
     }
 
-    public void iniciarSesion() {
+    public void iniciarSesion() throws AppException {
+
         try {
-            // Consultar la base de datos
-            // ("RUTA Y NOMBRE DE LA BASE DE DATOS","USUARIO","CONTRASEÑA")
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/bd_inventario", "root", "");
-            PreparedStatement consulta = conexion.prepareStatement("select * from usuarios where Usuario = ?");
-            consulta.setString(1, i_usuario.getText().trim());// otra opcion
-            // permite conocer si encontro los datos
-            ResultSet resultado = consulta.executeQuery();
-
-            if (resultado.next()) {
-                if (resultado.getString("Usuario").toUpperCase().equals(i_usuario.getText().trim().toUpperCase())
-                        && resultado.getString("Contrasena").equals(new String(i_contrasena.getPassword()))
-                        && resultado.getString("Rol").equals(combo_rol.getSelectedItem())) {
-                    if (combo_rol.getSelectedItem().equals("Administrador")) {
-                        LienzoInterfaz iAdmin = new LienzoInterfaz();
-                        iAdmin.setVisible(true);
-                        this.setVisible(false);
-                    } else if (combo_rol.getSelectedItem().equals("Trabajador")) {
-                        // IAdministrador iAdmin = new IAdministrador();
-                        // iAdmin.setVisible(true);
-                        // this.setVisible(false);
-                    }
-                } else
-                    JOptionPane.showMessageDialog(null, "Revise sus datos e intente nuevamente");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "El usuario " +
-                        i_usuario.getText().toUpperCase()
-                        + " no se encuentra en la base de datos");
+            UsuarioBL user = new UsuarioBL();
+            for (Usuario u : user.getAllUser()) {
+                System.out.println("Usuario: " + u.getUsuario());
+                System.out.println("Contraseña: " + u.getContrasena());
             }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
-            // // Query
-            // PreparedStatement inputDataBase = conexion
-            // .prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?,?)");
-            // // Llenando la base de datos
-            // inputDataBase.setString(1, "thomas.germain17");
-            // inputDataBase.setString(2, "271001");
-            // inputDataBase.setString(3, "Trabajador");
-            // inputDataBase.setString(4, "ACTIVO");
-            // inputDataBase.setString(5, "thomasgermain17@gmail.com");
-            // inputDataBase.setString(6, "Thomas");
-            // inputDataBase.setString(7, "Daniel");
-            // inputDataBase.setString(8, "Germain");
-            // inputDataBase.setString(9, "Lennox");
-            // inputDataBase.setString(10, "17xxxxxxxx");
-            // inputDataBase.setString(11, "0000000000");
-            // inputDataBase.executeUpdate(); // ENVIAR A LA BASE
-            conexion.close();
-        } catch (SQLException errorSesion) {
-            JOptionPane.showMessageDialog(null, "No se puede conectar con la base de datos " + errorSesion);
+        UsuarioBL user = new UsuarioBL();
+        Usuario u = user.getUserLogin(i_usuario.getText().trim(),
+                i_contrasena.getPassword());
+
+        if (u != null) {
+            if (u.getFkIdRol() == 1) {
+
+                LienzoInterfaz iAdmin = new LienzoInterfaz();
+                iAdmin.setVisible(true);
+                this.setVisible(false);
+            } else if (u.getFkIdRol() == 2) {
+                // IAdministrador iAdmin = new IAdministrador();
+                // iAdmin.setVisible(true);
+                // this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Revise en intente nuevamente");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El usuario " +
+                    i_usuario.getText().toUpperCase()
+                    + " no se encuentra en la base de datos");
         }
     }
 }

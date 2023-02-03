@@ -1,59 +1,143 @@
 package BusinnessLogic.Entities;
 
+import javax.swing.ImageIcon;
+
 public class Producto {
-    private String codigo;
-    private String articulo;
-    private int unidades;
-    private double precio;
-    private String comentario;
-    private String fecha;
 
-    private String img;
-    private String hora;
+    private Integer idProducto;
+    private String codigoProducto;
+    private Estado fkEstado;
+    private CategoriaProducto fkCategoriaProducto;
+    private Iva fkIva;
+    private String producto;
+    private Integer stock;
+    private double precioCompra;;
+    private double precioVenta;
+    private String descripcion;
+    private ImageIcon imagen;
+    private String fechaIngreso;
+    private String fechaModificacion;
 
-    public Producto(String codigo, String articulo, int unidades, double precio, String comentario, String fecha,
-            String img, String hora) {
-        this.codigo = codigo;
-        this.articulo = articulo;
-        this.unidades = unidades;
-        this.precio = precio;
-        this.comentario = comentario;
-        this.fecha = fecha;
-
-        this.img = img;
-        this.hora = hora;
+    public Producto(Integer idProducto, String codigoProducto, Estado fkEstado, CategoriaProducto fkCategoriaProducto,
+            Iva fkIva, String producto, Integer stock, double precioCompra, double precioVenta, String descripcion,
+            ImageIcon imagen, String fechaIngreso, String fechaModificacion) {
+        this.idProducto = idProducto;
+        this.codigoProducto = codigoProducto;
+        this.fkEstado = fkEstado;
+        this.fkCategoriaProducto = fkCategoriaProducto;
+        this.fkIva = fkIva;
+        this.producto = producto;
+        this.stock = stock;
+        this.precioCompra = precioCompra;
+        this.precioVenta = precioVenta;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+        this.fechaIngreso = fechaIngreso;
+        this.fechaModificacion = fechaModificacion;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public Integer getIdProducto() {
+        return idProducto;
     }
 
-    public String getArticulo() {
-        return articulo;
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
     }
 
-    public double getPrecio() {
-        return precio;
+    public String getCodigoProducto() {
+        return codigoProducto;
     }
 
-    public int getUnidades() {
-        return unidades;
+    public void setCodigoProducto(String codigoProducto) {
+        this.codigoProducto = codigoProducto;
     }
 
-    public String getComentario() {
-        return comentario;
+    public Estado getFkEstado() {
+        return fkEstado;
     }
 
-    public String getFecha() {
-        return fecha;
+    public void setFkEstado(Estado fkEstado) {
+        this.fkEstado = fkEstado;
     }
 
-    public String getImg() {
-        return img;
+    public CategoriaProducto getFkCategoriaProducto() {
+        return fkCategoriaProducto;
     }
 
-    public String getHora() {
-        return hora;
+    public void setFkCategoriaProducto(CategoriaProducto fkCategoriaProducto) {
+        this.fkCategoriaProducto = fkCategoriaProducto;
+    }
+
+    public Iva getFkIva() {
+        return fkIva;
+    }
+
+    public void setFkIva(Iva fkIva) {
+        this.fkIva = fkIva;
+    }
+
+    public String getProducto() {
+        return producto;
+    }
+
+    public void setProducto(String producto) {
+        this.producto = producto;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public double getPrecioCompra() {
+        return precioCompra;
+    }
+
+    public void setPrecioCompra(double precioCompra) {
+        this.precioCompra = precioCompra;
+    }
+
+    public double getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(double precioVenta) {
+        this.precioVenta = precioVenta;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public ImageIcon getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(ImageIcon imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(String fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public String getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(String fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
     }
 
 }

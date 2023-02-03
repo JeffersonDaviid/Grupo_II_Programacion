@@ -22,14 +22,14 @@ public class Lienzo extends JPanel {
         super.paint(g);
     }
 
-    public static void main(String[] args) {
-        JFrame ventana = new JFrame("HOLA");
-        Lienzo fondo = new Lienzo();
-        ventana.setContentPane(fondo);
-        ventana.setVisible(true);
-        ventana.setLocationRelativeTo(null);
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setSize(600, 600);
-    }
+    // public static void main(String[] args) {
+    // JFrame ventana = new JFrame("HOLA");
+    // Lienzo fondo = new Lienzo();
+    // ventana.setContentPane(fondo);
+    // ventana.setVisible(true);
+    // ventana.setLocationRelativeTo(null);
+    // ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // ventana.setSize(600, 600);
+    // }
 
 }
