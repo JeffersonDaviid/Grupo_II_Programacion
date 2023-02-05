@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import BusinnessLogic.ProductoBL;
 import BusinnessLogic.Entities.Producto;
 import DataAccess.DataHelper;
+import UserInterface.UI_Component.CustomTable;
 import UserInterface.UI_Component.CustomText;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,13 +31,13 @@ public class ActualizarInventario extends JPanel {
     DefaultTableModel modelo = null;;
     public ArrayList<Producto> lsProductos;
 
-    private JTable tblInventario = new JTable();
+    private CustomTable tblInventario = new CustomTable();
 
     public ActualizarInventario() {
         setBackground(new Color(156, 84, 75));
         setLayout(new BorderLayout(0, 0));
 
-        cargarInventario();
+        // cargarInventario();
         add(tblInventario, BorderLayout.CENTER);
 
         JPanel panel = new JPanel();
@@ -53,9 +54,9 @@ public class ActualizarInventario extends JPanel {
         panel.add(panel_2);
         GridBagLayout gbl_panel_2 = new GridBagLayout();
         gbl_panel_2.columnWidths = new int[] { 150, 150, 150, 0 };
-        gbl_panel_2.rowHeights = new int[] { 24, 0 };
-        gbl_panel_2.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
-        gbl_panel_2.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+        gbl_panel_2.rowHeights = new int[] { 24, 0, 0 };
+        gbl_panel_2.columnWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
+        gbl_panel_2.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
         panel_2.setLayout(gbl_panel_2);
 
         JButton btnNewButton = new JButton("SALIR");
@@ -67,7 +68,7 @@ public class ActualizarInventario extends JPanel {
             }
         });
         GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-        gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+        gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
         gbc_btnNewButton.gridx = 0;
         gbc_btnNewButton.gridy = 0;
         panel_2.add(btnNewButton, gbc_btnNewButton);
@@ -75,7 +76,7 @@ public class ActualizarInventario extends JPanel {
         JButton btnNewButton_2 = new JButton("ACTUALIZAR");
         GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
         gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
-        gbc_btnNewButton_2.insets = new Insets(0, 0, 0, 5);
+        gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
         gbc_btnNewButton_2.gridx = 1;
         gbc_btnNewButton_2.gridy = 0;
         panel_2.add(btnNewButton_2, gbc_btnNewButton_2);
@@ -121,6 +122,7 @@ public class ActualizarInventario extends JPanel {
         // // textField.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         CustomText textField = new CustomText("Ingrese un valor", "Campo vacio");
         GridBagConstraints gbc_textField = new GridBagConstraints();
+        gbc_textField.insets = new Insets(0, 0, 5, 0);
         gbc_textField.fill = GridBagConstraints.BOTH;
         gbc_textField.gridx = 2;
         gbc_textField.gridy = 0;
@@ -129,7 +131,8 @@ public class ActualizarInventario extends JPanel {
     }
 
     private void cargarInventario() {
-        String[] titulos = { "Código", "Artículo", "Unidad", "Precio", "Comentario", "Fecha", "Botones" };
+        String[] titulos = { "ID", "Codigo", "Estado", "Categoria", "Iva", "Producto", "Precio compra",
+                "Precio venta", "Descripcion", "Precio compra", "Fecha Creacion", "Fecha Modificacion" };
         String[] registros = new String[12];
         DefaultTableModel modelo = new DefaultTableModel(null, titulos);
 
@@ -143,11 +146,16 @@ public class ActualizarInventario extends JPanel {
                 registros[3] = p.getFkCategoriaProducto().getNombre();
                 registros[4] = p.getFkIva().getNombre();
                 registros[5] = p.getProducto();
-                registros[6] = p.getStock().toString();
+                registros[6] = "25.50";// p.getPrecioCompra();
+                registros[7] = "155.63";// p.getPrecioVenta();
+                registros[8] = p.getDescripcion();
+                registros[9] = p.getStock() + "";
+                registros[10] = p.getFechaIngreso();
+                registros[11] = p.getFechaModificacion();
                 modelo.addRow(registros);
             }
 
-            tblInventario.setModel(modelo);
+            // tblInventario.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar datos " + e);
         }

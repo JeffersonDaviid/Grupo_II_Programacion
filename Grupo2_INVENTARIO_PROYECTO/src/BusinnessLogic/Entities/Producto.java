@@ -4,13 +4,13 @@ import javax.swing.ImageIcon;
 
 public class Producto {
 
-    private Integer idProducto;
+    private String idProducto;
     private String codigoProducto;
     private Estado fkEstado;
     private CategoriaProducto fkCategoriaProducto;
     private Iva fkIva;
     private String producto;
-    private Integer stock;
+    private int stock;
     private double precioCompra;;
     private double precioVenta;
     private String descripcion;
@@ -18,8 +18,8 @@ public class Producto {
     private String fechaIngreso;
     private String fechaModificacion;
 
-    public Producto(Integer idProducto, String codigoProducto, Estado fkEstado, CategoriaProducto fkCategoriaProducto,
-            Iva fkIva, String producto, Integer stock, double precioCompra, double precioVenta, String descripcion,
+    public Producto(String idProducto, String codigoProducto, Estado fkEstado, CategoriaProducto fkCategoriaProducto,
+            Iva fkIva, String producto, int stock, double precioCompra, double precioVenta, String descripcion,
             ImageIcon imagen, String fechaIngreso, String fechaModificacion) {
         this.idProducto = idProducto;
         this.codigoProducto = codigoProducto;
@@ -36,11 +36,11 @@ public class Producto {
         this.fechaModificacion = fechaModificacion;
     }
 
-    public Integer getIdProducto() {
+    public String getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(Integer idProducto) {
+    public void setIdProducto(String idProducto) {
         this.idProducto = idProducto;
     }
 
@@ -84,11 +84,11 @@ public class Producto {
         this.producto = producto;
     }
 
-    public Integer getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(Integer stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 

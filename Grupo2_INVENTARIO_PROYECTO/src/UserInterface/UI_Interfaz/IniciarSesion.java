@@ -6,11 +6,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -38,10 +33,10 @@ public class IniciarSesion extends JFrame {
     private JPasswordField i_contrasena;
     private JComboBox combo_rol;
 
-    public static void main(String[] args) {
-        IniciarSesion frame = new IniciarSesion();
-        frame.setVisible(true);
-    }
+    // public static void main(String[] args) {
+    // IniciarSesion frame = new IniciarSesion();
+    // frame.setVisible(true);
+    // }
 
     public IniciarSesion() {
         try {
@@ -182,13 +177,13 @@ public class IniciarSesion extends JFrame {
         if (u != null) {
             if (u.getFkIdRol() == 1) {
 
-                LienzoInterfaz iAdmin = new LienzoInterfaz();
+                PrincipalA iAdmin = new PrincipalA();
                 iAdmin.setVisible(true);
                 this.setVisible(false);
             } else if (u.getFkIdRol() == 2) {
-                // IAdministrador iAdmin = new IAdministrador();
-                // iAdmin.setVisible(true);
-                // this.setVisible(false);
+                PrincipalT iWorker = new PrincipalT();
+                iWorker.setVisible(true);
+                this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Revise en intente nuevamente");
             }

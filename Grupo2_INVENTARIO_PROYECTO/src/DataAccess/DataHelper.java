@@ -14,7 +14,7 @@ public abstract class DataHelper {
 
     public static Connection getConexion() {
         try {
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/db_inventario", "root", "");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/DB_INVENTARIO", "root", "");
             // JOptionPane.showMessageDialog(null, "conexión exitosa");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage());

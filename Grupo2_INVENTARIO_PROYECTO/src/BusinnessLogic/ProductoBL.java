@@ -43,7 +43,7 @@ public class ProductoBL {
                 // Iva iva = new Iva(rs.getInt("PK_ID_IVA"), rsIvaDac.getString("NOMBRE"));
 
                 Producto p = new Producto(
-                        rs.getInt("ID_PRODUCTO"),
+                        rs.getString("ID_PRODUCTO"),
                         rs.getString("CODIGO_PRODUCTO"),
                         estado.getBLEstadoById(rs.getInt("FK_ID_ESTADO")),
                         categoria.getBLCategoriaProductoById(rs.getInt("FK_ID_CATEGORIA_PRODUCTO")),
