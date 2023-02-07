@@ -150,10 +150,10 @@ public class CustomTable extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * Con los titulos y la informaci�n a mostrar se crea el modelo para
-	 * poder personalizar la tabla, asignando tama�o de celdas tanto en ancho como
+	 * Con los titulos y la información a mostrar se crea el modelo para
+	 * poder personalizar la tabla, asignando tamaño de celdas tanto en ancho como
 	 * en alto
-	 * as� como los tipos de datos que va a poder soportar.
+	 * así como los tipos de datos que va a poder soportar.
 	 * 
 	 * @param titulos
 	 * @param data
@@ -166,8 +166,8 @@ public class CustomTable extends JPanel implements MouseListener {
 		filasTabla = tablaPersonas.getRowCount();
 		columnasTabla = tablaPersonas.getColumnCount();
 
-		// se asigna el tipo de dato que tendr�n las celdas de cada columna definida
-		// respectivamente para validar su personalizaci�n
+		// se asigna el tipo de dato que tendrán las celdas de cada columna definida
+		// respectivamente para validar su personalización
 		tablaPersonas.getColumnModel().getColumn(Tabla.STOCK).setCellRenderer(new GestionCeldas("numerico"));
 		tablaPersonas.getColumnModel().getColumn(Tabla.PRECIO_COMPRA)
 				.setCellRenderer(new GestionCeldas("numerico"));
@@ -180,10 +180,10 @@ public class CustomTable extends JPanel implements MouseListener {
 		// se recorre y asigna el resto de celdas que serian las que almacenen datos de
 		// tipo texto
 		for (int i = 0; i < titulos.length; i++) {
-			if (i != Tabla.STOCK && i != Tabla.PRECIO_COMPRA && i != Tabla.PRECIO_VENTA
-					&& i != Tabla.PERFIL && i != Tabla.EVENTO && i != Tabla.IMAGEN)
-				System.out.println(i);
-			tablaPersonas.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
+			if (i != Tabla.STOCK || i != Tabla.PRECIO_COMPRA || i != Tabla.PRECIO_VENTA
+					|| i != Tabla.PERFIL || i != Tabla.EVENTO || i != Tabla.IMAGEN)
+				tablaPersonas.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
+			// System.out.println(i);
 		}
 
 		tablaPersonas.getTableHeader().setReorderingAllowed(false);

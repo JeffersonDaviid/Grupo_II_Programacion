@@ -17,6 +17,10 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  */
 public class GestionCeldas extends DefaultTableCellRenderer {
+    // ImageIcon iconoBuscar = new
+    // ImageIcon(getClass().getResource("images/iconos/ico_buscar.png"));
+    // ImageIcon iconoGuardedar = new
+    // ImageIcon(getClass().getResource("images/iconos/ico_guardar.png"));
 
     private String tipo = "text";
 
@@ -45,10 +49,10 @@ public class GestionCeldas extends DefaultTableCellRenderer {
 
         /*
          * Este metodo controla toda la tabla, podemos obtener el valor que contiene
-         * definir que celda est� seleccionada, la fila y columna al tener el foco en
+         * definir que celda está seleccionada, la fila y columna al tener el foco en
          * ella.
          * 
-         * cada evento sobre la tabla invocar� a este metodo
+         * cada evento sobre la tabla invocará a este metodo
          */
 
         // definimos colores por defecto
@@ -95,11 +99,11 @@ public class GestionCeldas extends DefaultTableCellRenderer {
         if (tipo.equals("icono")) {
             // iconos disponibles para ser mostrados en la etiqueta dependiendo de la
             // columna que lo contenga
-            if (String.valueOf(value).equals("PERFIL")) {
-                ImageIcon iconoBuscar = new ImageIcon(getClass().getResource("images/iconos/ico_buscar.png"));
+            ImageIcon iconoBuscar = new ImageIcon(getClass().getResource("images/iconos/ico_buscar.png"));
+            ImageIcon iconoGuardar = new ImageIcon(getClass().getResource("images/iconos/ico_guardar.png"));
+            if (String.valueOf(value).equalsIgnoreCase("PERFIL")) {
                 label.setIcon(iconoBuscar);
-            } else if (String.valueOf(value).equals("EVENTO")) {
-                ImageIcon iconoGuardar = new ImageIcon(getClass().getResource("images/iconos/ico_guardar.png"));
+            } else if (String.valueOf(value).equalsIgnoreCase("EVENTO")) {
                 label.setIcon(iconoGuardar);
             }
             label.setHorizontalAlignment(JLabel.LEFT);
