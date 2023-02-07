@@ -12,12 +12,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class DataHelperAPI {
+
     public static void main(String[] args) throws IOException {
         try {
 
-            int numeroUsuario = 1;
-
-            URL url = new URL("https://pokeapi.co/api/v2/pokemon/1");
+            URL url = new URL("https://jsonplaceholder.typicode.com/users/");
             HttpURLConnection conn = (HttpsURLConnection) url.openConnection();
 
             conn.setRequestMethod("GET");
@@ -30,30 +29,26 @@ public class DataHelperAPI {
             for (byte tmp : arrayStream) {
                 contentJson += (char) tmp;
             }
-            System.out.println(contentJson);
+            // System.out.println(contentJson);
 
             JSONArray json = new JSONArray(contentJson);
 
             for (Object obj : json) {
                 // SIMULANDO UN WHERE
-                // if (Integer.parseInt((((JSONObject) obj).get("id")).toString()) ==
-                // numeroUsuario) {
 
                 // ACCEDER A UN OBJETO DE PRIMER NIVEL
-                System.out.println("Usuario: " + ((JSONObject) obj).get("name").toString());
-                // System.out.println("\t <> Email: "
-                // + ((JSONObject) obj).get("email").toString().toUpperCase());
-                // System.out.println("\t <> Phone: "
-                // + ((JSONObject) obj).get("phone").toString().toUpperCase());
-                // System.out.println("\t <> Website: "
-                // + ((JSONObject) obj).get("website").toString().toUpperCase());
-                // // ACCEDER A UN OBJETO DE SEGUNDO NIVEL
-                // System.out.println("\t <> Empresa: "
-                // + new JSONObject(((JSONObject)
-                // obj).get("company").toString()).get("name").toString()
-                // .toUpperCase());
+                System.out.println("Usuario: " + ((JSONObject) obj).get("name").toString().toUpperCase());
+                System.out.println("\t <> Email: "
+                        + ((JSONObject) obj).get("email").toString().toUpperCase());
+                System.out.println("\t <> Phone: "
+                        + ((JSONObject) obj).get("phone").toString().toUpperCase());
+                System.out.println("\t <> Website: "
+                        + ((JSONObject) obj).get("website").toString().toUpperCase());
+                // ACCEDER A UN OBJETO DE SEGUNDO NIVEL
+                System.out.println("\t <> Empresa: "
+                        + new JSONObject(((JSONObject) obj).get("company").toString()).get("name").toString()
+                                .toUpperCase());
                 System.out.println();
-                // }
             }
 
         } catch (MalformedURLException e) {
