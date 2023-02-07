@@ -49,7 +49,7 @@ public class IniciarSesion extends JFrame {
         setBounds(0, 0, 752, 434);
         panel_principal = new JPanel();
         panel_principal.setAutoscrolls(true);
-        panel_principal.setFont(new Font("FreeSerif", Font.PLAIN, 12));
+        panel_principal.setFont(new Font("Lato", Font.PLAIN, 12));
         panel_principal.setBorder(new EmptyBorder(5, 5, 5, 5));
         setResizable(false);
         setLocationRelativeTo(null);
@@ -59,7 +59,7 @@ public class IniciarSesion extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel lbNameBusiness = new JLabel("EASY SELL");
-        lbNameBusiness.setFont(new Font("DejaVu Sans Mono", Font.BOLD | Font.ITALIC, 35));
+        lbNameBusiness.setFont(new Font("DejaVu Sans Mono", Font.BOLD | Font.ITALIC, 40));
         lbNameBusiness.setHorizontalAlignment(SwingConstants.CENTER);
         lbNameBusiness.setBounds(12, 0, 740, 42);
         panel_principal.add(lbNameBusiness);
@@ -68,13 +68,13 @@ public class IniciarSesion extends JFrame {
         lbEslogan.setForeground(new Color(255, 255, 255));
         lbEslogan.setHorizontalAlignment(SwingConstants.CENTER);
         lbEslogan.setHorizontalTextPosition(SwingConstants.CENTER);
-        lbEslogan.setFont(new Font("Croissant One", Font.PLAIN, 20));
+        lbEslogan.setFont(new Font("Amaranth", Font.PLAIN, 25));
         lbEslogan.setBounds(0, 25, 740, 51);
         panel_principal.add(lbEslogan);
 
-        JLabel lbLeyenda = new JLabel("Registre sus Datos");
+        JLabel lbLeyenda = new JLabel("Registre sus datos");
         lbLeyenda.setHorizontalAlignment(SwingConstants.CENTER);
-        lbLeyenda.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 13));
+        lbLeyenda.setFont(new Font("Lato", Font.BOLD, 18));
         lbLeyenda.setBounds(462, 90, 255, 17);
         panel_principal.add(lbLeyenda);
 
@@ -93,7 +93,7 @@ public class IniciarSesion extends JFrame {
         Icon icon_contrasena = new ImageIcon(
                 img_contrasena.getImage().getScaledInstance(lbContrasena_icon.getWidth(),
                         lbContrasena_icon.getHeight(),
-                        Image.SCALE_DEFAULT));
+                        Image.SCALE_SMOOTH));
         lbContrasena_icon.setIcon(icon_contrasena);
         panel_principal.add(lbContrasena_icon);
 
@@ -175,17 +175,17 @@ public class IniciarSesion extends JFrame {
                 i_contrasena.getPassword());
 
         if (u != null) {
-            if (u.getFkIdRol() == 1) {
+            if (u.getFkIdRol() == APP.USUARIO.ADMINISTRADOR) {
 
                 PrincipalA iAdmin = new PrincipalA();
                 iAdmin.setVisible(true);
                 this.setVisible(false);
-            } else if (u.getFkIdRol() == 2) {
+            } else if (u.getFkIdRol() == APP.USUARIO.TRABAJADOR) {
                 PrincipalT iWorker = new PrincipalT();
                 iWorker.setVisible(true);
                 this.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(null, "Revise en intente nuevamente");
+                JOptionPane.showMessageDialog(null, "Revise sus datos e intente nuevamente");
             }
         } else {
             JOptionPane.showMessageDialog(null, "El usuario " +
