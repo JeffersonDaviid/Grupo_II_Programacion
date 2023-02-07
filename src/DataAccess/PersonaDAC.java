@@ -1,38 +1,36 @@
 package DataAccess;
 
-public class PersonaDAC {
-    int id;
-    String name;
-    String email;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
 
-    public PersonaDAC(int id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
+import org.json.JSONArray;
 
-    public int getId() {
-        return id;
-    }
+public class PersonaDAC extends DataHelperAPI {
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public JSONArray getResultado() throws IOException {
+        HttpURLConnection conn = getConection(new URL("https://jsonplaceholder.typicode.com/users/"));
+        try {
+            conn.setRequestMethod("GET");
 
-    public String getName() {
-        return name;
-    }
+            InputStream strm = conn.getInputStream();
+            byte[] arrayStream = strm.readAllBytes();
 
-    public void setName(String name) {
-        this.name = name;
-    }
+            String contentJson = "";
 
-    public String getEmail() {
-        return email;
-    }
+            for (byte tmp : arrayStream) {
+                contentJson += (char) tmp;
+            }
+            // System.out.println(contentJson);}
+            JSONArray json = new JSONArray(contentJson);
+            return json;
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        }
+        return null;
 
-    public void setEmail(String email) {
-        this.email = email;
     }
 
 }
