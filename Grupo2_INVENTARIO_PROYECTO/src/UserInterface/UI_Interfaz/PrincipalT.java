@@ -123,9 +123,14 @@ public class PrincipalT extends JFrame {
 		btnCerrarSesion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				IniciarSesion Inicio = new IniciarSesion();
-				Inicio.setVisible(true);
-				setVisible(false);
+				IniciarSesion Inicio;
+				try {
+					Inicio = new IniciarSesion();
+					Inicio.setVisible(true);
+					setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnCerrarSesion.setHorizontalAlignment(SwingConstants.CENTER);

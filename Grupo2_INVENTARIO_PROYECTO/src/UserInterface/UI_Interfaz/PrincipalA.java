@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import Framework.AppException;
 import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomJPanel;
 import UserInterface.Ventanas.ActualizarInventario;
@@ -30,10 +31,10 @@ public class PrincipalA extends JFrame {
 	// FondoPanel contentPane = new FondoPanel();
 	JPanel CONTENIDO_ACTUALIZABLE = new JPanel();
 
-	// public static void main(String[] args) {
-	// PrincipalA frame = new PrincipalA();
-	// frame.setVisible(true);
-	// }
+	public static void main(String[] args) {
+		PrincipalA frame = new PrincipalA();
+		frame.setVisible(true);
+	}
 
 	public PrincipalA() {
 		try {
@@ -83,8 +84,14 @@ public class PrincipalA extends JFrame {
 		contentPane.add(CONTENIDO_ACTUALIZABLE, BorderLayout.CENTER);
 		CONTENIDO_ACTUALIZABLE.setLayout(new GridLayout(0, 1, 0, 0));
 		// Bienvenida bienvenida = new Bienvenida("images/img_bienvenidosApp.jpg");
-		Bienvenida bienvenida = new Bienvenida();
-		cambiarPagina(bienvenida);
+		// cambiarPagina(bienvenida);
+		ActualizarInventario inventario;
+		try {
+			inventario = new ActualizarInventario();
+			cambiarPagina(inventario);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		// PANEL DE NAVEGACION PRINCIPAL
 		// -------------------------------------------------------------------------------------------------------------
@@ -131,9 +138,14 @@ public class PrincipalA extends JFrame {
 		btnCerrarSesion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				IniciarSesion Inicio = new IniciarSesion();
-				Inicio.setVisible(true);
-				setVisible(false);
+				IniciarSesion Inicio;
+				try {
+					Inicio = new IniciarSesion();
+					Inicio.setVisible(true);
+					setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnCerrarSesion.setHorizontalAlignment(SwingConstants.CENTER);
@@ -203,8 +215,12 @@ public class PrincipalA extends JFrame {
 		btnActualizarInventario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ActualizarInventario inventario = new ActualizarInventario();
-				cambiarPagina(inventario);
+				try {
+					ActualizarInventario inventario = new ActualizarInventario();
+					cambiarPagina(inventario);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 				setTitle("ACTUALIZAR INVENTARIO");
 				// panelNavegacion.setVisible(false); // Ocultar el panel
 			}

@@ -1,4 +1,4 @@
-package Framework.Utilities;
+package UserInterface.UI_Component.CustomTable;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,8 +14,6 @@ import javax.swing.table.TableCellRenderer;
  * Permite personalizar el encabezado de la tabla para definir el color que
  * tendr� en las
  * columnas
- * 
- * @author CHENAO
  *
  */
 public class GestionEncabezadoTabla implements TableCellRenderer {

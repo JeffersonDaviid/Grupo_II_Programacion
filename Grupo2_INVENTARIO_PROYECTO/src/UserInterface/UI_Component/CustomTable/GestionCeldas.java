@@ -1,33 +1,32 @@
-package Framework.Utilities;
+package UserInterface.UI_Component.CustomTable;
 
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Image;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Esta clase permite gestionar la tabla y los eventos realizados sobre ella
  * cada celda seria un objeto personalizable
- * 
- * @author CHENAO
- *
  */
 public class GestionCeldas extends DefaultTableCellRenderer {
-    // ImageIcon iconoBuscar = new
-    // ImageIcon(getClass().getResource("images/iconos/ico_buscar.png"));
-    // ImageIcon iconoGuardedar = new
-    // ImageIcon(getClass().getResource("images/iconos/ico_guardar.png"));
+    ImageIcon iconoBuscar = null;
+    ImageIcon iconoGuardar = null;
 
     private String tipo = "text";
 
     // se definen por defecto los tipos de datos a usar
     private Font normal = new Font("Verdana", Font.PLAIN, 12);
     private Font bold = new Font("Verdana", Font.BOLD, 12);
-    // etiqueta que almacenar� el icono a mostrar
+    // etiqueta que almacenará el icono a mostrar
     private JLabel label = new JLabel();
 
     public GestionCeldas() {
@@ -99,12 +98,16 @@ public class GestionCeldas extends DefaultTableCellRenderer {
         if (tipo.equals("icono")) {
             // iconos disponibles para ser mostrados en la etiqueta dependiendo de la
             // columna que lo contenga
-            ImageIcon iconoBuscar = new ImageIcon(getClass().getResource("images/iconos/ico_buscar.png"));
-            ImageIcon iconoGuardar = new ImageIcon(getClass().getResource("images/iconos/ico_guardar.png"));
-            if (String.valueOf(value).equalsIgnoreCase("PERFIL")) {
-                label.setIcon(iconoBuscar);
-            } else if (String.valueOf(value).equalsIgnoreCase("EVENTO")) {
-                label.setIcon(iconoGuardar);
+            iconoBuscar = new ImageIcon("images/iconos/ico_buscar.png");
+            iconoGuardar = new ImageIcon("images/iconos/ico_guardar.png");
+
+            Icon icon_buscar = new ImageIcon(iconoBuscar.getImage());
+            Icon icon_guardar = new ImageIcon(iconoGuardar.getImage());
+
+            if (String.valueOf(value).equals("PERFIL")) {
+                label.setIcon(icon_buscar);
+            } else if (String.valueOf(value).equals("EVENTO")) {
+                label.setIcon(icon_guardar);
             }
             label.setHorizontalAlignment(JLabel.LEFT);
             label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -127,6 +130,35 @@ public class GestionCeldas extends DefaultTableCellRenderer {
             // this.setBackground( (selected)? colorFondo :Color.MAGENTA);
             this.setFont(bold);
             return this;
+        }
+
+        // definie si el tipo de dato es combobox para personalizarlo
+        if (tipo.equals("comboBox")) {
+            if (focused) {
+                colorFondo = colorFondoSeleccion;
+            } else {
+                colorFondo = colorFondoPorDefecto;
+            }
+
+            // // System.out.println(value);
+            // this.setHorizontalAlignment(JLabel.CENTER);
+            // this.setText((String) value);
+            // this.setForeground((selected) ? new Color(255, 255, 255)
+            // : new Color(32, 117,
+            // 32));
+            // this.setBackground((selected) ? colorFondo : Color.WHITE);
+            // this.setBackground( (selected)? colorFondo :Color.MAGENTA);
+            // this.setFont(bold);
+            // combo.addItem("hola");
+            // combo.addItem("hola");
+            // combo.addItem("hola");
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            JComboBox combo = new JComboBox<>();
+            combo.addItem("Seleccione");
+            combo.addItem("Femenino");
+            combo.addItem("Masculino");
+            combo.setSelectedItem((model.getValueAt(row, column).toString()));
+            return combo;
         }
 
         return this;

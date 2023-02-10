@@ -1,6 +1,8 @@
-package Framework.Utilities;
+package UserInterface.UI_Component.CustomTable;
 
 import javax.swing.table.DefaultTableModel;
+
+import Framework.Utilities.Tabla;
 
 public class ModeloTabla extends DefaultTableModel {
 

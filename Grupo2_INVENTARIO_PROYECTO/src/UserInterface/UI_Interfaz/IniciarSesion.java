@@ -24,6 +24,7 @@ import javax.swing.border.MatteBorder;
 
 import BusinnessLogic.UsuarioBL;
 import BusinnessLogic.Entities.Usuario;
+import Framework.APP;
 import Framework.AppException;
 
 public class IniciarSesion extends JFrame {
@@ -38,7 +39,7 @@ public class IniciarSesion extends JFrame {
     // frame.setVisible(true);
     // }
 
-    public IniciarSesion() {
+    public IniciarSesion() throws Exception {
         try {
             setIconImage(new ImageIcon(getClass().getResource("logoEmpresa.png")).getImage());
         } catch (Exception e) {
@@ -125,9 +126,7 @@ public class IniciarSesion extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     iniciarSesion();
-                } catch (AppException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                } catch (Exception e1) {
                 }
             }
         });
@@ -158,39 +157,38 @@ public class IniciarSesion extends JFrame {
         panel_principal.add(lbBackground);
     }
 
-    public void iniciarSesion() throws AppException {
+    public void iniciarSesion() throws Exception {
 
-        try {
-            UsuarioBL user = new UsuarioBL();
-            for (Usuario u : user.getAllUser()) {
-                System.out.println("Usuario: " + u.getUsuario());
-                System.out.println("Contraseña: " + u.getContrasena());
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+        // try {
+        // UsuarioBL user = new UsuarioBL();
+        // for (Usuario u : user.getAllUser()) {
+        // System.out.println("Usuario: " + u.getUsuario());
+        // System.out.println("Contraseña: " + u.getContrasena());
+        // System.out.println("Contraseña: " + u.getFkIdRol());
+        // }
+        // } catch (Exception e) {
+        // }
 
         UsuarioBL user = new UsuarioBL();
         Usuario u = user.getUserLogin(i_usuario.getText().trim(),
-                i_contrasena.getPassword());
+                i_contrasena.getPassword(), combo_rol.getSelectedIndex() + 1);
 
         if (u != null) {
-            if (u.getFkIdRol() == APP.USUARIO.ADMINISTRADOR) {
+            if (u.getFkIdRol() == APP.LOGIN.ADMINISTRADOR) {
 
                 PrincipalA iAdmin = new PrincipalA();
                 iAdmin.setVisible(true);
                 this.setVisible(false);
-            } else if (u.getFkIdRol() == APP.USUARIO.TRABAJADOR) {
+            } else if (u.getFkIdRol() == APP.LOGIN.TRABAJADOR) {
                 PrincipalT iWorker = new PrincipalT();
                 iWorker.setVisible(true);
                 this.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "Revise sus datos e intente nuevamente");
             }
         } else {
             JOptionPane.showMessageDialog(null, "El usuario " +
                     i_usuario.getText().toUpperCase()
-                    + " no se encuentra en la base de datos");
+                    + " no se encuentra en la base de datos.\nRevise sus datos e intente nuevamente");
+
         }
     }
 }

@@ -3,19 +3,22 @@ package Framework;
 public class AppException extends Exception {
 
     public AppException(Throwable cause, Object className, String message) {
-        super(className + ":" + message, cause);
-        setDebuggingLog();
+        // setDebuggingLog();
+        System.out.println(
+                "\nError causado por:\t" + cause + "\nEn: \t\t\t" + className + "\nMensaje:\t\t" + message);
     }
 
-    // public AppException(Throwable cause, Object className) {
-    // super(className +":" + APP.GLOBAL.getExceptionUndefined(), cause);
-    // setDebuggingLog();
-    // }
+    public AppException(Throwable cause, Object className) {
+        // setDebuggingLog();
+        System.out.println(
+                "\nError causado por:\t" + cause + "\nEn: \t\t\t" + className);
+    }
 
-    // public AppException(String message) {
-    // super(APP.GLOBAL.getExceptionUndefinedClass()+":"+message);
-    // setDebuggingLog();
-    // }
+    public AppException(String message) {
+        System.out.println(
+                "\nMensaje:\t\t" + message);
+        setDebuggingLog();
+    }
 
     void setDebuggingLog() {
         System.out.println("{AppException}");
