@@ -1,16 +1,11 @@
 package UserInterface.UI_Component.CustomTable;
 
 import java.awt.Component;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
-import BusinnessLogic.EstadoBL;
-import DataAccess.EstadoDAC;
 
 public class GestionCeldaComboBox implements TableCellRenderer {
 
@@ -26,12 +21,12 @@ public class GestionCeldaComboBox implements TableCellRenderer {
         // combo.addItem("huevos");
         // combo.addItem("manzanas");
 
-        EstadoBL lsEstados = new EstadoBL();
+        // EstadoBL lsEstados = new EstadoBL();
 
-        try {
-            return cargarComboItems(combo, lsEstados.getAllEstadoNombre());
-        } catch (Exception e) {
-        }
+        // try {
+        // return cargarComboItems(combo, lsEstados.getAllEstadoNombre());
+        // } catch (Exception e) {
+        // }
         return combo;
 
     }

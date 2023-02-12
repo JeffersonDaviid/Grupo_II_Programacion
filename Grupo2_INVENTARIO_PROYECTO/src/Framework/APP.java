@@ -14,17 +14,28 @@ public enum APP {
     public final String DB_USER = "root";
     public final String DB_PASSWORD = "";
 
+    // TABLAS
+    public final String TABLA_ESTADO = "Estado";
+    public final String TABLA_CATEGORIA_PRODUCTO = "CategoriaProducto";
+    public final String TABLA_IVA = "Iva";
+    public final String TABLA_PRODUCTO = "Producto";
+    public final String TABLA_ROL = "Rol";
+    public final String TABLA_USUARIO = "Usuario";
+
+    // BASE DE DATOS ---- VARIABLES SECUNDARIAS
+    public final String PK_ID_ROL = "PK_ID_ROL";
+    public final String PK_ID_ESTADO = "PK_ID_ESTADO";
+    public final String PK_ID_IVA = "PK_ID_IVA";
+    public final String PK_ID_CATEGORIA_PRODUCTO = "PK_ID_CATEGORIA_PRODUCTO";
     public final String FK_ID_ESTADO = "FK_ID_ESTADO";
     public final String NOMBRE = "NOMBRE";
     public final String ESTADO = "ESTADO";
-    public final String ID_ROL = "ID_ROL";
-    public final String ID_ESTADO = "ID_ESTADO";
 
     // BASE DE DATOS ---- PRODUCTO
-    public final String ID_PRODUCTO = "ID_PRODUCTO";
+    public final String PK_ID_PRODUCTO = "PK_ID_PRODUCTO";
     public final String CODIGO_PRODUCTO = "CODIGO_PRODUCTO";
     public final String FK_ID_CATEGORIA_PRODUCTO = "FK_ID_CATEGORIA_PRODUCTO";
-    public final String PK_ID_IVA = "PK_ID_IVA";
+    public final String FK_ID_IVA = "FK_ID_IVA";
     public final String PRODUCTO = "PRODUCTO";
     public final String STOCK = "STOCK";
     public final String PRECIO_COMPRA = "PRECIO_COMPRA";
@@ -35,7 +46,7 @@ public enum APP {
     public final String FECHA_MODIFICACION = "FECHA_MODIFICA";
 
     // BASE DE DATOS ---- USARIO
-    public final String ID_USUARIO = "ID_USUARIO";
+    public final String PK_ID_USUARIO = "PK_ID_USUARIO";
     public final String FK_ID_ROL = "FK_ID_ROL";
     public final String USUARIO = "USUARIO";
     public final String CONTRASENA = "CONTRASENA";

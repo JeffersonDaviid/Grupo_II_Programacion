@@ -28,11 +28,11 @@ public class ProductoBL {
 
             while (rs.next()) {
                 Producto p = new Producto(
-                        rs.getString(APP.BASE_DATOS_MYSQL.ID_PRODUCTO),
+                        rs.getString(APP.BASE_DATOS_MYSQL.PK_ID_PRODUCTO),
                         rs.getString(APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO),
                         estado.getBLEstadoById(rs.getInt(APP.BASE_DATOS_MYSQL.FK_ID_ESTADO)),
                         categoria.getBLCategoriaProductoById(rs.getInt(APP.BASE_DATOS_MYSQL.FK_ID_CATEGORIA_PRODUCTO)),
-                        iva.getBLIvaById(rs.getInt(APP.BASE_DATOS_MYSQL.PK_ID_IVA)),
+                        iva.getBLIvaById(rs.getInt(APP.BASE_DATOS_MYSQL.FK_ID_IVA)),
                         rs.getString(APP.BASE_DATOS_MYSQL.PRODUCTO),
                         rs.getInt(APP.BASE_DATOS_MYSQL.STOCK),
                         rs.getDouble(APP.BASE_DATOS_MYSQL.PRECIO_COMPRA),
@@ -68,11 +68,11 @@ public class ProductoBL {
 
             while (rs.next()) {
                 Producto p = new Producto(
-                        rs.getString(APP.BASE_DATOS_MYSQL.ID_PRODUCTO),
+                        rs.getString(APP.BASE_DATOS_MYSQL.PK_ID_PRODUCTO),
                         rs.getString(APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO),
                         estado.getBLEstadoById(rs.getInt(APP.BASE_DATOS_MYSQL.FK_ID_ESTADO)),
                         categoria.getBLCategoriaProductoById(rs.getInt(APP.BASE_DATOS_MYSQL.FK_ID_CATEGORIA_PRODUCTO)),
-                        iva.getBLIvaById(rs.getInt(APP.BASE_DATOS_MYSQL.PK_ID_IVA)),
+                        iva.getBLIvaById(rs.getInt(APP.BASE_DATOS_MYSQL.FK_ID_IVA)),
                         rs.getString(APP.BASE_DATOS_MYSQL.PRODUCTO),
                         rs.getInt(APP.BASE_DATOS_MYSQL.STOCK),
                         rs.getDouble(APP.BASE_DATOS_MYSQL.PRECIO_COMPRA),

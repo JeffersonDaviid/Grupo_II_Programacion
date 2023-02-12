@@ -20,9 +20,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.JTableHeader;
+import javax.swing.text.Caret;
 
+import BusinnessLogic.CategoriaProductoBL;
 import BusinnessLogic.EstadoBL;
+import BusinnessLogic.IvaBL;
+import BusinnessLogic.Entities.CategoriaProducto;
 import BusinnessLogic.Entities.Producto;
+import Framework.AppException;
 import Framework.Utilities.Tabla;
 
 public class CustomTable extends JPanel implements MouseListener {
@@ -35,7 +40,7 @@ public class CustomTable extends JPanel implements MouseListener {
 	private int filasTabla;
 	private int columnasTabla;
 
-	public CustomTable(ArrayList<String> titulosList, ArrayList<Producto> lsProductos) {
+	public CustomTable(ArrayList<String> titulosList, ArrayList<Producto> lsProductos) throws Exception {
 		iniciarComponentes();
 		construirTabla(titulosList, lsProductos);
 	}
@@ -89,8 +94,10 @@ public class CustomTable extends JPanel implements MouseListener {
 	/**
 	 * Metodo que permite construir la tabla de personas
 	 * se crean primero las columnas y luego se asigna la informaci�n
+	 * 
+	 * @throws Exception
 	 */
-	public void construirTabla(ArrayList<String> titulosList, ArrayList<Producto> lsProductos) {
+	public void construirTabla(ArrayList<String> titulosList, ArrayList<Producto> lsProductos) throws Exception {
 		// se asignan las columnas al arreglo para enviarse al momento de construir la
 		// tabla
 		String titulos[] = new String[titulosList.size()];
@@ -155,8 +162,9 @@ public class CustomTable extends JPanel implements MouseListener {
 	 * 
 	 * @param titulos
 	 * @param data
+	 * @throws AppException
 	 */
-	private void construirTabla(String[] titulos, Object[][] data) {
+	private void construirTabla(String[] titulos, Object[][] data) throws Exception {
 		modelo = new ModeloTabla(data, titulos);
 		// se asigna el modelo a la tabla
 		tabla.setModel(modelo);
@@ -173,13 +181,14 @@ public class CustomTable extends JPanel implements MouseListener {
 		tabla.getColumnModel().getColumn(Tabla.PERFIL).setCellRenderer(new GestionCeldas("icono"));
 		tabla.getColumnModel().getColumn(Tabla.EVENTO).setCellRenderer(new GestionCeldas("icono"));
 		// tabla.getColumnModel().getColumn(Tabla.ESTADO).setCellRenderer(new
-		// GestionCeldas("comboBox"));
+		// GestionCeldas("combo"));
 
 		// se recorre y asigna el resto de celdas que serian las que almacenen datos de
 		// tipo texto
 		for (int i = 0; i < titulos.length; i++) {
 			if (i != Tabla.STOCK || i != Tabla.PRECIO_COMPRA || i != Tabla.PRECIO_VENTA
-					|| i != Tabla.PERFIL || i != Tabla.EVENTO || i != Tabla.IMAGEN || i != Tabla.ESTADO)
+					|| i != Tabla.PERFIL || i != Tabla.EVENTO || i != Tabla.IMAGEN || i != Tabla.ESTADO
+					|| i != Tabla.CATEGORIA || i != Tabla.IVA)
 				tabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
 		}
 
@@ -202,13 +211,68 @@ public class CustomTable extends JPanel implements MouseListener {
 		tabla.getColumnModel().getColumn(Tabla.CODIGO).setMaxWidth(100);
 
 		// ------------------------------------------------------------------------------
-		GestionCeldaComboBox comboRender = new GestionCeldaComboBox();
-		JComboBox combo = new JComboBox<>();
+		// GestionCeldaComboBox comboRender = new GestionCeldaComboBox();
+		// tabla.getColumnModel().getColumn(Tabla.ESTADO).setCellRenderer(comboRender);
+		try {
+			EstadoBL lsEstados = new EstadoBL();
+			tabla.getColumnModel().getColumn(Tabla.ESTADO)
+					.setCellEditor(cargarComboItems(lsEstados.getAllEstadoNombre()));
+		} catch (Exception e) {
+			throw new AppException(e, getClass(), "Error al crear comboBox Estado " + e.getMessage());
+		}
 
-		EstadoBL lsEstados = new EstadoBL();
+		tabla.getColumnModel().getColumn(Tabla.ESTADO).setPreferredWidth(110);
+		tabla.getColumnModel().getColumn(Tabla.ESTADO).setMaxWidth(110);
 
 		try {
-			for (String item : lsEstados.getAllEstadoNombre()) {
+			CategoriaProductoBL lsCategoriaProducto = new CategoriaProductoBL();
+			tabla.getColumnModel().getColumn(Tabla.CATEGORIA)
+					.setCellEditor(cargarComboItems(lsCategoriaProducto.getAllCategoriaNombre()));
+		} catch (Exception e) {
+			throw new AppException(e, getClass(), "Error al crear comboBox Estado " + e.getMessage());
+		}
+		// ---------------------------------------------------------------------------------
+
+		tabla.getColumnModel().getColumn(Tabla.CATEGORIA).setPreferredWidth(100);
+
+		try {
+			IvaBL lsIva = new IvaBL();
+			tabla.getColumnModel().getColumn(Tabla.IVA)
+					.setCellEditor(cargarComboItems(lsIva.getAllIvaNombre()));
+		} catch (Exception e) {
+			throw new AppException(e, getClass(), "Error al crear comboBox Estado " +
+					e.getMessage());
+		}
+		tabla.getColumnModel().getColumn(Tabla.IVA).setPreferredWidth(40);
+		tabla.getColumnModel().getColumn(Tabla.PRODUCTO).setPreferredWidth(280);
+		tabla.getColumnModel().getColumn(Tabla.STOCK).setPreferredWidth(55);
+		tabla.getColumnModel().getColumn(Tabla.STOCK).setMaxWidth(55);
+		tabla.getColumnModel().getColumn(Tabla.PRECIO_COMPRA).setPreferredWidth(100);
+		tabla.getColumnModel().getColumn(Tabla.PRECIO_VENTA).setPreferredWidth(100);
+		tabla.getColumnModel().getColumn(Tabla.DESCRIPCION).setPreferredWidth(100);
+		tabla.getColumnModel().getColumn(Tabla.FECHA_CREACION).setPreferredWidth(130);
+		tabla.getColumnModel().getColumn(Tabla.FECHA_MODIFICACION).setPreferredWidth(130);
+		tabla.getColumnModel().getColumn(Tabla.IMAGEN).setPreferredWidth(100);
+		tabla.getColumnModel().getColumn(Tabla.PERFIL).setPreferredWidth(30);
+		tabla.getColumnModel().getColumn(Tabla.EVENTO).setPreferredWidth(30);
+
+		// personaliza el encabezado
+		JTableHeader jtableHeader = tabla.getTableHeader();
+		jtableHeader.setDefaultRenderer(new GestionEncabezadoTabla());
+		tabla.setTableHeader(jtableHeader);
+
+		// se asigna la tabla al scrollPane
+		scrollPaneTabla.setViewportView(tabla);
+
+	}
+
+	public DefaultCellEditor cargarComboItems(ArrayList<String> lsEstado) {
+
+		// GestionCeldaComboBox comboRender = new GestionCeldaComboBox();
+		// tabla.getColumnModel().getColumn(Tabla.ESTADO).setCellRenderer(comboRender);
+		JComboBox combo = new JComboBox<>();
+		try {
+			for (String item : lsEstado) {
 				combo.addItem(item);
 				// combo.setSelectedIndex(2);
 			}
@@ -217,34 +281,7 @@ public class CustomTable extends JPanel implements MouseListener {
 		}
 
 		DefaultCellEditor comboCell = new DefaultCellEditor(combo);
-		tabla.getColumnModel().getColumn(Tabla.ESTADO).setCellEditor(comboCell);
-		tabla.getColumnModel().getColumn(Tabla.ESTADO).setCellRenderer(comboRender);
-		// ---------------------------------------------------------------------------------
-
-		tabla.getColumnModel().getColumn(Tabla.ESTADO).setPreferredWidth(110);// ESTADO
-		tabla.getColumnModel().getColumn(Tabla.ESTADO).setMaxWidth(110);
-		tabla.getColumnModel().getColumn(Tabla.CATEGORIA).setPreferredWidth(100);// CATEGORIA
-		tabla.getColumnModel().getColumn(Tabla.IVA).setPreferredWidth(40);// IVA
-		tabla.getColumnModel().getColumn(Tabla.PRODUCTO).setPreferredWidth(280);// PRODUCTO
-		tabla.getColumnModel().getColumn(Tabla.STOCK).setPreferredWidth(55);// STOCK
-		tabla.getColumnModel().getColumn(Tabla.STOCK).setMaxWidth(55);
-		tabla.getColumnModel().getColumn(Tabla.PRECIO_COMPRA).setPreferredWidth(100);// PRECIO_COMPRA
-		tabla.getColumnModel().getColumn(Tabla.PRECIO_VENTA).setPreferredWidth(100);// PRECIO_VENTA
-		tabla.getColumnModel().getColumn(Tabla.DESCRIPCION).setPreferredWidth(100);// DESCRIPCION
-		tabla.getColumnModel().getColumn(Tabla.FECHA_CREACION).setPreferredWidth(130);// FECHA_CREACION
-		tabla.getColumnModel().getColumn(Tabla.FECHA_MODIFICACION).setPreferredWidth(130);// FECHA_MODIFICACION
-		tabla.getColumnModel().getColumn(Tabla.IMAGEN).setPreferredWidth(100);// IMAGEN
-		tabla.getColumnModel().getColumn(Tabla.PERFIL).setPreferredWidth(30);// accion perfil
-		tabla.getColumnModel().getColumn(Tabla.EVENTO).setPreferredWidth(30);// accion evento
-
-		// personaliza el encabezado
-		JTableHeader jtableHeader = tabla.getTableHeader();
-		jtableHeader.setDefaultRenderer(new GestionEncabezadoTabla());
-		tabla.setTableHeader(jtableHeader);
-		// tabla.setDefaultRenderer(tabla.getColumnClass(Tabla.ESTADO, comboRender));
-
-		// se asigna la tabla al scrollPane
-		scrollPaneTabla.setViewportView(tabla);
+		return comboCell;
 
 	}
 
@@ -288,26 +325,18 @@ public class CustomTable extends JPanel implements MouseListener {
 	// ejemplo para cambiar el tama�o del icono al ser presionado
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -3,8 +3,8 @@ package UserInterface.UI_Component.CustomTable;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.Image;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import BusinnessLogic.EstadoBL;
 
 /**
  * Esta clase permite gestionar la tabla y los eventos realizados sobre ella
@@ -130,35 +132,6 @@ public class GestionCeldas extends DefaultTableCellRenderer {
             // this.setBackground( (selected)? colorFondo :Color.MAGENTA);
             this.setFont(bold);
             return this;
-        }
-
-        // definie si el tipo de dato es combobox para personalizarlo
-        if (tipo.equals("comboBox")) {
-            if (focused) {
-                colorFondo = colorFondoSeleccion;
-            } else {
-                colorFondo = colorFondoPorDefecto;
-            }
-
-            // // System.out.println(value);
-            // this.setHorizontalAlignment(JLabel.CENTER);
-            // this.setText((String) value);
-            // this.setForeground((selected) ? new Color(255, 255, 255)
-            // : new Color(32, 117,
-            // 32));
-            // this.setBackground((selected) ? colorFondo : Color.WHITE);
-            // this.setBackground( (selected)? colorFondo :Color.MAGENTA);
-            // this.setFont(bold);
-            // combo.addItem("hola");
-            // combo.addItem("hola");
-            // combo.addItem("hola");
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-            JComboBox combo = new JComboBox<>();
-            combo.addItem("Seleccione");
-            combo.addItem("Femenino");
-            combo.addItem("Masculino");
-            combo.setSelectedItem((model.getValueAt(row, column).toString()));
-            return combo;
         }
 
         return this;

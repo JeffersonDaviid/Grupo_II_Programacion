@@ -23,7 +23,7 @@ public class UsuarioBL {
             ResultSet rs = userDAC.getUser();
             while (rs.next()) {
                 Usuario u = new Usuario(
-                        rs.getInt(APP.BASE_DATOS_MYSQL.ID_USUARIO),
+                        rs.getInt(APP.BASE_DATOS_MYSQL.PK_ID_USUARIO),
                         rs.getInt(APP.BASE_DATOS_MYSQL.FK_ID_ESTADO),
                         rs.getInt(APP.BASE_DATOS_MYSQL.FK_ID_ROL),
                         rs.getString(APP.BASE_DATOS_MYSQL.USUARIO),
@@ -61,7 +61,7 @@ public class UsuarioBL {
             ResultSet rs = userDAC.getUser();
             while (rs.next()) {
                 Usuario u = new Usuario(
-                        rs.getInt(APP.BASE_DATOS_MYSQL.ID_USUARIO),
+                        rs.getInt(APP.BASE_DATOS_MYSQL.PK_ID_USUARIO),
                         rs.getInt(APP.BASE_DATOS_MYSQL.FK_ID_ESTADO),
                         rs.getInt(APP.BASE_DATOS_MYSQL.FK_ID_ROL),
                         rs.getString(APP.BASE_DATOS_MYSQL.USUARIO),

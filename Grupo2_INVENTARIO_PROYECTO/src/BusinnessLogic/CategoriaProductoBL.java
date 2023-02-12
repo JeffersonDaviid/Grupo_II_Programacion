@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import BusinnessLogic.Entities.CategoriaProducto;
 import DataAccess.CategoriaProductoDAC;
+import DataAccess.ProductoDAC;
 import Framework.APP;
 import Framework.AppException;
 
@@ -28,17 +29,17 @@ public class CategoriaProductoBL {
         return null;
     }
 
-    public ArrayList<String> getAllCategoriaProducto() throws Exception {
-        ArrayList<String> lsCategoria = new ArrayList<String>();
+    public ArrayList<String> getAllCategoriaNombre() throws Exception {
         try {
-            CategoriaProductoDAC categoriaDAC = new CategoriaProductoDAC();
-            ResultSet rsCategoria = categoriaDAC.getAllCaterogia();
-            while (rsCategoria.next()) {
-                lsCategoria.add(rsCategoria.getString(APP.BASE_DATOS_MYSQL.NOMBRE));
+            ArrayList<String> lsEstado = new ArrayList<String>();
+            CategoriaProductoDAC categoriaDac = new CategoriaProductoDAC();
+            ResultSet rsEstado = categoriaDac.getAllCaterogia();
+            while (rsEstado.next()) {
+                lsEstado.add(rsEstado.getString(APP.BASE_DATOS_MYSQL.NOMBRE));
             }
-            return lsCategoria;
+            return lsEstado;
         } catch (Exception e) {
-            throw new AppException(e, getClass(), "Error en getAllCategoriaProducto(): " + e.getMessage());
+            throw new AppException(e, getClass(), "Error en getAllCategoriaNombre(): " + e.getMessage());
         }
     }
 

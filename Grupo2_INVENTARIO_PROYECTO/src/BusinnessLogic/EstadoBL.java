@@ -16,7 +16,7 @@ public class EstadoBL {
             EstadoDAC estadoDac = new EstadoDAC();
             ResultSet rsEstado = estadoDac.getAllEstado();
             while (rsEstado.next()) {
-                Estado estado = new Estado(rsEstado.getInt(APP.BASE_DATOS_MYSQL.ID_ESTADO),
+                Estado estado = new Estado(rsEstado.getInt(APP.BASE_DATOS_MYSQL.PK_ID_ESTADO),
                         rsEstado.getString(APP.BASE_DATOS_MYSQL.ESTADO));
                 lsEstado.add(estado);
             }

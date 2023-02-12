@@ -13,7 +13,7 @@ public class RolBL {
             RolDAC rolDac = new RolDAC();
             ResultSet rs = rolDac.getUserRol();
             while (rs.next()) {
-                if (rs.getInt(APP.BASE_DATOS_MYSQL.ID_ROL) == id) {
+                if (rs.getInt(APP.BASE_DATOS_MYSQL.PK_ID_ROL) == id) {
                     return rs.getString(APP.BASE_DATOS_MYSQL.NOMBRE);
                 }
             }

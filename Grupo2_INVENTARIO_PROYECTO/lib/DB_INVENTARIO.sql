@@ -1,4 +1,4 @@
--- Active: 1675538605226@@127.0.0.1@3306@DB_INVENTARIO
+-- Active: 1674251157284@@127.0.0.1@3306@db_inventario
 
 /** 
  @AUTOR : JEFFERSON CHILENO
@@ -9,7 +9,7 @@
 
 -- CREATE DATABASE DB_INVENTARIO CHARACTER SET = 'utf8';
 
--- USE DB_INVENTARIO ;
+USE DB_INVENTARIO ;
 
 -- SHOW DATABASES;
 
@@ -23,9 +23,9 @@ DROP TABLE IF EXISTS Estado;
 
 CREATE TABLE
     Estado (
-        ID_ESTADO INTEGER NOT NULL AUTO_INCREMENT,
+        PK_ID_ESTADO INTEGER NOT NULL AUTO_INCREMENT,
         ESTADO VARCHAR(15) NOT NULL,
-        PRIMARY KEY (ID_ESTADO)
+        PRIMARY KEY (PK_ID_ESTADO)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
 -- DROP TABLE Estado ;
@@ -44,15 +44,15 @@ DROP TABLE IF EXISTS CategoriaProducto;
 
 CREATE TABLE
     CategoriaProducto(
-        ID_CATEGORIA_PRODUCTO INTEGER NOT NULL AUTO_INCREMENT,
+        PK_ID_CATEGORIA_PRODUCTO INTEGER NOT NULL AUTO_INCREMENT,
         FK_ID_ESTADO INTEGER NOT NULL DEFAULT(1),
         NOMBRE VARCHAR(25) NOT NULL,
-        PRIMARY KEY (ID_CATEGORIA_PRODUCTO)
+        PRIMARY KEY (PK_ID_CATEGORIA_PRODUCTO)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
 ALTER TABLE CategoriaProducto
 ADD
-    FOREIGN KEY(FK_ID_ESTADO) REFERENCES Estado(ID_ESTADO);
+    FOREIGN KEY(FK_ID_ESTADO) REFERENCES Estado(PK_ID_ESTADO);
 
 -- DROP TABLE CategoriaProducto;
 
@@ -70,9 +70,9 @@ DROP TABLE IF EXISTS Iva;
 
 CREATE TABLE
     Iva (
-        ID_IVA INTEGER NOT NULL AUTO_INCREMENT,
+        PK_ID_IVA INTEGER NOT NULL AUTO_INCREMENT,
         NOMBRE VARCHAR(2) NOT NULL,
-        PRIMARY KEY(ID_IVA)
+        PRIMARY KEY(PK_ID_IVA)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
 -- DROP Iva;
@@ -89,12 +89,12 @@ DROP TABLE IF EXISTS Producto;
 
 CREATE TABLE
     Producto(
-        ID_PRODUCTO VARCHAR(10) NOT NULL,
-        CODIGO_PRODUCTO VARCHAR(20) NOT NULL,
+        PK_ID_PRODUCTO VARCHAR(10) UNIQUE NOT NULL,
+        CODIGO_PRODUCTO VARCHAR(20) UNIQUE NOT NULL,
         FK_ID_ESTADO INTEGER NOT NULL DEFAULT(1),
         FK_ID_CATEGORIA_PRODUCTO INTEGER NOT NULL,
-        PK_ID_IVA INTEGER NOT NULL DEFAULT(1),
-        PRODUCTO VARCHAR(30) NOT NULL,
+        FK_ID_IVA INTEGER NOT NULL DEFAULT(1),
+        PRODUCTO VARCHAR(30) UNIQUE NOT NULL,
         STOCK INTEGER NOT NULL DEFAULT(1),
         PRECIO_COMPRA FLOAT NOT NULL DEFAULT(1),
         PRECIO_VENTA FLOAT NOT NULL DEFAULT(1),
@@ -102,20 +102,20 @@ CREATE TABLE
         IMAGEN longblob,
         FECHA_CREACION VARCHAR(20) NOT NULL DEFAULT(CURRENT_TIMESTAMP()),
         FECHA_MODIFICA VARCHAR(20) NOT NULL DEFAULT(CURRENT_TIMESTAMP()),
-        PRIMARY KEY(ID_PRODUCTO)
+        PRIMARY KEY(PK_ID_PRODUCTO)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
 ALTER TABLE Producto
 ADD
-    FOREIGN KEY(FK_ID_ESTADO) REFERENCES Estado(ID_ESTADO);
+    FOREIGN KEY(FK_ID_ESTADO) REFERENCES Estado(PK_ID_ESTADO);
 
 ALTER TABLE Producto
 ADD
-    FOREIGN KEY(FK_ID_CATEGORIA_PRODUCTO) REFERENCES CategoriaProducto(ID_CATEGORIA_PRODUCTO);
+    FOREIGN KEY(FK_ID_CATEGORIA_PRODUCTO) REFERENCES CategoriaProducto(PK_ID_CATEGORIA_PRODUCTO);
 
 ALTER TABLE Producto
 ADD
-    FOREIGN KEY(PK_ID_IVA) REFERENCES Iva(ID_IVA);
+    FOREIGN KEY(FK_ID_IVA) REFERENCES Iva(PK_ID_IVA);
 
 DROP TABLE Producto;
 
@@ -127,10 +127,10 @@ SELECT * FROM Producto;
 
 INSERT INTO
     Producto (
-        ID_PRODUCTO,
+        PK_ID_PRODUCTO,
         CODIGO_PRODUCTO,
         FK_ID_CATEGORIA_PRODUCTO,
-        PK_ID_IVA,
+        FK_ID_IVA,
         PRODUCTO,
         STOCK,
         PRECIO_COMPRA,
@@ -162,87 +162,87 @@ VALUES (
         "1112015100029",
         2,
         1,
-        "Papel Familia 4u",
+        "Pasta dental 300g",
         150,
         0.75,
         1.00,
         " "
     ), (
         "2CS8MS8",
-        "1112015100029",
+        "1112015990029",
         1,
         1,
-        "Papel Familia 4u",
+        "Chetos 100g",
         150,
         0.75,
         1.00,
         " "
     ), (
         "2C8P6S8",
-        "1112015100029",
+        "1112036410029",
         3,
         1,
-        "Papel Familia 4u",
+        "Arroz 25lb",
         150,
         0.75,
         1.00,
         " "
     ), (
         "52SP6S8",
-        "1112015100029",
+        "1522015100029",
         3,
         1,
-        "Papel Familia 4u",
+        "Coca Cola 1000ml",
         150,
         0.75,
         1.00,
         " "
     ), (
         "2CSPOL8",
-        "1112015100029",
+        "1698015100029",
         2,
-        1,
-        "Papel Familia 4u",
+        2,
+        "Fomix 12u",
         150,
         0.75,
         1.00,
         " "
     ), (
         "2CSP6P6",
-        "1112015100029",
+        "1100015100029",
         1,
         1,
-        "Papel Familia 4u",
+        "Galleta Amor",
         150,
         0.75,
         1.00,
         " "
     ), (
         "2CSLB6S8",
-        "1112015100029",
+        "1362015100029",
         2,
         2,
-        "Papel Familia 4u",
+        "Queso 4lb",
         150,
         0.75,
         1.00,
         " "
     ), (
         "2C266S8",
-        "1112015100029",
+        "3622015100029",
         3,
         1,
-        "Papel Familia 4u",
+        "Mayonesa 100g",
         150,
         0.75,
         1.00,
         " "
     ), (
         "2CSPBB8",
-        "1112015100029",
+        "5149015100029",
         1,
         1,
-        "Papel Familia 4u",
+        "azucar 2.2kg",
         150,
         0.75,
         1.00,
@@ -255,10 +255,10 @@ VALUES (
 
 CREATE TABLE
     Rol(
-        ID_ROL INTEGER NOT NULL AUTO_INCREMENT,
+        PK_ID_ROL INTEGER NOT NULL AUTO_INCREMENT,
         -- FK_ID_ESTADO INTEGER NOT NULL,
-        NOMBRE VARCHAR(13) NOT NULL,
-        PRIMARY KEY(ID_ROL)
+        NOMBRE VARCHAR(13) UNIQUE NOT NULL,
+        PRIMARY KEY(PK_ID_ROL)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
 -- DROP TABLE Rol;
@@ -277,10 +277,10 @@ DROP TABLE IF EXISTS Usuario;
 
 CREATE TABLE
     Usuario(
-        ID_USUARIO INTEGER NOT NULL AUTO_INCREMENT,
+        PK_ID_USUARIO INTEGER NOT NULL AUTO_INCREMENT,
         FK_ID_ESTADO INTEGER NOT NULL DEFAULT(1),
         FK_ID_ROL INTEGER NOT NULL DEFAULT(2),
-        USUARIO VARCHAR(20) NOT NULL,
+        USUARIO VARCHAR(20) UNIQUE NOT NULL,
         CONTRASENA VARCHAR(25) NOT NULL,
         EMAIL VARCHAR(50) NOT NULL,
         PRIMER_NOMBRE VARCHAR(15) NOT NULL,
@@ -290,16 +290,16 @@ CREATE TABLE
         CEDULA VARCHAR(15) NOT NULL,
         TELEFONO VARCHAR(15) NOT NULL,
         FOTO longblob,
-        PRIMARY KEY (ID_USUARIO)
+        PRIMARY KEY (PK_ID_USUARIO)
     );
 
 ALTER TABLE Usuario
 ADD
-    FOREIGN KEY (FK_ID_ESTADO) REFERENCES Estado(ID_ESTADO);
+    FOREIGN KEY (FK_ID_ESTADO) REFERENCES Estado(PK_ID_ESTADO);
 
 ALTER TABLE Usuario
 ADD
-    FOREIGN KEY (FK_ID_ROL) REFERENCES Rol(ID_ROL);
+    FOREIGN KEY (FK_ID_ROL) REFERENCES Rol(PK_ID_ROL);
 
 -- DROP TABLE Usuario;
 
