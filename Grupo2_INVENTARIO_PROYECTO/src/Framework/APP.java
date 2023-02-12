@@ -57,5 +57,5 @@ public enum APP {
     public final String APELLIDO_MATERNO = "APELLIDO_MATERNO";
     public final String CEDULA = "CEDULA";
     public final String TELEFONO = "TELEFONO";
-
+    public final String FOTO = "FOTO";
 }
