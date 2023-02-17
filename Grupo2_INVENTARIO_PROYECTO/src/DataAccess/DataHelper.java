@@ -70,4 +70,19 @@ public abstract class DataHelper {
         return rs;
     }
 
+    protected static boolean setResultSet(String sql) {
+        Connection conn = null; // OJO me parece que no estoy despediciando memoria
+        Statement stmt = null;
+        boolean rs = false;
+
+        try {
+            conn = getConexion();
+            stmt = conn.createStatement(); // CRUD : select * ...
+            rs = stmt.execute(sql);
+        } catch (Exception e) {
+            System.out.println("Error al obtener respuesta en : getResultSet(String sql) " + e.getMessage());
+        }
+        return rs;
+    }
+
 }

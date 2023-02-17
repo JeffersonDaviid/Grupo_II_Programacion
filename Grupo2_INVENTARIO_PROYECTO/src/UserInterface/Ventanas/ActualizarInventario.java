@@ -18,21 +18,39 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import BusinnessLogic.CategoriaProductoBL;
+import BusinnessLogic.EstadoBL;
+import BusinnessLogic.IvaBL;
 import BusinnessLogic.ProductoBL;
 import BusinnessLogic.Entities.Producto;
+import DataAccess.EstadoDAC;
 import Framework.APP;
 import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomText;
 import UserInterface.UI_Component.CustomTable.CustomTable;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class ActualizarInventario extends JPanel {
     DefaultTableModel modelo = null;
     CustomTable tblInventario;
+    CustomText i_busqueda = new CustomText("Ingrese un valor", "Campo vacio");
     public ArrayList<Producto> lsProductos;
+    private static ArrayList<String> lsEstadoNombre;
+    private static ArrayList<String> lsCategoriaProductoNombre;
+    private static ArrayList<String> lsIvaNombre;
 
     public ActualizarInventario() throws Exception {
+
+        EstadoBL estadoBL = new EstadoBL();
+        lsEstadoNombre = estadoBL.getAllEstadoNombre();
+        CategoriaProductoBL categoriaBL = new CategoriaProductoBL();
+        lsCategoriaProductoNombre = categoriaBL.getAllCategoriaNombre();
+        IvaBL ivaBL = new IvaBL();
+        lsIvaNombre = ivaBL.getAllIvaNombre();
+
         ProductoBL productoCategoria = new ProductoBL();
-        tblInventario = new CustomTable(getColumnasTabla(), productoCategoria.getAllProducto());
+        lsProductos = productoCategoria.getAllProducto();
+        tblInventario = new CustomTable(getColumnasTabla(), lsProductos);
         // productoCategoria.getProductoByCategoria(comboBox.getSelectedIndex() + 1));
         setBackground(new Color(156, 84, 75));
         setLayout(new BorderLayout(0, 0));
@@ -59,36 +77,59 @@ public class ActualizarInventario extends JPanel {
         panelFiltroInventario.add(lblNewLabel);
 
         JComboBox comboCategoria = new JComboBox();
-        CategoriaProductoBL categoriaProducto = new CategoriaProductoBL();
-        comboCategoria.addItem("Ninguno");
-        for (String p : categoriaProducto.getAllCategoriaNombre()) {
-            comboCategoria.addItem(p);
-        }
+        cargarComboItems(comboCategoria, lsCategoriaProductoNombre);
 
-        CustomButton btnNewButton_2 = new CustomButton("BUSCAR");
-        panelFiltroInventario.add(btnNewButton_2);
-        btnNewButton_2.addMouseListener(new MouseAdapter() {
+        CustomButton btn_buscar_filtrar = new CustomButton("FILTRAR");
+        panelFiltroInventario.add(btn_buscar_filtrar);
+        btn_buscar_filtrar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    ProductoBL productoCategoria = new ProductoBL();
-                    if (comboCategoria.getSelectedIndex() == APP.BASE_DATOS_MYSQL.NINGUN_FILTRO) {
-                        tblInventario.construirTabla(getColumnasTabla(),
-                                productoCategoria.getAllProducto());
+
+                    if (i_busqueda.getText().isEmpty()) {
+                        // btn_buscar_filtrar = new CustomButton("hola");
                     } else {
-                        tblInventario.construirTabla(getColumnasTabla(),
-                                productoCategoria.getProductoByCategoria(comboCategoria.getSelectedIndex()));
-                        System.out.println(comboCategoria.getSelectedIndex());
+                        if (comboCategoria.getSelectedIndex() == APP.BASE_DATOS_MYSQL.NINGUN_FILTRO) {
+                            lsProductos = productoCategoria.getAllProducto();
+                            tblInventario.construirTabla(getColumnasTabla(), lsProductos);
+                        } else {
+                            tblInventario.construirTabla(getColumnasTabla(),
+                                    productoCategoria.getProductoByCategoria(comboCategoria.getSelectedIndex()));
+                            // System.out.println(comboCategoria.getSelectedIndex());
+                        }
                     }
+
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             }
+
         });
 
-        CustomText textField = new CustomText("Ingrese un valor", "Campo vacio");
-        panelFiltroInventario.add(textField);
-        textField.setColumns(10);
+        i_busqueda.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+                if (i_busqueda.getText().trim().isEmpty()) {
+                    btn_buscar_filtrar.setText("FILTRAR");
+                } else {
+                    btn_buscar_filtrar.setText("BUSCAR");
+                }
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+
+                if (i_busqueda.getText().trim().isEmpty()) {
+                    btn_buscar_filtrar.setText("BUSCAR");
+                } else {
+                    btn_buscar_filtrar.setText("FILTRAR");
+                }
+
+            }
+        });
+        panelFiltroInventario.add(i_busqueda);
 
         JLabel lblNewLabel_1 = new JLabel("");
         panelFiltroInventario.add(lblNewLabel_1);
@@ -105,14 +146,17 @@ public class ActualizarInventario extends JPanel {
         panelFiltroInventario.add(comboCategoria);
 
         JComboBox comboBox_1 = new JComboBox();
+        cargarComboItems(comboBox_1, lsEstadoNombre);
         panelFiltroInventario.add(comboBox_1);
 
         JComboBox comboBox_2 = new JComboBox();
+        cargarComboItems(comboBox_2, lsIvaNombre);
         panelFiltroInventario.add(comboBox_2);
 
         JButton btnNewButton = new JButton("SALIR");
         panelFiltroInventario.add(btnNewButton);
         btnNewButton.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
@@ -132,7 +176,7 @@ public class ActualizarInventario extends JPanel {
         panelFiltroInventario.add(lblNewLabel_5);
     }
 
-    private ArrayList<String> getColumnasTabla() {
+    public ArrayList<String> getColumnasTabla() {
         ArrayList<String> titulosList = new ArrayList<String>();
 
         titulosList.add("ID");
@@ -156,6 +200,13 @@ public class ActualizarInventario extends JPanel {
     private void cargarInventario() {
         ProductoBL producto = new ProductoBL();
 
+    }
+
+    private void cargarComboItems(JComboBox combo, ArrayList<String> lsItem) {
+        combo.addItem("Ninguno");
+        for (String item : lsItem) {
+            combo.addItem(item);
+        }
     }
 
     public void actualizarPorCodigo() {

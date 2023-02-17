@@ -5,14 +5,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import javax.swing.ComboBoxModel;
+import javax.print.attribute.standard.RequestingUserName;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,13 +20,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.JTableHeader;
-import javax.swing.text.Caret;
 
 import BusinnessLogic.CategoriaProductoBL;
 import BusinnessLogic.EstadoBL;
 import BusinnessLogic.IvaBL;
-import BusinnessLogic.Entities.CategoriaProducto;
 import BusinnessLogic.Entities.Producto;
+import DataAccess.ProductoDAC;
 import Framework.AppException;
 import Framework.Utilities.Tabla;
 
@@ -35,6 +34,9 @@ public class CustomTable extends JPanel implements MouseListener {
 	private static JScrollPane scrollPaneTabla;
 	private static JTable tabla;
 	private static ArrayList<Producto> lsProductos; // Producto de la base de datos
+	private static ArrayList<String> lsEstadoNombre;
+	private static ArrayList<String> lsCategoriaProductoNombre;
+	private static ArrayList<String> lsIvaNombre;
 
 	ModeloTabla modelo;// modelo definido en la clase ModeloTabla
 	private int filasTabla;
@@ -138,8 +140,7 @@ public class CustomTable extends JPanel implements MouseListener {
 			informacion[x][Tabla.IVA] = lsProductos.get(x).getFkIva().getNombre() + "";
 			informacion[x][Tabla.PRODUCTO] = lsProductos.get(x).getProducto() + "";
 			informacion[x][Tabla.STOCK] = lsProductos.get(x).getStock() + "";
-			informacion[x][Tabla.PRECIO_COMPRA] = "$"
-					+ Double.parseDouble(df.format(lsProductos.get(x).getPrecioCompra()))
+			informacion[x][Tabla.PRECIO_COMPRA] = Double.parseDouble(df.format(lsProductos.get(x).getPrecioCompra()))
 					+ "";
 			informacion[x][Tabla.PRECIO_VENTA] = lsProductos.get(x).getPrecioVenta() + "";
 			informacion[x][Tabla.DESCRIPCION] = lsProductos.get(x).getDescripcion() + "";
@@ -215,8 +216,8 @@ public class CustomTable extends JPanel implements MouseListener {
 		// tabla.getColumnModel().getColumn(Tabla.ESTADO).setCellRenderer(comboRender);
 		try {
 			EstadoBL lsEstados = new EstadoBL();
-			tabla.getColumnModel().getColumn(Tabla.ESTADO)
-					.setCellEditor(cargarComboItems(lsEstados.getAllEstadoNombre()));
+			lsEstadoNombre = lsEstados.getAllEstadoNombre();
+			tabla.getColumnModel().getColumn(Tabla.ESTADO).setCellEditor(cargarComboItems(lsEstadoNombre));
 		} catch (Exception e) {
 			throw new AppException(e, getClass(), "Error al crear comboBox Estado " + e.getMessage());
 		}
@@ -226,8 +227,9 @@ public class CustomTable extends JPanel implements MouseListener {
 
 		try {
 			CategoriaProductoBL lsCategoriaProducto = new CategoriaProductoBL();
+			lsCategoriaProductoNombre = lsCategoriaProducto.getAllCategoriaNombre();
 			tabla.getColumnModel().getColumn(Tabla.CATEGORIA)
-					.setCellEditor(cargarComboItems(lsCategoriaProducto.getAllCategoriaNombre()));
+					.setCellEditor(cargarComboItems(lsCategoriaProductoNombre));
 		} catch (Exception e) {
 			throw new AppException(e, getClass(), "Error al crear comboBox Estado " + e.getMessage());
 		}
@@ -237,8 +239,8 @@ public class CustomTable extends JPanel implements MouseListener {
 
 		try {
 			IvaBL lsIva = new IvaBL();
-			tabla.getColumnModel().getColumn(Tabla.IVA)
-					.setCellEditor(cargarComboItems(lsIva.getAllIvaNombre()));
+			lsIvaNombre = lsIva.getAllIvaNombre();
+			tabla.getColumnModel().getColumn(Tabla.IVA).setCellEditor(cargarComboItems(lsIvaNombre));
 		} catch (Exception e) {
 			throw new AppException(e, getClass(), "Error al crear comboBox Estado " +
 					e.getMessage());
@@ -266,15 +268,14 @@ public class CustomTable extends JPanel implements MouseListener {
 
 	}
 
-	public DefaultCellEditor cargarComboItems(ArrayList<String> lsEstado) {
+	public DefaultCellEditor cargarComboItems(ArrayList<String> lsItem) {
 
 		// GestionCeldaComboBox comboRender = new GestionCeldaComboBox();
 		// tabla.getColumnModel().getColumn(Tabla.ESTADO).setCellRenderer(comboRender);
 		JComboBox combo = new JComboBox<>();
 		try {
-			for (String item : lsEstado) {
+			for (String item : lsItem) {
 				combo.addItem(item);
-				// combo.setSelectedIndex(2);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -312,13 +313,66 @@ public class CustomTable extends JPanel implements MouseListener {
 	 * @param fila
 	 */
 	private void actualizarProductoFila(int fila) {
-		Tabla.filaSeleccionada = fila;
+		// Tabla.filaSeleccionada = fila;
 
 		// teniendo la fila entonces se obtiene el objeto correspondiente para enviarse
-		// como parammetro o imprimir la informaci�n
-		System.out.println(tabla.getValueAt(fila, Tabla.CODIGO).toString() + " : "
-				+ tabla.getValueAt(fila, Tabla.PRODUCTO).toString());
+		// como parammetro o imprimir la información
+		System.out.println(
+				"PK_ID_PRODUCTO :\t\t" + tabla.getValueAt(fila, Tabla.ID).toString()
+						+ "\nCODIGO_PRODUCTO :\t\t" + tabla.getValueAt(fila, Tabla.CODIGO).toString()
+						+ "\nFK_ID_ESTADO :\t\t\t" + tabla.getValueAt(fila, Tabla.ESTADO).toString()
+						+ "\nFK_ID_ESTADO :\t\t\t"
+						+ getIndexComboItemByName(lsEstadoNombre, tabla.getValueAt(fila, Tabla.ESTADO).toString())
+						+ "\nFK_ID_CATEGORIA_PRODUCTO :\t" + tabla.getValueAt(fila, Tabla.CATEGORIA).toString()
+						+ "\nFK_ID_CATEGORIA_PRODUCTO :\t"
+						+ getIndexComboItemByName(lsCategoriaProductoNombre,
+								tabla.getValueAt(fila, Tabla.CATEGORIA).toString())
+						+ "\nFK_ID_IVA :\t\t\t" + tabla.getValueAt(fila, Tabla.IVA).toString()
+						+ "\nFK_ID_IVA :\t\t\t"
+						+ getIndexComboItemByName(lsIvaNombre, tabla.getValueAt(fila, Tabla.IVA).toString())
+						+ "\nPRODUCTO :\t\t\t" + tabla.getValueAt(fila, Tabla.PRODUCTO).toString()
+						+ "\nSTOCK :\t\t\t\t" + tabla.getValueAt(fila, Tabla.STOCK).toString()
+						+ "\nPRECIO_COMPRA :\t\t\t" + tabla.getValueAt(fila, Tabla.PRECIO_COMPRA).toString()
+						+ "\nPRECIO_VENTA :\t\t\t" + tabla.getValueAt(fila, Tabla.PRECIO_VENTA).toString()
+						+ "\nDESCRIPCION :\t\t" + tabla.getValueAt(fila, Tabla.DESCRIPCION).toString()
+						+ "\nIMAGEN :\t" + tabla.getValueAt(fila, Tabla.IMAGEN).toString()
+						+ "\nFECHA_CREACION :\t\t" + tabla.getValueAt(fila, Tabla.FECHA_CREACION).toString()
+						+ "\nFECHA_MODIFICACION :\t\t" + tabla.getValueAt(fila, Tabla.FECHA_MODIFICACION).toString());
 
+		ProductoDAC productoDAC = new ProductoDAC();
+		boolean rs = false;
+		try {
+			rs = productoDAC.setProducto(
+					tabla.getValueAt(fila, Tabla.ID).toString(),
+					tabla.getValueAt(fila, Tabla.CODIGO).toString(),
+					getIndexComboItemByName(lsEstadoNombre, tabla.getValueAt(fila, Tabla.ESTADO).toString()),
+					getIndexComboItemByName(lsCategoriaProductoNombre,
+							tabla.getValueAt(fila, Tabla.CATEGORIA).toString()),
+					getIndexComboItemByName(lsIvaNombre, tabla.getValueAt(fila, Tabla.IVA).toString()),
+					tabla.getValueAt(fila, Tabla.PRODUCTO).toString(),
+					Integer.parseInt(tabla.getValueAt(fila, Tabla.STOCK).toString()),
+					Float.parseFloat(tabla.getValueAt(fila, Tabla.PRECIO_COMPRA).toString()),
+					Float.parseFloat(tabla.getValueAt(fila, Tabla.PRECIO_VENTA).toString()),
+					tabla.getValueAt(fila, Tabla.DESCRIPCION).toString(),
+					null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (!rs) {
+			System.out.println("ERROR...!");
+		}
+
+	}
+
+	private int getIndexComboItemByName(ArrayList<String> lsItem, String item) {
+		int posicion = 0;
+
+		for (String comboItem : lsItem) {
+			posicion++;
+			if (comboItem.equalsIgnoreCase(item))
+				return posicion;
+		}
+		return -1;
 	}
 
 	// estos metododos pueden ser usados dependiendo de nuestra necesidad, por
