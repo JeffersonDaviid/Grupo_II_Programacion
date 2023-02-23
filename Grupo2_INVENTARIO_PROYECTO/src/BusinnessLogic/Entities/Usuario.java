@@ -35,6 +35,20 @@ public class Usuario {
         this.foto = foto;
     }
 
+    public Usuario(String usuario, String contrasena, String email,
+            String primerNombre, String segundoNombre, String apellidoPaterno, String apellidoMaterno, String cedula,
+            String telefono) {
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+        this.email = email;
+        this.primerNombre = primerNombre;
+        this.segundoNombre = segundoNombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.cedula = cedula;
+        this.telefono = telefono;
+    }
+
     public int getIdUsuario() {
         return idUsuario;
     }

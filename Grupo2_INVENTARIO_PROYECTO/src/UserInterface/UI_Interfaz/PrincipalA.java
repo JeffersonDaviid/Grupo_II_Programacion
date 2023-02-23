@@ -85,10 +85,10 @@ public class PrincipalA extends JFrame {
 		CONTENIDO_ACTUALIZABLE.setLayout(new GridLayout(0, 1, 0, 0));
 		// Bienvenida bienvenida = new Bienvenida("images/img_bienvenidosApp.jpg");
 		// cambiarPagina(bienvenida);
-		ActualizarInventario inventario;
+		RegistrarTrabajador r;
 		try {
-			inventario = new ActualizarInventario();
-			cambiarPagina(inventario);
+			r = new RegistrarTrabajador();
+			cambiarPagina(r);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
