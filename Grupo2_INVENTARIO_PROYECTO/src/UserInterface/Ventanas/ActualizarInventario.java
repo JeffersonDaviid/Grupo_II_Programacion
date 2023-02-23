@@ -40,7 +40,7 @@ public class ActualizarInventario extends JPanel {
 
     public ActualizarInventario() throws Exception {
         Date fechaHoraActual = new Date();
-        SimpleDateFormat formatoFechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat formatoFechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String fechaHoraCorta = formatoFechaHora.format(fechaHoraActual);
         System.out.println(fechaHoraCorta);
 
@@ -54,7 +54,7 @@ public class ActualizarInventario extends JPanel {
         ProductoBL productoCategoria = new ProductoBL();
         lsProductos = productoCategoria.getAllProducto();
         tblInventario = new CustomTable(getColumnasTabla(), lsProductos);
-        // productoCategoria.getProductoByCategoria(comboBox.getSelectedIndex() + 1));
+        // productoCategoria.getProductoByCategoria(comboBox.getSelectedIndex () + 1));
         setBackground(new Color(156, 84, 75));
         setLayout(new BorderLayout(0, 0));
         tblInventario.setBorder(new EmptyBorder(0, 15, 0, 10));
