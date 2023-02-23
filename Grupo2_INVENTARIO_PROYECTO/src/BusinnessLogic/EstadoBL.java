@@ -26,6 +26,12 @@ public class EstadoBL {
         }
     }
 
+    /**
+     * Método que retorna una lista de los nombres de los estados
+     * 
+     * @return ArrayList<String> con todos los nombres de los estados
+     * @throws Exception
+     */
     public ArrayList<String> getAllEstadoNombre() throws Exception {
         try {
             ArrayList<String> lsEstado = new ArrayList<String>();
@@ -40,6 +46,14 @@ public class EstadoBL {
         }
     }
 
+    /**
+     * Método que retorna una clase ESTADO, para lo cual necesita el id del estado
+     * que deseamos buscar
+     * 
+     * @param id es de tipo INT, y es el identificador unico del estado
+     * @return clase Estado
+     * @throws Exception
+     */
     public Estado getBLEstadoById(int id) throws Exception {
         try {
             EstadoDAC estadoDac = new EstadoDAC();

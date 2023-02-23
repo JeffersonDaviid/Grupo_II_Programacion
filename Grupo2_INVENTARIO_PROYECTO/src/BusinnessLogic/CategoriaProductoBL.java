@@ -10,7 +10,13 @@ import Framework.APP;
 import Framework.AppException;
 
 public class CategoriaProductoBL {
-
+    /**
+     * Método que permite obtener la categoria de un pruducto
+     * 
+     * @param id tipo Int, identificador de la categoria
+     * @return retorna una clase CategoriaProducto
+     * @throws Exception
+     */
     public CategoriaProducto getBLCategoriaProductoById(int id) throws Exception {
         EstadoBL estado = new EstadoBL();
         try {
@@ -29,6 +35,12 @@ public class CategoriaProductoBL {
         return null;
     }
 
+    /**
+     * Método que obtiene todos los nombres de todas las categorias de los producto
+     * 
+     * @return retorna ArrayList<String> una cadena iterable
+     * @throws Exception
+     */
     public ArrayList<String> getAllCategoriaNombre() throws Exception {
         try {
             ArrayList<String> lsEstado = new ArrayList<String>();

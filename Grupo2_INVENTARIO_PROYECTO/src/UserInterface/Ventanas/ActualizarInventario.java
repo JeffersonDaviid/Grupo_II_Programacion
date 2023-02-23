@@ -3,12 +3,14 @@ package UserInterface.Ventanas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,13 +24,10 @@ import BusinnessLogic.EstadoBL;
 import BusinnessLogic.IvaBL;
 import BusinnessLogic.ProductoBL;
 import BusinnessLogic.Entities.Producto;
-import DataAccess.EstadoDAC;
 import Framework.APP;
 import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomText;
 import UserInterface.UI_Component.CustomTable.CustomTable;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class ActualizarInventario extends JPanel {
     DefaultTableModel modelo = null;
@@ -40,6 +39,10 @@ public class ActualizarInventario extends JPanel {
     private static ArrayList<String> lsIvaNombre;
 
     public ActualizarInventario() throws Exception {
+        Date fechaHoraActual = new Date();
+        SimpleDateFormat formatoFechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        String fechaHoraCorta = formatoFechaHora.format(fechaHoraActual);
+        System.out.println(fechaHoraCorta);
 
         EstadoBL estadoBL = new EstadoBL();
         lsEstadoNombre = estadoBL.getAllEstadoNombre();
@@ -77,7 +80,7 @@ public class ActualizarInventario extends JPanel {
         panelFiltroInventario.add(lblNewLabel);
 
         JComboBox comboCategoria = new JComboBox();
-        cargarComboItems(comboCategoria, lsCategoriaProductoNombre);
+        cargarComboItems(comboCategoria, lsCategoriaProductoNombre, "Categoria");
 
         CustomButton btn_buscar_filtrar = new CustomButton("FILTRAR");
         panelFiltroInventario.add(btn_buscar_filtrar);
@@ -85,10 +88,9 @@ public class ActualizarInventario extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-
-                    if (i_busqueda.getText().isEmpty()) {
-                        // btn_buscar_filtrar = new CustomButton("hola");
-                    } else {
+                    if (i_busqueda.getText().trim().equals("Ingrese un valor")
+                            || i_busqueda.getText().trim().equals("Campo vacio")
+                            || i_busqueda.getText().trim().isEmpty()) {
                         if (comboCategoria.getSelectedIndex() == APP.BASE_DATOS_MYSQL.NINGUN_FILTRO) {
                             lsProductos = productoCategoria.getAllProducto();
                             tblInventario.construirTabla(getColumnasTabla(), lsProductos);
@@ -97,6 +99,9 @@ public class ActualizarInventario extends JPanel {
                                     productoCategoria.getProductoByCategoria(comboCategoria.getSelectedIndex()));
                             // System.out.println(comboCategoria.getSelectedIndex());
                         }
+                    } else {
+                        lsProductos = productoCategoria.getProductoByIDOrCode(i_busqueda.getText());
+                        tblInventario.construirTabla(getColumnasTabla(), lsProductos);
                     }
 
                 } catch (Exception e1) {
@@ -110,7 +115,9 @@ public class ActualizarInventario extends JPanel {
             @Override
             public void focusGained(FocusEvent e) {
 
-                if (i_busqueda.getText().trim().isEmpty()) {
+                if ((i_busqueda.getText().trim().equals("Ingrese un valor")
+                        || i_busqueda.getText().trim().equals("Campo vacio")
+                        || i_busqueda.getText().trim().isEmpty())) {
                     btn_buscar_filtrar.setText("FILTRAR");
                 } else {
                     btn_buscar_filtrar.setText("BUSCAR");
@@ -121,10 +128,12 @@ public class ActualizarInventario extends JPanel {
             @Override
             public void focusLost(FocusEvent e) {
 
-                if (i_busqueda.getText().trim().isEmpty()) {
-                    btn_buscar_filtrar.setText("BUSCAR");
-                } else {
+                if ((i_busqueda.getText().trim().equals("Ingrese un valor")
+                        || i_busqueda.getText().trim().equals("Campo vacio")
+                        || i_busqueda.getText().trim().isEmpty())) {
                     btn_buscar_filtrar.setText("FILTRAR");
+                } else {
+                    btn_buscar_filtrar.setText("BUSCAR");
                 }
 
             }
@@ -146,11 +155,11 @@ public class ActualizarInventario extends JPanel {
         panelFiltroInventario.add(comboCategoria);
 
         JComboBox comboBox_1 = new JComboBox();
-        cargarComboItems(comboBox_1, lsEstadoNombre);
+        cargarComboItems(comboBox_1, lsEstadoNombre, "Estado");
         panelFiltroInventario.add(comboBox_1);
 
         JComboBox comboBox_2 = new JComboBox();
-        cargarComboItems(comboBox_2, lsIvaNombre);
+        cargarComboItems(comboBox_2, lsIvaNombre, "Iva");
         panelFiltroInventario.add(comboBox_2);
 
         JButton btnNewButton = new JButton("SALIR");
@@ -176,9 +185,13 @@ public class ActualizarInventario extends JPanel {
         panelFiltroInventario.add(lblNewLabel_5);
     }
 
+    /**
+     * Método que permite obtener las columnas de la tabla de productos
+     * 
+     * @return retorna una lista iterable con los nombres de la tabla
+     */
     public ArrayList<String> getColumnasTabla() {
         ArrayList<String> titulosList = new ArrayList<String>();
-
         titulosList.add("ID");
         titulosList.add("Código");
         titulosList.add("Estado");
@@ -192,7 +205,7 @@ public class ActualizarInventario extends JPanel {
         titulosList.add("Fec. Registro");
         titulosList.add("Fec. Modificación");
         titulosList.add("Imagen");
-        titulosList.add(" ");
+        // titulosList.add(" ");
         titulosList.add(" ");
         return titulosList;
     }
@@ -202,8 +215,28 @@ public class ActualizarInventario extends JPanel {
 
     }
 
+    /**
+     * Método que permite cargar items en un comboBox
+     * 
+     * @param combo            elemento donde se insertarán los items
+     * @param lsItem           lista iterable con los nombres de los items
+     * @param comboItemDefecto String con nombre de un elemento valor por defecto
+     */
+    private void cargarComboItems(JComboBox combo, ArrayList<String> lsItem, String comboItemDefecto) {
+        combo.addItem(comboItemDefecto);
+        for (String item : lsItem) {
+            combo.addItem(item);
+        }
+    }
+
+    /**
+     * Método que permite cargar items en un comboBox
+     * 
+     * @param combo  elemento donde se insertarán los items
+     * @param lsItem lista iterable con los nombres de los items
+     */
     private void cargarComboItems(JComboBox combo, ArrayList<String> lsItem) {
-        combo.addItem("Ninguno");
+        combo.addItem("Seleccione");
         for (String item : lsItem) {
             combo.addItem(item);
         }

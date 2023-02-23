@@ -22,6 +22,10 @@ public class CustomButton extends JButton implements MouseListener {
         setIcon(new ImageIcon(iconPath));
     }
 
+    /**
+     * Método que coloca toda la personalización
+     * 
+     */
     void setPersonalizacion() {
         addMouseListener(this);
         setOpaque(false);

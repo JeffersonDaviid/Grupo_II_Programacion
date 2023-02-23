@@ -15,8 +15,8 @@ public class Tabla {
 	public static final int FECHA_CREACION = 10;
 	public static final int FECHA_MODIFICACION = 11;
 	public static final int IMAGEN = 12;
-	public static final int PERFIL = 13;
-	public static final int EVENTO = 14;
+	// public static final int PERFIL = 14;
+	public static final int EVENTO = 13;
 
 	public static int filaSeleccionada;
 

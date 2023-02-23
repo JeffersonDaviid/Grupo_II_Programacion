@@ -25,7 +25,7 @@ public abstract class DataHelper {
             conexion = DriverManager.getConnection(APP.GLOBAL.DB_NAME, APP.GLOBAL.DB_USER, APP.GLOBAL.DB_PASSWORD);
             // JOptionPane.showMessageDialog(null, "conexión exitosa");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error de conexión en: getConexion()" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de conexión en: getConexion() " + e.getMessage());
         }
         return conexion;
     }
@@ -70,8 +70,24 @@ public abstract class DataHelper {
         return rs;
     }
 
-    protected static boolean setResultSet(String sql) {
-        Connection conn = null; // OJO me parece que no estoy despediciando memoria
+    // protected static boolean setResultSet(String sql) {
+    // Connection conn = null; // OJO me parece que no estoy despediciando memoria
+    // Statement stmt = null;
+    // boolean rs = false;
+
+    // try {
+    // conn = getConexion();
+    // stmt = conn.createStatement(); // CRUD : select * ...
+    // rs = stmt.execute(sql);
+    // } catch (Exception e) {
+    // System.out.println("Error al obtener respuesta en : getResultSet(String sql)
+    // " + e.getMessage());
+    // }
+    // return rs;
+    // }
+
+    protected static boolean setResultSet(String sql) throws SQLException {
+        Connection conn = null;
         Statement stmt = null;
         boolean rs = false;
 
@@ -81,8 +97,16 @@ public abstract class DataHelper {
             rs = stmt.execute(sql);
         } catch (Exception e) {
             System.out.println("Error al obtener respuesta en : getResultSet(String sql) " + e.getMessage());
+        } finally { // Added finally block to ensure resources are closed properly
+            if (stmt != null) { // Added check for statement object to prevent NullPointerException
+                stmt.close(); // Close statement object
+            }
+
+            if (conn != null) { // Added check for connection object to prevent NullPointerException
+                conn.close(); // Close connection object
+            }
         }
-        return rs;
+        return rs; // Return result set boolean value
     }
 
 }

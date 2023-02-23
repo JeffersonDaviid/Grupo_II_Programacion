@@ -5,14 +5,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import javax.print.attribute.standard.RequestingUserName;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -149,7 +148,7 @@ public class CustomTable extends JPanel implements MouseListener {
 			informacion[x][Tabla.IMAGEN] = "";// lsProductos.get(x).getImagen() + "";
 			// se asignan las plabras clave para que en la clase GestionCeldas se use para
 			// asignar el icono correspondiente
-			informacion[x][Tabla.PERFIL] = "PERFIL";
+			// informacion[x][Tabla.PERFIL] = "PERFIL";
 			informacion[x][Tabla.EVENTO] = "EVENTO";
 		}
 		return informacion;
@@ -179,7 +178,8 @@ public class CustomTable extends JPanel implements MouseListener {
 		tabla.getColumnModel().getColumn(Tabla.PRECIO_COMPRA).setCellRenderer(new GestionCeldas("numerico"));
 		tabla.getColumnModel().getColumn(Tabla.PRECIO_VENTA).setCellRenderer(new GestionCeldas("numerico"));
 		tabla.getColumnModel().getColumn(Tabla.IMAGEN).setCellRenderer(new GestionCeldas("icono"));
-		tabla.getColumnModel().getColumn(Tabla.PERFIL).setCellRenderer(new GestionCeldas("icono"));
+		// tabla.getColumnModel().getColumn(Tabla.PERFIL).setCellRenderer(new
+		// GestionCeldas("icono"));
 		tabla.getColumnModel().getColumn(Tabla.EVENTO).setCellRenderer(new GestionCeldas("icono"));
 		// tabla.getColumnModel().getColumn(Tabla.ESTADO).setCellRenderer(new
 		// GestionCeldas("combo"));
@@ -188,7 +188,7 @@ public class CustomTable extends JPanel implements MouseListener {
 		// tipo texto
 		for (int i = 0; i < titulos.length; i++) {
 			if (i != Tabla.STOCK || i != Tabla.PRECIO_COMPRA || i != Tabla.PRECIO_VENTA
-					|| i != Tabla.PERFIL || i != Tabla.EVENTO || i != Tabla.IMAGEN || i != Tabla.ESTADO
+					| i != Tabla.EVENTO || i != Tabla.IMAGEN || i != Tabla.ESTADO
 					|| i != Tabla.CATEGORIA || i != Tabla.IVA)
 				tabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
 		}
@@ -255,7 +255,7 @@ public class CustomTable extends JPanel implements MouseListener {
 		tabla.getColumnModel().getColumn(Tabla.FECHA_CREACION).setPreferredWidth(130);
 		tabla.getColumnModel().getColumn(Tabla.FECHA_MODIFICACION).setPreferredWidth(130);
 		tabla.getColumnModel().getColumn(Tabla.IMAGEN).setPreferredWidth(100);
-		tabla.getColumnModel().getColumn(Tabla.PERFIL).setPreferredWidth(30);
+		// tabla.getColumnModel().getColumn(Tabla.PERFIL).setPreferredWidth(30);
 		tabla.getColumnModel().getColumn(Tabla.EVENTO).setPreferredWidth(30);
 
 		// personaliza el encabezado
@@ -296,12 +296,13 @@ public class CustomTable extends JPanel implements MouseListener {
 		 * uso la columna para valiar si corresponde a la columna de perfil garantizando
 		 * que solo se produzca algo si selecciono una fila de esa columna
 		 */
-		if (columna == Tabla.PERFIL) {
+		if (columna == Tabla.EVENTO) {
+			actualizarProductoFila(fila);
 			// sabiendo que corresponde a la columna de perfil, envio la posicion de la fila
 			// seleccionada
 			// validarSeleccionMouse(fila);
-		} else if (columna == Tabla.EVENTO) {// se valida que sea la columna del otro evento
-			actualizarProductoFila(fila);
+			// } else if (columna == Tabla.EVENTO) {// se valida que sea la columna del otro
+			// evento
 		}
 
 	}
@@ -355,13 +356,14 @@ public class CustomTable extends JPanel implements MouseListener {
 					Float.parseFloat(tabla.getValueAt(fila, Tabla.PRECIO_VENTA).toString()),
 					tabla.getValueAt(fila, Tabla.DESCRIPCION).toString(),
 					null);
+
+			JOptionPane.showMessageDialog(null,
+					"El producto " + tabla.getValueAt(fila, Tabla.CODIGO).toString() + " ha sido actualizado");
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,
+					"El producto " + tabla.getValueAt(fila, Tabla.CODIGO).toString() + " NO ha podido actualizarse");
 			e.printStackTrace();
 		}
-		if (!rs) {
-			System.out.println("ERROR...!");
-		}
-
 	}
 
 	private int getIndexComboItemByName(ArrayList<String> lsItem, String item) {
