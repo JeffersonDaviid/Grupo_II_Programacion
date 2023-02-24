@@ -6,9 +6,13 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,6 +31,7 @@ import BusinnessLogic.Entities.Producto;
 import DataAccess.ProductoDAC;
 import Framework.AppException;
 import Framework.Utilities.Tabla;
+import UserInterface.UI_Component.CustomButton;
 
 public class CustomTable extends JPanel implements MouseListener {
 
@@ -113,6 +118,10 @@ public class CustomTable extends JPanel implements MouseListener {
 		construirTabla(titulos, data);
 	}
 
+	public static String cambiarComasPorPuntos(Float cadena) {
+		return String.format("%.2f", cadena).replace(",", ".");
+	}
+
 	/**
 	 * Llena la informaci�n de la tabla usando la lista de personas trabajada
 	 * anteriormente, guardandola en una matriz que se retorna con toda
@@ -131,7 +140,6 @@ public class CustomTable extends JPanel implements MouseListener {
 		String informacion[][] = new String[lsProductos.size()][titulosList.size()];
 
 		for (int x = 0; x < informacion.length; x++) {
-			DecimalFormat df = new DecimalFormat("#.##");
 			informacion[x][Tabla.ID] = lsProductos.get(x).getIdProducto() + "";
 			informacion[x][Tabla.CODIGO] = lsProductos.get(x).getCodigoProducto() + "";
 			informacion[x][Tabla.ESTADO] = lsProductos.get(x).getFkEstado().getEstado() + "";
@@ -139,13 +147,16 @@ public class CustomTable extends JPanel implements MouseListener {
 			informacion[x][Tabla.IVA] = lsProductos.get(x).getFkIva().getNombre() + "";
 			informacion[x][Tabla.PRODUCTO] = lsProductos.get(x).getProducto() + "";
 			informacion[x][Tabla.STOCK] = lsProductos.get(x).getStock() + "";
-			informacion[x][Tabla.PRECIO_COMPRA] = Double.parseDouble(df.format(lsProductos.get(x).getPrecioCompra()))
-					+ "";
-			informacion[x][Tabla.PRECIO_VENTA] = lsProductos.get(x).getPrecioVenta() + "";
+			informacion[x][Tabla.PRECIO_COMPRA] = cambiarComasPorPuntos(lsProductos.get(x).getPrecioCompra()) + "";
+			// informacion[x][Tabla.PRECIO_COMPRA] = lsProductos.get(x).getPrecioCompra() +
+			// "";
+			// informacion[x][Tabla.PRECIO_VENTA] = lsProductos.get(x).getPrecioVenta() +
+			// "";
+			informacion[x][Tabla.PRECIO_VENTA] = cambiarComasPorPuntos(lsProductos.get(x).getPrecioVenta()) + "";
 			informacion[x][Tabla.DESCRIPCION] = lsProductos.get(x).getDescripcion() + "";
 			informacion[x][Tabla.FECHA_CREACION] = lsProductos.get(x).getFechaIngreso() + "";
 			informacion[x][Tabla.FECHA_MODIFICACION] = lsProductos.get(x).getFechaModificacion() + "";
-			informacion[x][Tabla.IMAGEN] = "";// lsProductos.get(x).getImagen() + "";
+			// informacion[x][Tabla.IMAGEN] = "";// lsProductos.get(x).getImagen() + "";
 			// se asignan las plabras clave para que en la clase GestionCeldas se use para
 			// asignar el icono correspondiente
 			// informacion[x][Tabla.PERFIL] = "PERFIL";
@@ -177,7 +188,8 @@ public class CustomTable extends JPanel implements MouseListener {
 		tabla.getColumnModel().getColumn(Tabla.STOCK).setCellRenderer(new GestionCeldas("numerico"));
 		tabla.getColumnModel().getColumn(Tabla.PRECIO_COMPRA).setCellRenderer(new GestionCeldas("numerico"));
 		tabla.getColumnModel().getColumn(Tabla.PRECIO_VENTA).setCellRenderer(new GestionCeldas("numerico"));
-		tabla.getColumnModel().getColumn(Tabla.IMAGEN).setCellRenderer(new GestionCeldas("icono"));
+		// tabla.getColumnModel().getColumn(Tabla.IMAGEN).setCellRenderer(new
+		// GestionCeldas("icono"));
 		// tabla.getColumnModel().getColumn(Tabla.PERFIL).setCellRenderer(new
 		// GestionCeldas("icono"));
 		tabla.getColumnModel().getColumn(Tabla.EVENTO).setCellRenderer(new GestionCeldas("icono"));
@@ -188,8 +200,13 @@ public class CustomTable extends JPanel implements MouseListener {
 		// tipo texto
 		for (int i = 0; i < titulos.length; i++) {
 			if (i != Tabla.STOCK || i != Tabla.PRECIO_COMPRA || i != Tabla.PRECIO_VENTA
-					| i != Tabla.EVENTO || i != Tabla.IMAGEN || i != Tabla.ESTADO
-					|| i != Tabla.CATEGORIA || i != Tabla.IVA)
+					| i != Tabla.EVENTO || i != Tabla.ESTADO || i != Tabla.CATEGORIA || i != Tabla.IVA)
+				tabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
+		}
+
+		for (int i = 0; i < titulos.length; i++) {
+			if (i == Tabla.ID || i == Tabla.CODIGO || i == Tabla.PRODUCTO
+					| i == Tabla.DESCRIPCION || i == Tabla.FECHA_CREACION || i == Tabla.FECHA_MODIFICACION)
 				tabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
 		}
 
@@ -254,8 +271,9 @@ public class CustomTable extends JPanel implements MouseListener {
 		tabla.getColumnModel().getColumn(Tabla.DESCRIPCION).setPreferredWidth(100);
 		tabla.getColumnModel().getColumn(Tabla.FECHA_CREACION).setPreferredWidth(130);
 		tabla.getColumnModel().getColumn(Tabla.FECHA_MODIFICACION).setPreferredWidth(130);
-		tabla.getColumnModel().getColumn(Tabla.IMAGEN).setPreferredWidth(100);
+		// tabla.getColumnModel().getColumn(Tabla.IMAGEN).setPreferredWidth(100);
 		// tabla.getColumnModel().getColumn(Tabla.PERFIL).setPreferredWidth(30);
+		tabla.getColumnModel().getColumn(Tabla.EVENTO).setMaxWidth(30);
 		tabla.getColumnModel().getColumn(Tabla.EVENTO).setPreferredWidth(30);
 
 		// personaliza el encabezado
@@ -268,8 +286,18 @@ public class CustomTable extends JPanel implements MouseListener {
 
 	}
 
-	public DefaultCellEditor cargarComboItems(ArrayList<String> lsItem) {
+	// public DefaultCellEditor cargarLabelImg(String path) {
+	// CustomButton label = new CustomButton();
+	// ImageIcon iconoGuardar = new ImageIcon(path);
 
+	// Icon icon_guardar = new ImageIcon(iconoGuardar.getImage());
+	// label.setIcon(icon_guardar);
+	// DefaultCellEditor comboCell = new DefaultCellEditor(combo);
+
+	// return label;
+	// }
+
+	public DefaultCellEditor cargarComboItems(ArrayList<String> lsItem) {
 		// GestionCeldaComboBox comboRender = new GestionCeldaComboBox();
 		// tabla.getColumnModel().getColumn(Tabla.ESTADO).setCellRenderer(comboRender);
 		JComboBox combo = new JComboBox<>();
@@ -336,9 +364,12 @@ public class CustomTable extends JPanel implements MouseListener {
 						+ "\nPRECIO_COMPRA :\t\t\t" + tabla.getValueAt(fila, Tabla.PRECIO_COMPRA).toString()
 						+ "\nPRECIO_VENTA :\t\t\t" + tabla.getValueAt(fila, Tabla.PRECIO_VENTA).toString()
 						+ "\nDESCRIPCION :\t\t" + tabla.getValueAt(fila, Tabla.DESCRIPCION).toString()
-						+ "\nIMAGEN :\t" + tabla.getValueAt(fila, Tabla.IMAGEN).toString()
+						// + "\nIMAGEN :\t" + tabla.getValueAt(fila, Tabla.IMAGEN).toString()
 						+ "\nFECHA_CREACION :\t\t" + tabla.getValueAt(fila, Tabla.FECHA_CREACION).toString()
 						+ "\nFECHA_MODIFICACION :\t\t" + tabla.getValueAt(fila, Tabla.FECHA_MODIFICACION).toString());
+
+		Date fechaHoraActual = new Date();
+		SimpleDateFormat formatoFechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		ProductoDAC productoDAC = new ProductoDAC();
 		boolean rs = false;
@@ -355,7 +386,7 @@ public class CustomTable extends JPanel implements MouseListener {
 					Float.parseFloat(tabla.getValueAt(fila, Tabla.PRECIO_COMPRA).toString()),
 					Float.parseFloat(tabla.getValueAt(fila, Tabla.PRECIO_VENTA).toString()),
 					tabla.getValueAt(fila, Tabla.DESCRIPCION).toString(),
-					null);
+					null, formatoFechaHora.format(fechaHoraActual));
 
 			JOptionPane.showMessageDialog(null,
 					"El producto " + tabla.getValueAt(fila, Tabla.CODIGO).toString() + " ha sido actualizado");

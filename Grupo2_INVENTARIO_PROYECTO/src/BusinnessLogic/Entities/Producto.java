@@ -11,15 +11,15 @@ public class Producto {
     private Iva fkIva;
     private String producto;
     private int stock;
-    private double precioCompra;;
-    private double precioVenta;
+    private float precioCompra;;
+    private float precioVenta;
     private String descripcion;
     private ImageIcon imagen;
     private String fechaIngreso;
     private String fechaModificacion;
 
     public Producto(String idProducto, String codigoProducto, Estado fkEstado, CategoriaProducto fkCategoriaProducto,
-            Iva fkIva, String producto, int stock, double precioCompra, double precioVenta, String descripcion,
+            Iva fkIva, String producto, int stock, float precioCompra, float precioVenta, String descripcion,
             ImageIcon imagen, String fechaIngreso, String fechaModificacion) {
         this.idProducto = idProducto;
         this.codigoProducto = codigoProducto;
@@ -92,19 +92,19 @@ public class Producto {
         this.stock = stock;
     }
 
-    public double getPrecioCompra() {
+    public float getPrecioCompra() {
         return precioCompra;
     }
 
-    public void setPrecioCompra(double precioCompra) {
+    public void setPrecioCompra(float precioCompra) {
         this.precioCompra = precioCompra;
     }
 
-    public double getPrecioVenta() {
+    public float getPrecioVenta() {
         return precioVenta;
     }
 
-    public void setPrecioVenta(double precioVenta) {
+    public void setPrecioVenta(float precioVenta) {
         this.precioVenta = precioVenta;
     }
 

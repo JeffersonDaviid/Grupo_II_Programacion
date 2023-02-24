@@ -1,4 +1,4 @@
--- Active: 1675538605226@@127.0.0.1@3306@DB_INVENTARIO
+-- Active: 1677234517062@@127.0.0.1@3306@DB_INVENTARIO
 
 /** 
  @AUTOR : JEFFERSON CHILENO
@@ -100,7 +100,7 @@ CREATE TABLE
         PRECIO_VENTA FLOAT NOT NULL DEFAULT(1),
         DESCRIPCION VARCHAR(30),
         IMAGEN longblob,
-        FECHA_CREACION VARCHAR(20) NOT NULL,
+        FECHA_CREACION VARCHAR(20) DATETIME(SMALLINT) NOT NULL,
         FECHA_MODIFICA VARCHAR(20) NOT NULL,
         PRIMARY KEY(PK_ID_PRODUCTO)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
@@ -151,7 +151,9 @@ INSERT INTO
         STOCK,
         PRECIO_COMPRA,
         PRECIO_VENTA,
-        DESCRIPCION
+        DESCRIPCION,
+        FECHA_CREACION,
+        FECHA_MODIFICA
     )
 VALUES (
         "2CD6S5",
@@ -162,7 +164,9 @@ VALUES (
         200,
         0.80,
         1.10,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     ), (
         "2CS80S8",
         "1962515100029",
@@ -172,7 +176,9 @@ VALUES (
         150,
         0.75,
         1.00,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     ), (
         "2ZZP6S8",
         "1112015100029",
@@ -182,7 +188,9 @@ VALUES (
         150,
         0.75,
         1.00,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     ), (
         "2CS8MS8",
         "1112015990029",
@@ -192,7 +200,9 @@ VALUES (
         150,
         0.75,
         1.00,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     ), (
         "2C8P6S8",
         "1112036410029",
@@ -202,7 +212,9 @@ VALUES (
         150,
         0.75,
         1.00,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     ), (
         "52SP6S8",
         "1522015100029",
@@ -212,7 +224,9 @@ VALUES (
         150,
         0.75,
         1.00,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     ), (
         "2CSPOL8",
         "1698015100029",
@@ -222,7 +236,9 @@ VALUES (
         150,
         0.75,
         1.00,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     ), (
         "2CSP6P6",
         "1100015100029",
@@ -232,7 +248,9 @@ VALUES (
         150,
         0.75,
         1.00,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     ), (
         "2CSLB6S8",
         "1362015100029",
@@ -242,7 +260,9 @@ VALUES (
         150,
         0.75,
         1.00,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     ), (
         "2C266S8",
         "3622015100029",
@@ -252,7 +272,9 @@ VALUES (
         150,
         0.75,
         1.00,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     ), (
         "2CSPBB8",
         "5149015100029",
@@ -262,7 +284,9 @@ VALUES (
         150,
         0.75,
         1.00,
-        " "
+        " ",
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
     );
 
 -----------------------------------------------------------USUARIOS---------------------------------------------

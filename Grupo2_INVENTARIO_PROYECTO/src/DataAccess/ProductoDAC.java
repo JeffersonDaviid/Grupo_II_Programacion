@@ -90,7 +90,8 @@ public class ProductoDAC extends DataHelper {
 
     public boolean setProducto(String id, String codigo, int estado, int categoriaProducto, int iva, String producto,
             int stock,
-            float precioCompra, float precioVenta, String descripcion, ImageIcon imagen) throws Exception {
+            float precioCompra, float precioVenta, String descripcion, ImageIcon imagen, String fechaModificacion)
+            throws Exception {
         try {
             String sql = "UPDATE "
                     + APP.BASE_DATOS_MYSQL.TABLA_PRODUCTO
@@ -104,11 +105,11 @@ public class ProductoDAC extends DataHelper {
                     + APP.BASE_DATOS_MYSQL.STOCK + " = " + stock + " ,"
                     + APP.BASE_DATOS_MYSQL.PRECIO_COMPRA + " = " + precioCompra + " ,"
                     + APP.BASE_DATOS_MYSQL.PRECIO_VENTA + " = " + precioVenta + " ,"
-                    + APP.BASE_DATOS_MYSQL.DESCRIPCION + " = '" + descripcion + "'"
-                    // + APP.BASE_DATOS_MYSQL.IMAGEN + " = " + imagen + " ,"
-                    // + APP.BASE_DATOS_MYSQL.IMAGEN + " = " + imagen
+                    + APP.BASE_DATOS_MYSQL.DESCRIPCION + " = '" + descripcion + "' ,"
+                    // + APP.BASE_DATOS_MYSQL.IMAGEN + " = " + imagen + " ," // PROXIMA
+                    // ACTUALIZACION
                     // + APP.BASE_DATOS_MYSQL.FECHA_CREACION + " = "+ +" ," // NUNCA CAMBIA
-                    // + APP.BASE_DATOS_MYSQL.FECHA_MODIFICACION + " = " + +" ";
+                    + APP.BASE_DATOS_MYSQL.FECHA_MODIFICACION + " = '" + fechaModificacion + "'"
                     + " WHERE "
                     + APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO + " = '" + codigo + "'";
 

@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.function.DoubleBinaryOperator;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -39,11 +40,6 @@ public class ActualizarInventario extends JPanel {
     private static ArrayList<String> lsIvaNombre;
 
     public ActualizarInventario() throws Exception {
-        Date fechaHoraActual = new Date();
-        SimpleDateFormat formatoFechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String fechaHoraCorta = formatoFechaHora.format(fechaHoraActual);
-        System.out.println(fechaHoraCorta);
-
         EstadoBL estadoBL = new EstadoBL();
         lsEstadoNombre = estadoBL.getAllEstadoNombre();
         CategoriaProductoBL categoriaBL = new CategoriaProductoBL();
@@ -204,7 +200,7 @@ public class ActualizarInventario extends JPanel {
         titulosList.add("Descripción");
         titulosList.add("Fec. Registro");
         titulosList.add("Fec. Modificación");
-        titulosList.add("Imagen");
+        // titulosList.add("Imagen");
         // titulosList.add(" ");
         titulosList.add(" ");
         return titulosList;

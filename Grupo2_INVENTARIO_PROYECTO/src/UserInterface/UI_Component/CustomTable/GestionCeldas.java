@@ -15,8 +15,6 @@ import javax.swing.table.DefaultTableCellRenderer;
  * cada celda seria un objeto personalizable
  */
 public class GestionCeldas extends DefaultTableCellRenderer {
-    ImageIcon iconoBuscar = null;
-    ImageIcon iconoGuardar = null;
 
     private String tipo = "text";
 
@@ -24,6 +22,8 @@ public class GestionCeldas extends DefaultTableCellRenderer {
     private Font normal = new Font("Verdana", Font.PLAIN, 12);
     private Font bold = new Font("Verdana", Font.BOLD, 12);
     // etiqueta que almacenará el icono a mostrar
+    // private ImageIcon iconoGuardar = null;
+    private ImageIcon iconoGuardar = new ImageIcon(getClass().getResource("/iconos/ico_guardar.png"));
     private JLabel label = new JLabel();
 
     public GestionCeldas() {
@@ -95,18 +95,23 @@ public class GestionCeldas extends DefaultTableCellRenderer {
         if (tipo.equals("icono")) {
             // iconos disponibles para ser mostrados en la etiqueta dependiendo de la
             // columna que lo contenga
-            iconoBuscar = new ImageIcon("images/iconos/ico_buscar.png");
-            iconoGuardar = new ImageIcon("images/iconos/ico_guardar.png");
 
-            Icon icon_buscar = new ImageIcon(iconoBuscar.getImage());
-            Icon icon_guardar = new ImageIcon(iconoGuardar.getImage());
+            // iconoBuscar = new ImageIcon("images/iconos/ico_buscar.png");
+            // iconoGuardar = new ImageIcon("images/iconos/ico_guardar.png");
 
-            if (String.valueOf(value).equals("PERFIL")) {
-                label.setIcon(icon_buscar);
-            } else if (String.valueOf(value).equals("EVENTO")) {
-                label.setIcon(icon_guardar);
+            // Icon icon_buscar = new ImageIcon(iconoBuscar.getImage());
+            // Icon icon_guardar = new ImageIcon(iconoGuardar.getImage());
+
+            if (String.valueOf(value).equalsIgnoreCase("EVENTO")) {
+                label.setIcon(iconoGuardar);
+                System.out.println("uno");
+            } else if (String.valueOf(value).equalsIgnoreCase("PERFIL")) {
+                System.out.println("uno");
+                // label.setIcon(icon_buscar);
             }
-            label.setHorizontalAlignment(JLabel.LEFT);
+
+            // label.setHorizontalAlignment(JLabel.LEFT);
+            //
             label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
             // return boton;
             return label;
