@@ -24,10 +24,11 @@ public abstract class DataHelper {
         try {
             conexion = DriverManager.getConnection(APP.GLOBAL.DB_NAME, APP.GLOBAL.DB_USER, APP.GLOBAL.DB_PASSWORD);
             // JOptionPane.showMessageDialog(null, "conexión exitosa");
+            return conexion;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error de conexión en: getConexion()" + e.getMessage());
         }
-        return conexion;
+        return null;
     }
 
     /***

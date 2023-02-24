@@ -17,6 +17,10 @@ public class Usuario {
     String telefono;
     ImageIcon foto;
 
+    public Usuario(){
+        
+    }
+
     public Usuario(int idUsuario, int fkIdEstado, int fkIdRol, String usuario, String contrasena, String email,
             String primerNombre, String segundoNombre, String apellidoPaterno, String apellidoMaterno, String cedula,
             String telefono, ImageIcon foto) {

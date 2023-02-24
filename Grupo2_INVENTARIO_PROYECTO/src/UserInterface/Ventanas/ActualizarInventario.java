@@ -24,6 +24,8 @@ import Framework.APP;
 import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomText;
 import UserInterface.UI_Component.CustomTable.CustomTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ActualizarInventario extends JPanel {
     DefaultTableModel modelo = null;
@@ -111,6 +113,10 @@ public class ActualizarInventario extends JPanel {
         panelFiltroInventario.add(comboBox_2);
 
         JButton btnNewButton = new JButton("SALIR");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         panelFiltroInventario.add(btnNewButton);
         btnNewButton.addMouseListener(new MouseAdapter() {
             @Override

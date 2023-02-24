@@ -3,17 +3,17 @@ package BusinnessLogic;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
+
 import BusinnessLogic.Entities.Producto;
 import DataAccess.ProductoDAC;
 import Framework.APP;
 import Framework.AppException;
 
 public class ProductoBL {
-
     /**
      * 
-     * @return Retorna una Arraylist de todos los productos DISPONIBLES/NO
-     *         DIPONIBLES
+     * @return Retorna una Arraylist de todos los productos DISPONIBLES / NO DIPONIBLES
      * @throws Exception
      */
     public ArrayList<Producto> getAllProducto() throws Exception {
@@ -88,6 +88,16 @@ public class ProductoBL {
         } catch (Exception e) {
             throw new AppException(e, getClass(), "Error en getProductoByCategoria():" + e.getMessage());
         }
+    }
+
+    public void getRegistrarProducto(Producto nuevoProducto){
+        ProductoDAC registrarProducto = new ProductoDAC();
+        registrarProducto.registrarProducto(nuevoProducto);
+    }
+
+    public void getConsultarIVA(JComboBox cbxIvaProducto){
+        ProductoDAC consultarIva = new ProductoDAC();
+        consultarIva.consultarIVA(cbxIvaProducto);
     }
 
 }

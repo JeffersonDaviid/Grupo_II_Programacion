@@ -23,7 +23,7 @@ public class ModeloTabla extends DefaultTableModel {
 	}
 
 	public ModeloTabla() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public boolean isCellEditable(int row, int column) {

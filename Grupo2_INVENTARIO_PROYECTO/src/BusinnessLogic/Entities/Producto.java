@@ -18,6 +18,10 @@ public class Producto {
     private String fechaIngreso;
     private String fechaModificacion;
 
+    public Producto(){
+        
+    }
+
     public Producto(String idProducto, String codigoProducto, Estado fkEstado, CategoriaProducto fkCategoriaProducto,
             Iva fkIva, String producto, int stock, double precioCompra, double precioVenta, String descripcion,
             ImageIcon imagen, String fechaIngreso, String fechaModificacion) {

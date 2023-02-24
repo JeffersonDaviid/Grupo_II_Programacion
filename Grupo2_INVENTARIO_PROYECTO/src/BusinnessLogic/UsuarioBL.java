@@ -73,7 +73,7 @@ public class UsuarioBL {
                         rs.getString(APP.BASE_DATOS_MYSQL.APELLIDO_MATERNO),
                         rs.getString(APP.BASE_DATOS_MYSQL.CEDULA),
                         rs.getString(APP.BASE_DATOS_MYSQL.TELEFONO),
-                        // rs.getImage("FOTO")
+                        //rs.getImage("FOTO")
                         null);
 
                 if (u.getUsuario().equalsIgnoreCase(usuario)

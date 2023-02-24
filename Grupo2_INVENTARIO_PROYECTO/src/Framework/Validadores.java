@@ -2,11 +2,14 @@ package Framework;
 
 import java.util.Scanner;
 
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+
 public class Validadores {
     public final Scanner sc = new Scanner(System.in);
 
     /**
-     * Obteniene y verifica un valor entero
+     * Obtiene y verifica un valor entero
      * 
      * @param etiqueta texto a mostrar de la petición
      * @return retorna el valor entero
@@ -29,7 +32,7 @@ public class Validadores {
     }
 
     /**
-     * Obteniene y verifica una numero decimal
+     * Obtiene y verifica un numero decimal
      * 
      * @param etiqueta texto a mostrar de la petición
      * @return retorna el valor float
@@ -52,7 +55,7 @@ public class Validadores {
     }
 
     /**
-     * Obteniene y verifica una cadena de texto
+     * Obtiene y verifica una cadena de texto
      * 
      * @param etiqueta texto a mostrar de la petición
      */
@@ -68,7 +71,7 @@ public class Validadores {
     }
 
     /**
-     * Obteniene y verifica una cadena de texto
+     * Obtiene y verifica una cadena de texto
      * 
      * @param etiqueta texto a mostrar de la petición
      */
@@ -89,5 +92,17 @@ public class Validadores {
 
     public boolean validarDatoFloat(String dato) {
         return dato.matches("([0-9]{0,9}.[0-9]{1,9})|[0-9]{1,9}");
+    }
+
+    /**
+     * Método que desactiva la opción de copiar, pegar y cortar texto de un componente
+     * 
+     * @param componente : se envía como parámetro el componente, ya sea txt, txa, etc. 
+     */
+    public static void deshabilitarCVX(JComponent componente){
+        componente.getInputMap().put(KeyStroke.getKeyStroke("control C"), "none");
+        componente.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
+        componente.getInputMap().put(KeyStroke.getKeyStroke("shift INSERT"), "none");
+        componente.getInputMap().put(KeyStroke.getKeyStroke("control X"), "none");
     }
 }
