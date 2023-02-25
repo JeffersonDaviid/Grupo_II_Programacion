@@ -5,7 +5,10 @@ import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 
+import BusinnessLogic.Entities.CategoriaProducto;
 import BusinnessLogic.Entities.Producto;
+import DataAccess.CategoriaProductoDAC;
+import DataAccess.IvaDAC;
 import DataAccess.ProductoDAC;
 import Framework.APP;
 import Framework.AppException;
@@ -96,8 +99,13 @@ public class ProductoBL {
     }
 
     public void getConsultarIVA(JComboBox cbxIvaProducto){
-        ProductoDAC consultarIva = new ProductoDAC();
+        IvaDAC consultarIva = new IvaDAC();
         consultarIva.consultarIVA(cbxIvaProducto);
+    }
+
+    public void getConsultarCategorias(JComboBox cbxCategoriaProducto){
+        CategoriaProductoDAC consultarCategoria = new CategoriaProductoDAC();
+        consultarCategoria.consultarCategorias(cbxCategoriaProducto);
     }
 
 }

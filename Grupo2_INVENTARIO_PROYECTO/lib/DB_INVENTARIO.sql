@@ -62,7 +62,7 @@ SELECT * FROM CategoriaProducto;
 
 INSERT INTO
     CategoriaProducto(NOMBRE)
-VALUES ("Escolar"), ("Cereales"), ("Higiene");
+VALUES ("Escolar"), ("Cereales"), ("Higiene"), ("Jardìn"), ("Frutas"), ("Verduras"), ("Bebidas"), ("Licores"), ("Ropa"), ("Juguetes"), ("Salud"), ("Belleza"), ("Tecnología"), ("Hogar");
 
 ------------------------------------IVA-------------------------------
 

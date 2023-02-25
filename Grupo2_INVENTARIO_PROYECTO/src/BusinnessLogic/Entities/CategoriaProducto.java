@@ -5,6 +5,11 @@ public class CategoriaProducto {
     private Estado fkIdEstado;
     private String nombre;
 
+    
+    public CategoriaProducto(){
+
+    }
+    
     public CategoriaProducto(int idCategoriaProducto, Estado fkIdEstado, String nombre) {
         this.idCategoriaProducto = idCategoriaProducto;
         this.fkIdEstado = fkIdEstado;

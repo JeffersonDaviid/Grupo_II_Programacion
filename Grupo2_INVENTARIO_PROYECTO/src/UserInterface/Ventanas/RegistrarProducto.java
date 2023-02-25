@@ -20,34 +20,41 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import BusinnessLogic.CategoriaProductoBL;
 import BusinnessLogic.IvaBL;
 import BusinnessLogic.ProductoBL;
+import BusinnessLogic.Entities.CategoriaProducto;
+import BusinnessLogic.Entities.Iva;
 import BusinnessLogic.Entities.Producto;
-import DataAccess.ProductoDAC;
 import Framework.APP;
 import Framework.Validadores;
 import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomText;
-import UserInterface.UI_Component.CustomTable.CustomTable;
 
 public class RegistrarProducto extends JPanel {
-    private DefaultTableModel modelo;
-    //ProductoDAC product = new ProductoDAC();
-    Producto nuevoProducto = new Producto();
+    DefaultTableModel modelo;
     ProductoBL productoRegistrado = new ProductoBL();
-    JTable tblProductos = new JTable();
-    public ArrayList<Producto> lsProductosRegistrados = new ArrayList<Producto>();
+    JTable tblProductos;
+    ArrayList<Producto> lsProductosRegistrados;
     
     /**
      * @throws Exception para manejar las excepciones
      */
     public RegistrarProducto() throws Exception {
-        
+        lsProductosRegistrados = new ArrayList<Producto>();
+        //Asignando la fecha "actual"
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy"); // asigna el formato requerido para la fecha
+        Date fecha = new Date(); // obtiene la fecha actual
+        String fechaActual = formatoFecha.format(fecha);
+
         /*
         * Se crean los paneles necesarios para organizar los componentes del formulario de registro de productos
         */
@@ -70,7 +77,7 @@ public class RegistrarProducto extends JPanel {
         
         JPanel panelIngresoDatos = new JPanel();
         panelLateralIzquierdo.add(panelIngresoDatos);
-        panelIngresoDatos.setLayout(new GridLayout(8, 2, 10, 10));
+        panelIngresoDatos.setLayout(new GridLayout(9, 2, 10, 10));
         
         
         /*
@@ -98,41 +105,48 @@ public class RegistrarProducto extends JPanel {
         lbTittle.setFont(new Font("Berlin Sans FB", Font.BOLD, 13));
         panelSuperior.add(lbTittle);
 
+        JLabel lbId = new JLabel("ID:");
+        lbId.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbId.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
+        panelIngresoDatos.add(lbId);
+         
+        CustomText txtId = new CustomText("", "Campo vacío");
+        txtId.setColumns(10);
+        panelIngresoDatos.add(txtId);
+
         JLabel lbNombreProducto = new JLabel("Nombre:");
-        lbNombreProducto.setHorizontalAlignment(SwingConstants.CENTER);
+        lbNombreProducto.setHorizontalAlignment(SwingConstants.RIGHT);
         lbNombreProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbNombreProducto);
          
-        CustomText txtNombreProducto = new CustomText("Ingrese el nombre", "Campo vacío");
-        panelIngresoDatos.add(txtNombreProducto);
+        CustomText txtNombreProducto = new CustomText("", "Campo vacío");
         txtNombreProducto.setColumns(10);
+        panelIngresoDatos.add(txtNombreProducto);
  
         JLabel lbCodigoProducto = new JLabel("Código:");
-        lbCodigoProducto.setHorizontalAlignment(SwingConstants.CENTER);
+        lbCodigoProducto.setHorizontalAlignment(SwingConstants.RIGHT);
         lbCodigoProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbCodigoProducto);
          
-        CustomText txtCodigoProducto = new CustomText("Ingrese el código", "Campo vacío");
-        panelIngresoDatos.add(txtCodigoProducto);
+        CustomText txtCodigoProducto = new CustomText("", "Campo vacío");
         txtCodigoProducto.setColumns(10);
+        panelIngresoDatos.add(txtCodigoProducto);
  
         JLabel lbCategoriaProducto = new JLabel("Categoría:");
-        lbCategoriaProducto.setHorizontalAlignment(SwingConstants.CENTER);
+        lbCategoriaProducto.setHorizontalAlignment(SwingConstants.RIGHT);
         lbCategoriaProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbCategoriaProducto);
         
-        //TODO Me da mala espina esta parte del cbxCategoria
         JComboBox cbxCategoriaProducto = new JComboBox();
-        cbxCategoriaProducto.addItem("Hogar");
-        cbxCategoriaProducto.addItem("Escuela");
+        productoRegistrado.getConsultarCategorias(cbxCategoriaProducto);
         panelIngresoDatos.add(cbxCategoriaProducto);
         
         JLabel lbStockProducto = new JLabel("Stock:");
-        lbStockProducto.setHorizontalAlignment(SwingConstants.CENTER);
+        lbStockProducto.setHorizontalAlignment(SwingConstants.RIGHT);
         lbStockProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbStockProducto);
         
-        CustomText txtStockProducto = new CustomText("Ingrese el stock", "Campo vacío");
+        CustomText txtStockProducto = new CustomText("", "Campo vacío");
         txtStockProducto.addKeyListener(new KeyAdapter() {
         	@Override
         	public void keyTyped(KeyEvent evt) {
@@ -141,45 +155,44 @@ public class RegistrarProducto extends JPanel {
         	}
 
         });
-        panelIngresoDatos.add(txtStockProducto);
         txtStockProducto.setColumns(10);
+        panelIngresoDatos.add(txtStockProducto);
         
         JLabel lbPrecioCompraProducto = new JLabel("Precio Compra:");
-        lbPrecioCompraProducto.setHorizontalAlignment(SwingConstants.CENTER);
+        lbPrecioCompraProducto.setHorizontalAlignment(SwingConstants.RIGHT);
         lbPrecioCompraProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbPrecioCompraProducto);
         
-        CustomText txtPrecioCompra = new CustomText("Ingrese p. compra", "Campo vacío");
+        CustomText txtPrecioCompra = new CustomText("", "Campo vacío");
         txtPrecioCompra.addKeyListener(new KeyAdapter() {
             @Override
         	public void keyTyped(KeyEvent evt) {
                 validateNumericKeyEvent(evt);
         	}
         });
-        panelIngresoDatos.add(txtPrecioCompra);
         txtPrecioCompra.setColumns(10);
+        panelIngresoDatos.add(txtPrecioCompra);
         
         JLabel lbPrecioVentaProducto = new JLabel("Precio Venta:");
-        lbPrecioVentaProducto.setHorizontalAlignment(SwingConstants.CENTER);
+        lbPrecioVentaProducto.setHorizontalAlignment(SwingConstants.RIGHT);
         lbPrecioVentaProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbPrecioVentaProducto);
         
-        CustomText txtPrecioVenta = new CustomText("Ingrese p. venta", "Campo vacío");
+        CustomText txtPrecioVenta = new CustomText("", "Campo vacío");
         txtPrecioVenta.addKeyListener(new KeyAdapter() {
             @Override
         	public void keyTyped(KeyEvent evt) {
                 validateNumericKeyEvent(evt);
         	}
         });
-        panelIngresoDatos.add(txtPrecioVenta);
         txtPrecioVenta.setColumns(10);
+        panelIngresoDatos.add(txtPrecioVenta);
         
         JLabel lbIvaProducto = new JLabel("IVA:");
-        lbIvaProducto.setHorizontalAlignment(SwingConstants.CENTER);
+        lbIvaProducto.setHorizontalAlignment(SwingConstants.RIGHT);
         lbIvaProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbIvaProducto);
         
-        //TODO revisar esta parte, me estoy saltando de capas
         JComboBox cbxIvaProducto = new JComboBox();
         productoRegistrado.getConsultarIVA(cbxIvaProducto); //Consulta en la tabla iva la expresión almacenado en "NOMBRE"
         panelIngresoDatos.add(cbxIvaProducto);
@@ -188,28 +201,12 @@ public class RegistrarProducto extends JPanel {
         * Creación de la tabla donde se mostraran los productos recien registrados
         */
 
-        //TODO Realizar la tabla donde se muestran los productos, solo falta crear la tabla
-        //Creación de la tabla donde se muestran los productos registrados
-        // tblRegistrarProducto = new CustomTable(getColumnasTabla(),productoRegistrado.getAllProducto());
-        // setBackground(new Color(156, 84, 75));
-        // setLayout(new BorderLayout(0, 0));
-        // tblRegistrarProducto.setBorder(new EmptyBorder(0, 15, 0, 10));
-        // add(tblRegistrarProducto, BorderLayout.CENTER);
-        
-        String [][] datos = {{"1", "Fernando", "Castillo", "Ecuador", "xd", "xd", "xd", "xd"},
-                             {"2", "Isabel", "Aguirre", "Colombiana", "xd", "xd", "xd", "xd"},
-                             {"3", "Jerry", "Romero", "Peru", "xd", "xd", "xd", "xd"},};
-
-        String [] cabezera = {"N°", "Nombre", "Código", "Categoría", "Stock", "Precio Compra", "Precio Venta", "IVA"};
-
         JScrollPane scroll = new JScrollPane();
         panelCentral.add(scroll);
-        //JTable tblProductos = new JTable();
-        //TODO ojo aqui
-        modelo = new DefaultTableModel();
-        refrescarTabla();
-        tblProductos.setModel(modelo);
         
+        tblProductos = new JTable();
+        modelo = new DefaultTableModel();
+        tblProductos.setModel(modelo);
         getColumnasTabla();
         scroll.setViewportView(tblProductos);
 
@@ -227,28 +224,37 @@ public class RegistrarProducto extends JPanel {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 //A continuación validamos que los campos del formulario no esten vacíos para un correcto guardado del producto
-                if( !"".equals(txtNombreProducto.getText()) ||
-                    !"".equals(txtCodigoProducto.getText()) || 
-                    !"".equals(cbxCategoriaProducto.getSelectedItem()) ||
-                    !"".equals(txtStockProducto.getText()) ||
-                    !"".equals(txtPrecioCompra.getText()) ||
-                    !"".equals(txtPrecioVenta.getText()) ||
+                if( !txtId.getText().isEmpty() &&
+                    !txtNombreProducto.getText().isEmpty() &&
+                    !txtCodigoProducto.getText().isEmpty() &&
+                    !"".equals(cbxCategoriaProducto.getSelectedItem()) &&
+                    !txtStockProducto.getText().isEmpty() &&
+                    !txtPrecioCompra.getText().isEmpty() &&
+                    !txtPrecioVenta.getText().isEmpty() &&
                     !"".equals(cbxIvaProducto.getSelectedItem()))
                 {
+                    Producto nuevoProducto = new Producto();
+                    nuevoProducto.setIdProducto(txtId.getText());
                     nuevoProducto.setProducto(txtNombreProducto.getText());
                     nuevoProducto.setCodigoProducto(txtCodigoProducto.getText());
-                    //nuevoProducto.setFkCategoriaProducto(cbxCategoriaProducto.getSelectedItem().toString());
+                    CategoriaProducto categoria = new CategoriaProducto();
+                    int idCategoria = (cbxCategoriaProducto.getSelectedIndex()+1);
+                    categoria.setIdCategoriaProducto(idCategoria);
+                    nuevoProducto.setFkCategoriaProducto(categoria);
                     nuevoProducto.setStock(Integer.parseInt(txtStockProducto.getText()));
                     nuevoProducto.setPrecioCompra(Double.parseDouble(txtPrecioCompra.getText()));
                     nuevoProducto.setPrecioVenta(Double.parseDouble(txtPrecioVenta.getText()));
-                    //nuevoProducto.setFkIva(cbxIvaProducto.getSelectedItem().toString());
-                    productoRegistrado.getRegistrarProducto(nuevoProducto);
+                    Iva iva = new Iva();
+                    int idIva = (cbxIvaProducto.getSelectedIndex()+1);
+                    iva.setId(idIva);
+                    nuevoProducto.setFkIva(iva);
+                    nuevoProducto.setFechaIngreso(fechaActual);
                     lsProductosRegistrados.add(nuevoProducto);
-                    refrescarTabla();
-                    //product.RegistrarProducto(productoRegistrado);
+                    llenarTabla();
+                    productoRegistrado.getRegistrarProducto(nuevoProducto); //TODO revisar esta linea
                     JOptionPane.showMessageDialog(null, "Producto Registrado");
                 }else{
-                    JOptionPane.showMessageDialog(null, "Error al agregar producto, verifica que los campos no esten vacíos");
+                    JOptionPane.showMessageDialog(null, "Error al agregar producto, campos vacíos");
                 }
                 
             }
@@ -261,6 +267,7 @@ public class RegistrarProducto extends JPanel {
         btnLimpiar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
+                txtId.setText("");
                 txtNombreProducto.setText("");
                 txtCodigoProducto.setText("");
                 cbxCategoriaProducto.setSelectedIndex(0);
@@ -275,6 +282,7 @@ public class RegistrarProducto extends JPanel {
         /*
          *Validadores que desactivan la opción de copiar, pegar y cortar de los componentes deseados 
          */
+        Validadores.deshabilitarCVX(txtId);
         Validadores.deshabilitarCVX(txtNombreProducto);
         Validadores.deshabilitarCVX(txtCodigoProducto);
         Validadores.deshabilitarCVX(txtStockProducto);
@@ -287,40 +295,35 @@ public class RegistrarProducto extends JPanel {
      * Método que asigna a cada columna de la tabla un título correspondiente
      */
     private void getColumnasTabla() {
-        modelo.addColumn("N°");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Código");
-        modelo.addColumn("Categoría");
-        modelo.addColumn("Stock");
-        modelo.addColumn("Precio Compra");
-        modelo.addColumn("Precio Venta");
+        modelo.addColumn("ID");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("CÓDIGO");
+        modelo.addColumn("CATEGORÍA");
+        modelo.addColumn("STOCK");
+        modelo.addColumn("PRECIO COMPRA");
+        modelo.addColumn("PRECIO VENTA");
         modelo.addColumn("IVA");
+        modelo.addColumn("FECHA REGISTRO");
     }
-
-    private void refrescarTabla() {
-        //borrar todos los elementos del modelo.
+    
+    public void llenarTabla(){
         while(modelo.getRowCount() > 0){
             modelo.removeRow(0);
         }
-
         for (Producto nuevoProducto : lsProductosRegistrados) {
-            Object p[] = new Object[8];
-            p[0] = 1;
-            p[1] = nuevoProducto.getProducto();
-            p[2] = nuevoProducto.getCodigoProducto();
-            p[3] = nuevoProducto.getFkCategoriaProducto();
-            p[4] = nuevoProducto.getStock();
-            p[5] = nuevoProducto.getPrecioCompra();
-            p[6] = nuevoProducto.getPrecioVenta();
-            p[7] = nuevoProducto.getFkIva();
-            modelo.addRow(p);
+            Object [] fila = new Object[9];
+            fila[0] = nuevoProducto.getIdProducto();
+            fila[1] = nuevoProducto.getProducto();
+            fila[2] = nuevoProducto.getCodigoProducto();
+            fila[3] = nuevoProducto.getFkCategoriaProducto().getIdCategoriaProducto();
+            fila[4] = nuevoProducto.getStock();
+            fila[5] = nuevoProducto.getPrecioCompra();
+            fila[6] = nuevoProducto.getPrecioVenta();
+            fila[7] = nuevoProducto.getFkIva().getId();
+            fila[8] = nuevoProducto.getFechaIngreso();
+            modelo.addRow(fila);
         }
-        tblProductos.setModel(modelo);
     }
-
-    // public void llenarTabla(){
-
-    // }
     
 
     /**

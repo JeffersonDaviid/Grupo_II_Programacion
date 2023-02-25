@@ -71,4 +71,19 @@ public abstract class DataHelper {
         return rs;
     }
 
+    /**
+     * Permite cerrar la conexión con la Base de Datos
+     * @throws SQLException
+     */
+    public static void cerrarConexion() throws SQLException{
+        try{
+            conexion.close();
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(null,"Error: " + e);
+            conexion.close();
+        }finally{
+            conexion.close();
+        }
+    }
+
 }
