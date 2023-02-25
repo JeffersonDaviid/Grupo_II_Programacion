@@ -1,16 +1,15 @@
 package GUI;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Rectangle;
 
 import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.Color;
 
 public class Vuelo extends JFrame {
     public Vuelo() {
@@ -61,5 +60,6 @@ public class Vuelo extends JFrame {
 
     public static void main(String[] args) throws Exception {
         Vuelo m = new Vuelo();
+        m.setVisible(true);
     }
 }
