@@ -27,7 +27,7 @@ import UserInterface.Ventanas.RevisarInventario;
 
 public class PrincipalA extends JFrame {
 
-	CustomJPanel contentPane = new CustomJPanel("images/img_fondoLoginLienzo.jpg");
+	CustomJPanel contentPane = new CustomJPanel("Grupo2_INVENTARIO_PROYECTO/images/img_fondoLoginLienzo.jpg");
 	// FondoPanel contentPane = new FondoPanel();
 	JPanel CONTENIDO_ACTUALIZABLE = new JPanel();
 
@@ -117,7 +117,7 @@ public class PrincipalA extends JFrame {
 		panelNavegacion_UsuarioDatos.add(panelImgUsuario);
 
 		JLabel img_User = new JLabel();
-		ImageIcon img_userIcon = new ImageIcon("images/img_UserIcon.png");
+		ImageIcon img_userIcon = new ImageIcon("Grupo2_INVENTARIO_PROYECTO/images/img_UserIcon.png");
 		// img_User.setLocation(13, 11);
 		// img_User.setSize(127, 127);
 		img_User.setIcon(img_userIcon);
@@ -159,7 +159,7 @@ public class PrincipalA extends JFrame {
 		panelNavegacion.add(panelNavegacion_Acciones);
 		panelNavegacion_Acciones.setLayout(new GridLayout(7, 0, 0, 15));
 
-		CustomButton btnRegistrarProducto = new CustomButton("Registrar Producto", "images/iconos/paquete.png");
+		CustomButton btnRegistrarProducto = new CustomButton("Registrar Producto", "Grupo2_INVENTARIO_PROYECTO/images/iconos/paquete.png");
 		btnRegistrarProducto.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

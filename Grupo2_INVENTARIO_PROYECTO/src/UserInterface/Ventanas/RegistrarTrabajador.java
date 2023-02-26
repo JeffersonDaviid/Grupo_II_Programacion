@@ -2,6 +2,7 @@ package UserInterface.Ventanas;
 
 import javax.swing.JPanel;
 
+import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomJPanel;
 import UserInterface.UI_Component.CustomLabel;
 import UserInterface.UI_Component.CustomText;
@@ -13,6 +14,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
 
 import BusinnessLogic.Entities.Usuario;
 
@@ -27,210 +29,223 @@ public class RegistrarTrabajador extends CustomJPanel {
     private JPasswordField passwordField;
 
     public RegistrarTrabajador() {
-        super("images/fondoRegistro.jpeg");
+        super("Grupo2_INVENTARIO_PROYECTO/images/fondoRegistro.jpeg");
         setLayout(new BorderLayout(0, 0));
 
         JPanel panel = new JPanel();
+        panel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         panel.setOpaque(false);
         add(panel, BorderLayout.NORTH);
-        panel.setLayout(new GridLayout(0, 3, 25, 25));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-        JLabel lblNewLabel_1 = new JLabel("imagen uuario");
-        lblNewLabel_1.setOpaque(false);
-        lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(lblNewLabel_1);
-
-        JLabel lblNewLabel = new JLabel("Cree un nuevo us");
+        JLabel lblNewLabel = new JLabel("Cree un nuevo Trabajador");
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(lblNewLabel);
-
-        JLabel lblNewLabel_2 = new JLabel("logo empresa");
-        lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(lblNewLabel_2);
 
         JPanel panel_1 = new JPanel();
         panel_1.setOpaque(false);
         add(panel_1, BorderLayout.CENTER);
-        panel_1.setLayout(new GridLayout(0, 11, 15, 0));
+        panel_1.setLayout(new GridLayout(9, 5, 0, 20));
+        
+        JLabel lblNewLabel1 = new JLabel("      CREDENCIA");
+        panel_1.add(lblNewLabel1);
 
-        CustomLabel lblNewLabel_7_3_6 = new CustomLabel("", "images/fondoRegistro.jpeg");
-        panel_1.add(lblNewLabel_7_3_6);
+        JLabel lblNewLabel2 = new JLabel("LES:");
+        panel_1.add(lblNewLabel2);
 
-        JLabel lblNewLabel_7_3 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3);
+        JLabel lblNewLabel3 = new JLabel("");
+        panel_1.add(lblNewLabel3);
 
-        JLabel lblNewLabel_7_3_1_13 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_13);
+        JLabel lblNewLabel4 = new JLabel("");
+        panel_1.add(lblNewLabel4);
 
-        JLabel lblNewLabel_6 = new JLabel("CREDENCIAL}");
-        panel_1.add(lblNewLabel_6);
-
-        JLabel lblNewLabel_7_3_1_5 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_5);
-
-        JLabel lblNewLabel_7_3_1 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1);
+        JLabel lblNewLabel5 = new JLabel("");
+        panel_1.add(lblNewLabel5);
+        
+        JLabel lblNewLabel_usuario = new JLabel("Usuario");
+        panel_1.add(lblNewLabel_usuario);
+        
+        JTextField Usuario_1 = new JTextField();
+        Usuario_1.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+        Usuario_1.setHorizontalAlignment(SwingConstants.CENTER);
+        Usuario_1.setColumns(10);
+        Usuario_1.setOpaque(false);
+        panel_1.add(Usuario_1);
 
         JLabel lblNewLabel_7_3_3 = new JLabel("");
         panel_1.add(lblNewLabel_7_3_3);
-
-        JLabel lblNewLabel_7_3_1_3 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_3);
-
-        JLabel lblNewLabel_7_3_5 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_5);
-
-        JLabel lblNewLabel_7_3_4 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_4);
-
-        JLabel lblNewLabel_7_3_1_12 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_12);
-
-        JLabel lblNewLabel_3 = new JLabel("DATO DE USUARIO");
-        panel_1.add(lblNewLabel_3);
-
-        JLabel lblNewLabel_4_1 = new JLabel("APELLIDO");
-        panel_1.add(lblNewLabel_4_1);
-
-        JLabel lblNewLabel_4 = new JLabel("NOMBRE");
-        panel_1.add(lblNewLabel_4);
-
-        CustomText textField_1 = new CustomText();
-        panel_1.add(textField_1);
-        textField_1.setColumns(10);
-
-        JLabel lblNewLabel_7_3_2 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_2);
-
-        JLabel lblNewLabel_4_1_1 = new JLabel("TELEFONO");
-        panel_1.add(lblNewLabel_4_1_1);
-
+        
+        JLabel lblNewLabel_contraseña = new JLabel("Contraseña");
+        panel_1.add(lblNewLabel_contraseña);
+        
         passwordField = new JPasswordField();
+        passwordField.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+        passwordField.setHorizontalAlignment(SwingConstants.CENTER);
+        passwordField.setOpaque(false);
+        //passwordField.setBounds(463, 261, 253, 30);
         panel_1.add(passwordField);
+        
+        JLabel lblNewLabel6 = new JLabel("      DATOS DEL");
+        panel_1.add(lblNewLabel6);
 
-        CustomText textField_1_1 = new CustomText();
-        textField_1_1.setColumns(10);
-        panel_1.add(textField_1_1);
+        JLabel lblNewLabel7 = new JLabel("USUARIO:");
+        panel_1.add(lblNewLabel7);
 
-        JButton btnNewButton = new JButton("New button");
+        JLabel lblNewLabel8 = new JLabel("");
+        panel_1.add(lblNewLabel8);
+
+        JLabel lblNewLabel9 = new JLabel("");
+        panel_1.add(lblNewLabel9);
+
+        JLabel lblNewLabel10 = new JLabel("");
+        panel_1.add(lblNewLabel10);
+        
+        JLabel lblNewLabel1Nombre = new JLabel("1°er Nombre:");
+        panel_1.add(lblNewLabel1Nombre);
+        
+        JTextField Nombre_1 = new JTextField();
+        Nombre_1.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+        Nombre_1.setHorizontalAlignment(SwingConstants.CENTER);
+        Nombre_1.setColumns(10);
+        Nombre_1.setOpaque(false);
+        panel_1.add(Nombre_1);
+
+        JLabel lblNewLabel11 = new JLabel("");
+        panel_1.add(lblNewLabel11);
+        
+        JLabel lblNewLabel2Nombre = new JLabel("2°do Nombre:");
+        panel_1.add(lblNewLabel2Nombre);
+        
+        JTextField Nombre_2 = new JTextField();
+        Nombre_2.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+        Nombre_2.setHorizontalAlignment(SwingConstants.CENTER);
+        Nombre_2.setColumns(10);
+        Nombre_2.setOpaque(false);
+        panel_1.add(Nombre_2);
+        
+        JLabel lblNewLabel1Apellido = new JLabel("1°er Apellido:");
+        panel_1.add(lblNewLabel1Apellido);
+        
+        JTextField Apellido_1 = new JTextField();
+        Apellido_1.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+        Apellido_1.setHorizontalAlignment(SwingConstants.CENTER);
+        Apellido_1.setColumns(10);
+        Apellido_1.setOpaque(false);
+        panel_1.add(Apellido_1);
+
+        JLabel lblNewLabel12 = new JLabel("");
+        panel_1.add(lblNewLabel12);
+        
+        JLabel lblNewLabel2Apellido = new JLabel("2°do Apellido:");
+        panel_1.add(lblNewLabel2Apellido);
+        
+        JTextField Apellido_2 = new JTextField();
+        Apellido_2.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+        Apellido_2.setHorizontalAlignment(SwingConstants.CENTER);
+        Apellido_2.setColumns(10);
+        Apellido_2.setOpaque(false);
+        panel_1.add(Apellido_2);
+        
+        JLabel lblNewLabelcedula = new JLabel("Cedula:");
+        panel_1.add(lblNewLabelcedula);
+        
+        JTextField Cedula = new JTextField();
+        Cedula.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+        Cedula.setHorizontalAlignment(SwingConstants.CENTER);
+        Cedula.setColumns(10);
+        Cedula.setOpaque(false);
+        panel_1.add(Cedula);
+
+        JLabel lblNewLabel13 = new JLabel("");
+        panel_1.add(lblNewLabel13);
+
+        JLabel lblNewLabel14 = new JLabel("");
+        panel_1.add(lblNewLabel14);
+
+        JLabel lblNewLabel15 = new JLabel("");
+        panel_1.add(lblNewLabel15);
+        
+        JLabel lblNewLabeltelefono = new JLabel("Telefono:");
+        panel_1.add(lblNewLabeltelefono);
+        
+        JTextField Telefono = new JTextField();
+        Telefono.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+        Telefono.setHorizontalAlignment(SwingConstants.CENTER);
+        Telefono.setColumns(10);
+        Telefono.setOpaque(false);
+        panel_1.add(Telefono);
+
+        JLabel lblNewLabel16 = new JLabel("");
+        panel_1.add(lblNewLabel16);
+
+        JLabel lblNewLabel17 = new JLabel("");
+        panel_1.add(lblNewLabel17);
+
+        JLabel lblNewLabel18 = new JLabel("");
+        panel_1.add(lblNewLabel18);
+        
+        JLabel lblNewLabelemail = new JLabel("Email:");
+        panel_1.add(lblNewLabelemail);
+        
+        JTextField Email = new JTextField();
+        Email.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+        Email.setHorizontalAlignment(SwingConstants.CENTER);
+        Email.setColumns(10);
+        Email.setOpaque(false);
+        panel_1.add(Email);
+
+        JLabel lblNewLabel19 = new JLabel("");
+        panel_1.add(lblNewLabel19);
+        
+        CustomButton btnNewButton = new CustomButton("Agregar");
         btnNewButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Usuario user = new Usuario(textField_1_1.getText(), new String(passwordField.getPassword()),
-                        TOOL_TIP_TEXT_KEY,
-                        TOOL_TIP_TEXT_KEY,
-                        TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY);
-
+                Usuario user = new Usuario(Usuario_1.getText(), new String(passwordField.getPassword()),
+                Nombre_1.getText(),
+                Nombre_2.getText(),
+                Apellido_1.getText(),
+                Apellido_2.getText(),
+                Cedula.getText(),
+                Telefono.getText(),
+                Email.getText());
             }
         });
         panel_1.add(btnNewButton);
 
-        JLabel lblNewLabel_7_3_1_8 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_8);
+        CustomLabel lblNewLabel20 = new CustomLabel("","Grupo2_INVENTARIO_PROYECTO/images/iconos/ico_guardar.png");
+        panel_1.add(lblNewLabel20);
 
-        JLabel lblNewLabel_7_3_1_11 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11);
-
-        JLabel lblNewLabel_7_3_1_10 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_10);
-
-        JLabel lblNewLabel_7_3_1_11_21 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_21);
-
-        JLabel lblNewLabel_7_3_1_11_20 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_20);
-
-        JLabel lblNewLabel_5 = new JLabel("CEDULA");
-        panel_1.add(lblNewLabel_5);
-
-        JLabel lblNewLabel_7_3_1_11_19 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_19);
-
-        JLabel lblNewLabel_7_3_1_11_18 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_18);
-
-        JLabel lblNewLabel_7_3_1_11_17 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_17);
-
-        JLabel lblNewLabel_7_3_1_11_16 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_16);
-
-        JLabel lblNewLabel_7_3_1_11_15 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_15);
-
-        JLabel lblNewLabel_7_3_1_11_14 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_14);
-
-        JLabel lblNewLabel_7_3_1_11_13 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_13);
-
-        JLabel lblNewLabel_7_3_1_11_12 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_12);
-
-        JLabel lblNewLabel_7_3_1_11_11 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_11);
-
-        JLabel lblNewLabel_7_3_1_11_10 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_10);
-
-        JLabel lblNewLabel_7_3_1_11_9 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_9);
-
-        JLabel lblNewLabel_7_3_1_11_8 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_8);
-
-        JLabel lblNewLabel_7_3_1_11_7 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_7);
-
-        JLabel lblNewLabel_7_3_1_11_6 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_6);
-
-        JLabel lblNewLabel_7_3_1_11_5 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_5);
-
-        JLabel lblNewLabel_7_3_1_11_4 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_4);
-
-        JLabel lblNewLabel_7_3_1_11_3 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_3);
-
-        JLabel lblNewLabel_7_3_1_11_2 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_2);
-
-        JLabel lblNewLabel_7_3_1_11_1 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_11_1);
-
-        JLabel lblNewLabel_7_3_1_9 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_9);
-
-        JLabel lblNewLabel_7_3_1_7 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_7);
-
-        JLabel lblNewLabel_7_3_1_6 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_6);
-
-        JLabel lblNewLabel_7_3_1_4 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_4);
-
-        JLabel lblNewLabel_7_3_1_2 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_2);
-
-        JLabel lblNewLabel_7_3_1_1 = new JLabel("");
-        panel_1.add(lblNewLabel_7_3_1_1);
+        JLabel lblNewLabel21 = new JLabel("");
+        panel_1.add(lblNewLabel21);
+        
+        JLabel lblNewLabel22 = new JLabel("");
+        panel_1.add(lblNewLabel22);
+        
+        JLabel lblNewLabel23 = new JLabel("");
+        panel_1.add(lblNewLabel23);
+        
+        JLabel lblNewLabel24 = new JLabel("");
+        panel_1.add(lblNewLabel24);
+        
+        JLabel lblNewLabel25 = new JLabel("");
+        panel_1.add(lblNewLabel25);
 
         JPanel panel_2 = new JPanel();
+        FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
+        flowLayout.setHgap(30);
         panel_2.setOpaque(false);
         add(panel_2, BorderLayout.EAST);
-
-        JLabel lblNewLabel_7_3_1_1_1 = new JLabel("sdasdas");
-        panel_2.add(lblNewLabel_7_3_1_1_1);
+        
+        CustomLabel lblNewLabel26 = new CustomLabel("", "Grupo2_INVENTARIO_PROYECTO/images/agregar_usuario.png");
+        panel_2.add(lblNewLabel26);
 
         JPanel panel_3 = new JPanel();
         panel_3.setOpaque(false);
         add(panel_3, BorderLayout.WEST);
-
-        JLabel lblNewLabel_7_3_1_1_1_1 = new JLabel("sdasdas");
-        panel_3.add(lblNewLabel_7_3_1_1_1_1);
-
+        panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
+        
+        CustomLabel lblNewLabel27 = new CustomLabel("", "Grupo2_INVENTARIO_PROYECTO/images/Logo_con_bordes.png");
+        panel_3.add(lblNewLabel27);
     }
 }
