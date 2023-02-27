@@ -17,6 +17,10 @@ public class Vuelo {
     private String tiempoSalida;
     private String tiempoLlegada;
 
+    public Vuelo(){
+        
+    }
+
     public Vuelo(int id, String estado, int tipoVuelo, String lugarPartida, String lugarDestino, float precioPorPersona,
             String recomendacion, String claseVuelo, String latamPass, int clasePrecio, String fechaSalida,
             String fechaVuelta, String tiempoSalida, String tiempoLlegada) {

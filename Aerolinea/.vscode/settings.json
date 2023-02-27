@@ -3,6 +3,7 @@
         "lib/**/*.jar",
         "c:\\Users\\dell\\Downloads\\AutoCompleter.jar",
         "c:\\Users\\dell\\Downloads\\jCalendar\\lib\\jcalendar-1.4.jar",
-        "AutoCompleter.jar"
+        "AutoCompleter.jar",
+        "c:\\Users\\dell\\Desktop\\EPN\\Semestre 3 - 2022 B\\Programación II\\Grupo_II_Programacion(invalid)\\Grupo2_INVENTARIO_PROYECTO\\driver-conector\\mysql-connector-java-5.1.46.jar"
     ]
 }

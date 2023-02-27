@@ -14,18 +14,11 @@ public class VueloDAC extends DataHelperSQLite {
 
     public ResultSet getAllVuelos() throws AppException{
         try {
-            String sql = "SELECT ID, NOMBRE, APELLIDO FROM PERSONA";
+            String sql = "SELECT * FROM VUELOS";
             return getResultSet(sql);
         } 
         catch (SQLException e) {
-            throw new AppException(e, getClass(), "getAllPet()");
+            throw new AppException(e, getClass(), "getAllVuelos()");
         }
     }
-
-    public ResultSet obtenerVuelos() throws SQLException {
-        String sql = "SELECT * FROM VUELOS";
-        ResultSet rs = getResultSet(sql);
-        return rs;
-    }
-
 }
