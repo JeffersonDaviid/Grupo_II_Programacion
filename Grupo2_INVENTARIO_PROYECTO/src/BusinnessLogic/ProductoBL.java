@@ -3,8 +3,12 @@ package BusinnessLogic;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
+
 import BusinnessLogic.Entities.Producto;
+import DataAccess.CategoriaProductoDAC;
 import DataAccess.ProductoDAC;
+import DataAccess.IvaDAC;
 import Framework.APP;
 import Framework.AppException;
 
@@ -129,6 +133,21 @@ public class ProductoBL {
         } catch (Exception e) {
             throw new AppException(e, getClass(), "Error en getProductoByIDOrCode(String codigo):" + e.getMessage());
         }
+    }
+
+    public void getRegistrarProducto(Producto nuevoProducto) {
+        ProductoDAC registrarProducto = new ProductoDAC();
+        registrarProducto.registrarProducto(nuevoProducto);
+    }
+
+    public void getConsultarIVA(JComboBox cbxIvaProducto) {
+        IvaDAC consultarIva = new IvaDAC();
+        consultarIva.consultarIVA(cbxIvaProducto);
+    }
+
+    public void getConsultarCategorias(JComboBox cbxCategoriaProducto) {
+        CategoriaProductoDAC consultarCategoria = new CategoriaProductoDAC();
+        consultarCategoria.consultarCategorias(cbxCategoriaProducto);
     }
 
 }

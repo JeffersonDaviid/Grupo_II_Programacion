@@ -1,11 +1,38 @@
 package DataAccess;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JComboBox;
+
+import java.sql.PreparedStatement;
 
 import Framework.APP;
 import Framework.AppException;
 
 public class IvaDAC extends DataHelper {
+
+    PreparedStatement ps;
+    ResultSet rs;
+
+    /**
+     * Permite consultar en la BD la tabla iva y asì obtener los estados de iva
+     * disponible para mostrarlos en el ComboBox
+     * 
+     * @param iva : recibe como paràmetro el JComboBox de IVA
+     */
+    public void consultarIVA(JComboBox iva) {
+        String sql = "SELECT NOMBRE FROM Iva";
+        try {
+            ps = DataHelper.getConexion().prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                iva.addItem(rs.getString("NOMBRE"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+    }
 
     public ResultSet getIvaById(int id) throws AppException {
         try {

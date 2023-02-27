@@ -96,7 +96,7 @@ public abstract class DataHelper {
             stmt = conn.createStatement(); // CRUD : select * ...
             rs = stmt.execute(sql);
         } catch (Exception e) {
-            System.out.println("Error al obtener respuesta en : getResultSet(String sql) " + e.getMessage());
+            System.out.println("Error al obtener respuesta en : setResultSet(String sql) " + e.getMessage());
         } finally { // Added finally block to ensure resources are closed properly
             if (stmt != null) { // Added check for statement object to prevent NullPointerException
                 stmt.close(); // Close statement object
@@ -107,6 +107,45 @@ public abstract class DataHelper {
             }
         }
         return rs; // Return result set boolean value
+    }
+
+    protected static int setResultSet1(String sql) throws SQLException {
+        Connection conn = null;
+        Statement stmt = null;
+        int rs = 0;
+
+        try {
+            conn = getConexion();
+            stmt = conn.createStatement(); // CRUD : select * ...
+            rs = stmt.executeUpdate(sql);
+        } catch (Exception e) {
+            System.out.println("Error al obtener respuesta en : setResultSet(String sql) " + e.getMessage());
+        } finally { // Added finally block to ensure resources are closed properly
+            if (stmt != null) { // Added check for statement object to prevent NullPointerException
+                stmt.close(); // Close statement object
+            }
+
+            if (conn != null) { // Added check for connection object to prevent NullPointerException
+                conn.close(); // Close connection object
+            }
+        }
+        return rs; // Return result set boolean value
+    }
+
+    /**
+     * Permite cerrar la conexión con la Base de Datos
+     * 
+     * @throws SQLException
+     */
+    public static void cerrarConexion() throws SQLException {
+        try {
+            conexion.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+            conexion.close();
+        } finally {
+            conexion.close();
+        }
     }
 
 }

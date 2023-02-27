@@ -1,14 +1,51 @@
 package DataAccess;
 
-import java.nio.charset.CodingErrorAction;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
+import BusinnessLogic.Entities.Producto;
 import Framework.APP;
 import Framework.AppException;
 
 public class ProductoDAC extends DataHelper {
+
+    PreparedStatement ps;
+    ResultSet rs;
+
+    /**
+     * Se conecta con la base de datos y permite registrar los datos ingresados en
+     * el formulario
+     * directamente con la tabla producto.
+     * 
+     * @param pro : del tipo Producto la cual es la entidad donde se alojan las
+     *            variables, getters y setters del producto
+     */
+    public void registrarProducto(Producto pro) {
+        String sql = "insert into " + APP.BASE_DATOS_MYSQL.TABLA_PRODUCTO + " values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            ps = DataHelper.getConexion().prepareStatement(sql);
+            ps.setString(1, pro.getIdProducto()); // idproducto
+            ps.setString(2, pro.getCodigoProducto()); // codigo
+            ps.setInt(3, 1); // estado (ez)
+            ps.setInt(4, pro.getFkCategoriaProducto().getIdCategoriaProducto()); // categoria
+            ps.setInt(5, pro.getFkIva().getId()); // iva
+            ps.setString(6, pro.getProducto()); // nombre
+            ps.setInt(7, pro.getStock()); // stock
+            ps.setDouble(8, pro.getPrecioCompra()); // preciocompra
+            ps.setDouble(9, pro.getPrecioVenta()); // precioventa
+            ps.setString(10, ""); // descripcion
+            ps.setString(11, null); // imagen
+            ps.setString(12, pro.getFechaIngreso()); // fecha creacion
+            ps.setString(13, "No modificado"); // fecha modificacion
+            ps.executeUpdate();
+            DataHelper.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
 
     public ResultSet getProducto() throws AppException {
         try {

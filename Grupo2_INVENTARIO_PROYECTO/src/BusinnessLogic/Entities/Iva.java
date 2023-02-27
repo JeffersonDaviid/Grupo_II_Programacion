@@ -4,6 +4,10 @@ public class Iva {
     private int id;
     private String nombre;
 
+    public Iva() {
+
+    }
+
     public Iva(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;

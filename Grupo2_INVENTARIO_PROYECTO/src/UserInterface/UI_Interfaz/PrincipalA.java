@@ -163,8 +163,14 @@ public class PrincipalA extends JFrame {
 		btnRegistrarProducto.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				RegistrarProducto registro = new RegistrarProducto();
-				cambiarPagina(registro);
+				// RegistrarProducto registro;
+				try {
+					RegistrarProducto registro = new RegistrarProducto();
+					cambiarPagina(registro);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				setTitle("AGREGAR NUEVO PRODUCTO");
 			}
 		});

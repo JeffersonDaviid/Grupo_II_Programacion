@@ -11,12 +11,16 @@ public class Producto {
     private Iva fkIva;
     private String producto;
     private int stock;
-    private float precioCompra;;
+    private float precioCompra;
     private float precioVenta;
     private String descripcion;
     private ImageIcon imagen;
     private String fechaIngreso;
     private String fechaModificacion;
+
+    public Producto() {
+
+    }
 
     public Producto(String idProducto, String codigoProducto, Estado fkEstado, CategoriaProducto fkCategoriaProducto,
             Iva fkIva, String producto, int stock, float precioCompra, float precioVenta, String descripcion,
