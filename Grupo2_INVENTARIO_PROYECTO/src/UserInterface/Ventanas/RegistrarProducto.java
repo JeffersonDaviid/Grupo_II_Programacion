@@ -2,7 +2,6 @@ package UserInterface.Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -11,30 +10,22 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import BusinnessLogic.CategoriaProductoBL;
-import BusinnessLogic.IvaBL;
+
 import BusinnessLogic.ProductoBL;
 import BusinnessLogic.Entities.CategoriaProducto;
 import BusinnessLogic.Entities.Iva;
 import BusinnessLogic.Entities.Producto;
-import Framework.APP;
 import Framework.Validadores;
 import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomText;

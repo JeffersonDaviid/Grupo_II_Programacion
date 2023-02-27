@@ -18,7 +18,7 @@ public enum APP {
     public final String TABLA_ESTADO = "Estado";
     public final String TABLA_CATEGORIA_PRODUCTO = "CategoriaProducto";
     public final String TABLA_IVA = "Iva";
-    public final String TABLA_PRODUCTO = "producto";
+    public final String TABLA_PRODUCTO = "Producto";
     public final String TABLA_ROL = "Rol";
     public final String TABLA_USUARIO = "Usuario";
 
