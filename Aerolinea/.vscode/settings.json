@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\dell\\Downloads\\AutoCompleter.jar",
+        "c:\\Users\\dell\\Downloads\\jCalendar\\lib\\jcalendar-1.4.jar",
+        "AutoCompleter.jar"
+    ]
+}
