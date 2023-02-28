@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -32,6 +34,7 @@ import GUI.UI_Component.CustomTextLabel;
 public class Grupo2 extends JFrame {
 
     private TextAutoCompleter autoCompletar;
+    ArrayList<Vuelo> lsVuelo;
     ArrayList<Vuelo> lsVuelos;
     
     public Grupo2() {
@@ -130,17 +133,44 @@ public class Grupo2 extends JFrame {
         
         CustomText txtOrigen = new CustomText("Ingresa origen", "Ingresa origen");
         txtOrigen.setColumns(20);
-        autoCompletar = new TextAutoCompleter(txtOrigen);
-        autoCompletar.addItem("Guayaquil");
-        autoCompletar.addItem("Guayas");
-        autoCompletar.addItem("Guarani");
-        autoCompletar.addItem("Machala");
-        autoCompletar.addItem("Manta");
+        try {
+            lsVuelo = vuelosG.GetAllVuelos();
+            autoCompletar = new TextAutoCompleter(txtOrigen);
+            Set<String> lugaresPartidaUnicos = new HashSet<String>(); //almacena la posicion de los lugares y que no se repitan
+            for (Vuelo v : lsVuelo) {
+                String lugarPartida = v.getLugarPartida();
+                if (!lugaresPartidaUnicos.contains(lugarPartida)) {
+                    autoCompletar.addItem(lugarPartida);
+                    lugaresPartidaUnicos.add(lugarPartida);
+                }
+            }
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
+        // autoCompletar.addItem("Guayaquil");
+        // autoCompletar.addItem("Guayas");
+        // autoCompletar.addItem("Guarani");
+        // autoCompletar.addItem("Machala");
+        // autoCompletar.addItem("Manta");
         panelContenedorBusquedaIda.add(txtOrigen);
         
         CustomText txtDestino = new CustomText("Ingresa destino", "Ingresa destino");
         txtDestino.setColumns(20);
         panelContenedorBusquedaIda.add(txtDestino);
+        try {
+            lsVuelo = vuelosG.GetAllVuelos();
+            autoCompletar = new TextAutoCompleter(txtDestino);
+            Set<String> lugaresDestinoUnicos = new HashSet<String>(); //almacena la posicion de los lugares y que no se repitan
+            for (Vuelo v : lsVuelo) {
+                String lugarDestino = v.getLugarDestino();
+                if (!lugaresDestinoUnicos.contains(lugarDestino)){
+                    autoCompletar.addItem(lugarDestino);
+                    lugaresDestinoUnicos.add(lugarDestino);
+                }
+            }
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
         
         CustomTextLabel txtFechaIda = new CustomTextLabel("Ida", 20);
         BorderLayout borderLayout = (BorderLayout) txtFechaIda.getLayout();
@@ -159,23 +189,7 @@ public class Grupo2 extends JFrame {
             public void mouseClicked(MouseEvent evt) {
                 try {
                     lsVuelos = vuelosG.GetAllVuelos();
-                    for (Vuelo v : lsVuelos) {
-                        System.out.println("ID de vuelo: " + v.getId());
-                        System.out.println("Estado: " + v.getEstado());
-                        System.out.println("Tipo de vuelo: " + v.getTipoVuelo());
-                        System.out.println("Lugar de partida: " + v.getLugarPartida());
-                        System.out.println("Lugar de destino: " + v.getLugarDestino());
-                        System.out.println("Precio por persona: " + v.getPrecioPorPersona());
-                        System.out.println("Recomendación: " + v.getRecomendacion());
-                        System.out.println("Clase de vuelo: " + v.getClaseVuelo());
-                        System.out.println("LATAM Pass: " + v.getLatamPass());
-                        System.out.println("Clase de precio: " + v.getClasePrecio());
-                        System.out.println("Fecha de salida: " + v.getFechaSalida());
-                        System.out.println("Fecha de vuelta: " + v.getFechaVuelta());
-                        System.out.println("Tiempo de salida: " + v.getTiempoSalida());
-                        System.out.println("Tiempo de llegada: " + v.getTiempoLlegada());
-                        System.out.println(" ");
-                    }
+                    obtenerDatosVuelos();
                 } catch (AppException e) {
                     e.printStackTrace();
                 }
@@ -218,6 +232,8 @@ public class Grupo2 extends JFrame {
                 // }
                 
             }
+
+            
         });//TODO here
         
         CustomText txtOrigenIdaVuelta = new CustomText("Ingresa origen", "Ingresa origen");
@@ -294,5 +310,25 @@ public class Grupo2 extends JFrame {
     public static void main(String[] args) throws Exception {
         Grupo2 m = new Grupo2();
         m.setVisible(true);
+    }
+
+    private void obtenerDatosVuelos() {
+        for (Vuelo v : lsVuelos) {
+            System.out.println("ID de vuelo: " + v.getId());
+            System.out.println("Estado: " + v.getEstado());
+            System.out.println("Tipo de vuelo: " + v.getTipoVuelo());
+            System.out.println("Lugar de partida: " + v.getLugarPartida());
+            System.out.println("Lugar de destino: " + v.getLugarDestino());
+            System.out.println("Precio por persona: " + v.getPrecioPorPersona());
+            System.out.println("Recomendación: " + v.getRecomendacion());
+            System.out.println("Clase de vuelo: " + v.getClaseVuelo());
+            System.out.println("LATAM Pass: " + v.getLatamPass());
+            System.out.println("Clase de precio: " + v.getClasePrecio());
+            System.out.println("Fecha de salida: " + v.getFechaSalida());
+            System.out.println("Fecha de vuelta: " + v.getFechaVuelta());
+            System.out.println("Tiempo de salida: " + v.getTiempoSalida());
+            System.out.println("Tiempo de llegada: " + v.getTiempoLlegada());
+            System.out.println(" ");
+        }
     }
 }

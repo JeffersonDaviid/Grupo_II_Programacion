@@ -69,7 +69,23 @@ VALUES (
         "jue. 13 abr",
         "06:00",
         "06:50"
-    ), (
+    ), 
+        (
+        'S',
+        2,
+        "Guaranda, GYE - Ecuador",
+        "Quito, UIO - Ecuador",
+        85.52,
+        'S',
+        "Directo",
+        'S',
+        2,
+        "jue. 2 mar",
+        "jue. 13 abr",
+        "06:00",
+        "06:50"
+    ),
+        (
         'S',
         2,
         "Guayaquil, GYE - Ecuador",
