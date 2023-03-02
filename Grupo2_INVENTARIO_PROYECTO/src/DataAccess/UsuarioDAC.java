@@ -30,7 +30,7 @@ public class UsuarioDAC extends DataHelper {
         }
     }
 
-    public int setUser(
+    public boolean setUser(
             String usuario, String contrasena, String email, String primerNombre, String segundoNombre,
             String apellidoPaterno, String apellidoMaterno,
             String cedula, String telefono) throws AppException {
@@ -61,7 +61,7 @@ public class UsuarioDAC extends DataHelper {
                     + ", '" + cedula + "'"
                     + ", '" + telefono + "'"
                     + " ) ";
-            return setResultSet1(sql);
+            return setResultSet(sql);
         } catch (Exception e) {
             throw new AppException(e, getClass(), "Error en setUser() " + e.getMessage());
         }

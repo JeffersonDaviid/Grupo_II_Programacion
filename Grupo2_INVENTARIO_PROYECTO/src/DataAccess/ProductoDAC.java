@@ -47,7 +47,13 @@ public class ProductoDAC extends DataHelper {
         }
     }
 
-    public ResultSet getProducto() throws AppException {
+    /**
+     * Busca en la base de datos todos los productos DISPONIBLES
+     * 
+     * @return Resulset: con los datos extraídos
+     * @throws AppException
+     */
+    public ResultSet getProductoDisponible() throws AppException {
         try {
             String sql = "SELECT "
                     + APP.BASE_DATOS_MYSQL.PK_ID_PRODUCTO
@@ -64,10 +70,12 @@ public class ProductoDAC extends DataHelper {
                     + ", " + APP.BASE_DATOS_MYSQL.FECHA_CREACION
                     + ", " + APP.BASE_DATOS_MYSQL.FECHA_MODIFICACION
                     + " FROM "
-                    + APP.BASE_DATOS_MYSQL.TABLA_PRODUCTO;
+                    + APP.BASE_DATOS_MYSQL.TABLA_PRODUCTO
+                    + " WHERE "
+                    + APP.BASE_DATOS_MYSQL.FK_ID_ESTADO + " = " + 1;
             return getResultSet(sql);
         } catch (Exception e) {
-            throw new AppException(e, getClass(), "getProducto() " + e.getMessage());
+            throw new AppException(e, getClass(), "getProductoDisponible() " + e.getMessage());
         }
     }
 

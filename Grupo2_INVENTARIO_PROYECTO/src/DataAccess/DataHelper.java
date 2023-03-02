@@ -119,7 +119,7 @@ public abstract class DataHelper {
             stmt = conn.createStatement(); // CRUD : select * ...
             rs = stmt.executeUpdate(sql);
         } catch (Exception e) {
-            System.out.println("Error al obtener respuesta en : setResultSet(String sql) " + e.getMessage());
+            System.out.println("Error al obtener respuesta en : setResultSet1(String sql) " + e.getMessage());
         } finally { // Added finally block to ensure resources are closed properly
             if (stmt != null) { // Added check for statement object to prevent NullPointerException
                 stmt.close(); // Close statement object

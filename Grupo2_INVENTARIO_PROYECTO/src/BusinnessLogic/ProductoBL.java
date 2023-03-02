@@ -16,15 +16,14 @@ public class ProductoBL {
 
     /**
      * 
-     * @return Retorna una Arraylist de todos los productos DISPONIBLES/NO
-     *         DIPONIBLES
+     * @return Retorna una Arraylist de todos los productos DISPONIBLES
      * @throws Exception
      */
     public ArrayList<Producto> getAllProducto() throws Exception {
         try {
             ArrayList<Producto> productos = new ArrayList<Producto>();
             ProductoDAC productoDac = new ProductoDAC();
-            ResultSet rs = productoDac.getProducto();
+            ResultSet rs = productoDac.getProductoDisponible();
 
             EstadoBL estado = new EstadoBL();
             CategoriaProductoBL categoria = new CategoriaProductoBL();
