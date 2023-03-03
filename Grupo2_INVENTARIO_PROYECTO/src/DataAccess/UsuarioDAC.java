@@ -8,10 +8,12 @@ import Framework.AppException;
 public class UsuarioDAC extends DataHelper {
 
     /**
-     * Obtiene todos los usuarios que ya se encuentran registrados en la Base de Datos
+     * Obtiene todos los usuarios que ya se encuentran registrados en la Base de
+     * Datos
      * 
      * @return : retorna los usuarios registrados
-     * @throws AppException : indica las excepciones que se pueden lanzar durante la ejecución, especificadas en la clase AppException
+     * @throws AppException : indica las excepciones que se pueden lanzar durante la
+     *                      ejecución, especificadas en la clase AppException
      */
     public ResultSet getUser() throws AppException {
         try {
@@ -37,21 +39,24 @@ public class UsuarioDAC extends DataHelper {
     }
 
     /**
-     * Permite realizar cambios en las características de un usuario, utilizado cuando se requiere actualizar un usuario
+     * Permite realizar cambios en las características de un usuario, utilizado
+     * cuando se requiere actualizar un usuario
      * 
-     * @param usuario : envia el id del usuario
-     * @param contrasena : envia la contraseña del usuario
-     * @param email : envia el email correspondiente del usuario
-     * @param primerNombre : registra el primer nombre del usuario
-     * @param segundoNombre : registra el segundo nombre del usuario
+     * @param usuario         : envia el id del usuario
+     * @param contrasena      : envia la contraseña del usuario
+     * @param email           : envia el email correspondiente del usuario
+     * @param primerNombre    : registra el primer nombre del usuario
+     * @param segundoNombre   : registra el segundo nombre del usuario
      * @param apellidoPaterno : registra el apellido paterno del usuario
      * @param apellidoMaterno : registra el apellido materno del usuario
-     * @param cedula : envia el número de cédula del usuario
-     * @param telefono : envia el número de teléfono del usuario
-     * @return : retorna el usuario con los atributos actualizados según hayan sido modificados
-     * @throws AppException : indica las excepciones que se pueden lanzar durante la ejecución, especificadas en la clase AppException
+     * @param cedula          : envia el número de cédula del usuario
+     * @param telefono        : envia el número de teléfono del usuario
+     * @return : retorna el usuario con los atributos actualizados según hayan sido
+     *         modificados
+     * @throws AppException : indica las excepciones que se pueden lanzar durante la
+     *                      ejecución, especificadas en la clase AppException
      */
-    public int setUser(
+    public boolean setUser(
             String usuario, String contrasena, String email, String primerNombre, String segundoNombre,
             String apellidoPaterno, String apellidoMaterno,
             String cedula, String telefono) throws AppException {
@@ -82,7 +87,7 @@ public class UsuarioDAC extends DataHelper {
                     + ", '" + cedula + "'"
                     + ", '" + telefono + "'"
                     + " ) ";
-            return setResultSet1(sql);
+            return setResultSet(sql);
         } catch (Exception e) {
             throw new AppException(e, getClass(), "Error en setUser() " + e.getMessage());
         }

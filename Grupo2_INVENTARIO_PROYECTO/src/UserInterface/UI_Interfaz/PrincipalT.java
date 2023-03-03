@@ -28,10 +28,10 @@ public class PrincipalT extends JFrame {
 	// FondoPanel contentPane = new FondoPanel();
 	JPanel CONTENIDO_ACTUALIZABLE = new JPanel();
 
-	// public static void main(String[] args) {
-	// PrincipalT frame = new PrincipalT();
-	// frame.setVisible(true);
-	// }
+	public static void main(String[] args) {
+		PrincipalT frame = new PrincipalT();
+		frame.setVisible(true);
+	}
 
 	public PrincipalT() {
 		try {

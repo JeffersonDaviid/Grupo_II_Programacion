@@ -13,6 +13,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
+import javax.swing.plaf.LabelUI;
 
 import BusinnessLogic.Entities.Usuario;
 import DataAccess.UsuarioDAC;
@@ -201,15 +202,15 @@ public class RegistrarTrabajador extends CustomJPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Usuario user = new Usuario(
-                        Usuario_1.getText(),
+                        Usuario_1.getText().trim(),
                         new String(passwordField.getPassword()),
-                        Nombre_1.getText(),
-                        Nombre_2.getText(),
-                        Apellido_1.getText(),
-                        Apellido_2.getText(),
-                        Cedula.getText(),
-                        Telefono.getText(),
-                        Email.getText());
+                        Nombre_1.getText().trim(),
+                        Nombre_2.getText().trim(),
+                        Apellido_1.getText().trim(),
+                        Apellido_2.getText().trim(),
+                        Cedula.getText().trim(),
+                        Telefono.getText().trim(),
+                        Email.getText().trim());
 
                 try {
                     UsuarioDAC u = new UsuarioDAC();
