@@ -387,3 +387,9 @@ VALUES (
     );
 
 SHOW TABLES;
+
+SELECT *
+FROM Producto
+WHERE
+    `PK_ID_PRODUCTO` = "DJ3K3"
+    OR `CODIGO_PRODUCTO` = "DJ 3K3";

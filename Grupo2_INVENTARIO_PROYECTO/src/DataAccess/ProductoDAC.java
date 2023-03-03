@@ -126,7 +126,7 @@ public class ProductoDAC extends DataHelper {
      * @throws AppException : indica las excepciones que se pueden lanzar durante la
      *                      ejecución, especificadas en la clase AppException
      */
-    public ResultSet getProductoByIDOrCode(String codigo) throws AppException {
+    public ResultSet getProductoPorIdOCodigo(String codigo) throws AppException {
         try {
             String sql = "SELECT "
                     + APP.BASE_DATOS_MYSQL.PK_ID_PRODUCTO
@@ -145,12 +145,12 @@ public class ProductoDAC extends DataHelper {
                     + " FROM "
                     + APP.BASE_DATOS_MYSQL.TABLA_PRODUCTO
                     + " WHERE "
-                    + APP.BASE_DATOS_MYSQL.PK_ID_PRODUCTO + " = " + codigo
+                    + APP.BASE_DATOS_MYSQL.PK_ID_PRODUCTO + " = '" + codigo + "'"
                     + " OR "
-                    + APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO + " = " + codigo;
+                    + APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO + " = '" + codigo + "'";
             return getResultSet(sql);
         } catch (Exception e) {
-            throw new AppException(e, getClass(), "Error en getProductoByIDOrCode(String codigo) " + e.getMessage());
+            throw new AppException(e, getClass(), "Error en getProductoPorIdOCodigo(String codigo) " + e.getMessage());
         }
     }
 

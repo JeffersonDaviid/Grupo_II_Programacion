@@ -93,7 +93,7 @@ public class ActualizarInventario extends JPanel {
                             // System.out.println(comboCategoria.getSelectedIndex());
                         }
                     } else {
-                        lsProductos = productoCategoria.getProductoByIDOrCode(i_busqueda.getText());
+                        lsProductos = productoCategoria.getProductoPorIdOCodigo(i_busqueda.getText());
                         tblInventario.construirTabla(getColumnasTabla(), lsProductos);
                     }
 

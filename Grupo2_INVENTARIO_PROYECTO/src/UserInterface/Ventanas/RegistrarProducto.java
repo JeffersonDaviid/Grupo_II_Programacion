@@ -259,7 +259,7 @@ public class RegistrarProducto extends JPanel {
                     nuevoProducto.setPrecioCompra(Float.parseFloat(txtPrecioCompra.getText()));
                     nuevoProducto.setPrecioVenta(Float.parseFloat(txtPrecioVenta.getText()));
                     Iva iva = new Iva();
-                    int idIva = (cbxIvaProducto.getSelectedIndex() + 1);
+                    int idIva = (cbxIvaProducto.getSelectedIndex());
                     iva.setId(idIva);
                     nuevoProducto.setFkIva(iva);
                     nuevoProducto.setFechaIngreso(formatoFechaHora.format(fechaHoraActual));
