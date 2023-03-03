@@ -204,13 +204,13 @@ public class RegistrarTrabajador extends CustomJPanel {
                 Usuario user = new Usuario(
                         Usuario_1.getText().trim(),
                         new String(passwordField.getPassword()),
+                        Email.getText().trim(),
                         Nombre_1.getText().trim(),
                         Nombre_2.getText().trim(),
                         Apellido_1.getText().trim(),
                         Apellido_2.getText().trim(),
                         Cedula.getText().trim(),
-                        Telefono.getText().trim(),
-                        Email.getText().trim());
+                        Telefono.getText().trim());
 
                 try {
                     UsuarioDAC u = new UsuarioDAC();
