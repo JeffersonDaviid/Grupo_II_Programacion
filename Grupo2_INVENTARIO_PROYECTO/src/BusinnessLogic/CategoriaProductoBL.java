@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import BusinnessLogic.Entities.CategoriaProducto;
 import DataAccess.CategoriaProductoDAC;
-import DataAccess.ProductoDAC;
 import Framework.APP;
 import Framework.AppException;
 
@@ -13,9 +12,9 @@ public class CategoriaProductoBL {
     /**
      * Método que permite obtener la categoria de un pruducto
      * 
-     * @param id tipo Int, identificador de la categoria
-     * @return retorna una clase CategoriaProducto
-     * @throws Exception
+     * @param id : tipo Int, identificador de la categoría
+     * @return : retorna una clase CategoriaProducto
+     * @throws Exception : indica las excepciones que se pueden lanzar durante la ejecución
      */
     public CategoriaProducto getBLCategoriaProductoById(int id) throws Exception {
         EstadoBL estado = new EstadoBL();
@@ -36,10 +35,10 @@ public class CategoriaProductoBL {
     }
 
     /**
-     * Método que obtiene todos los nombres de todas las categorias de los producto
+     * Método que obtiene todos los nombres de todas las categorías de los producto
      * 
-     * @return retorna ArrayList<String> una cadena iterable
-     * @throws Exception
+     * @return : retorna ArrayList<String> una cadena iterable
+     * @throws Exception : indica las excepciones que se pueden lanzar durante la ejecución
      */
     public ArrayList<String> getAllCategoriaNombre() throws Exception {
         try {

@@ -157,6 +157,11 @@ public class IniciarSesion extends JFrame {
         panel_principal.add(lbBackground);
     }
 
+    /**
+     * Permite gestionar si las credenciales de usuario son correctas para decidir el inicio de sesión
+     * 
+     * @throws Exception : indica las excepciones que se pueden lanzar durante la ejecución
+     */
     public void iniciarSesion() throws Exception {
 
         // try {
