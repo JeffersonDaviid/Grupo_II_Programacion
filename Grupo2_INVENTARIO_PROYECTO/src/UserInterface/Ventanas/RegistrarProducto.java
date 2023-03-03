@@ -218,7 +218,6 @@ public class RegistrarProducto extends JPanel {
          * @btnLimpiar: se encarga de limpiar los datos ingresados en los txt y cbx de
          * la interfaz
          */
-        // TODO Falta hacer que los datos ingresados se registren en la base de datos
         CustomButton btnAgregar = new CustomButton("Agregar", "images/iconos/save.png");
         btnAgregar.setBackground(Color.RED);
         btnAgregar.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
@@ -258,7 +257,7 @@ public class RegistrarProducto extends JPanel {
                     nuevoProducto.setFechaIngreso(formatoFechaHora.format(fechaHoraActual));
                     lsProductosRegistrados.add(nuevoProducto);
                     llenarTabla();
-                    productoRegistrado.getRegistrarProducto(nuevoProducto); // TODO revisar esta linea
+                    productoRegistrado.getRegistrarProducto(nuevoProducto);
                     JOptionPane.showMessageDialog(null, "Producto Registrado");
 
                 } else {
