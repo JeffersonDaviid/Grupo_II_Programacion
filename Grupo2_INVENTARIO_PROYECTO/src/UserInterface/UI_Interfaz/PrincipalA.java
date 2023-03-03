@@ -168,7 +168,6 @@ public class PrincipalA extends JFrame {
 					RegistrarProducto registro = new RegistrarProducto();
 					cambiarPagina(registro);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				setTitle("AGREGAR NUEVO PRODUCTO");
@@ -237,6 +236,12 @@ public class PrincipalA extends JFrame {
 
 	}
 
+	/**
+	 * Permite gestionar que ventana o interfaz se mostrara al dar clic en los botones disponibles
+	 * para esta interfaz, por ejemplo, registrar producto, actualizar inventario, etc
+	 * 
+	 * @param panel : recibe el panel que se mostrara
+	 */
 	private void cambiarPagina(JPanel panel) {
 		CONTENIDO_ACTUALIZABLE.removeAll();
 		CONTENIDO_ACTUALIZABLE.add(panel, BorderLayout.CENTER);

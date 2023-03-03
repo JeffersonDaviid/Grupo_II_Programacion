@@ -10,6 +10,12 @@ import Framework.AppException;
 
 public class EstadoBL {
 
+    /**
+     * Retorna una lista tipo Estado con todos sus atributos, es decir id y nombre
+     * 
+     * @return : ArrayList<Estado> con todos los atributos de los estados
+     * @throws Exception : indica las excepciones que se pueden lanzar durante la ejecución
+     */
     public ArrayList<Estado> getAllBLEstado() throws Exception {
         try {
             ArrayList<Estado> lsEstado = new ArrayList<Estado>();
@@ -27,10 +33,10 @@ public class EstadoBL {
     }
 
     /**
-     * Método que retorna una lista de los nombres de los estados
+     * Método que retorna una lista de los nombres de los estados disponibles acorde a la tabla Estado
      * 
-     * @return ArrayList<String> con todos los nombres de los estados
-     * @throws Exception
+     * @return : ArrayList<String> con todos los nombres de los estados
+     * @throws Exception : indica las excepciones que se pueden lanzar durante la ejecución
      */
     public ArrayList<String> getAllEstadoNombre() throws Exception {
         try {
@@ -47,12 +53,11 @@ public class EstadoBL {
     }
 
     /**
-     * Método que retorna una clase ESTADO, para lo cual necesita el id del estado
-     * que deseamos buscar
+     * Método que retorna una clase Estado, para lo cual necesita el id del estado que deseamos buscar
      * 
-     * @param id es de tipo INT, y es el identificador unico del estado
-     * @return clase Estado
-     * @throws Exception
+     * @param id : es de tipo INT, y es el identificador unico del estado
+     * @return : clase Estado
+     * @throws Exception : indica las excepciones que se pueden lanzar durante la ejecución
      */
     public Estado getBLEstadoById(int id) throws Exception {
         try {

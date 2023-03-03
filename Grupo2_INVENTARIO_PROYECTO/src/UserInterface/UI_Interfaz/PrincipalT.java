@@ -185,6 +185,12 @@ public class PrincipalT extends JFrame {
 
 	}
 
+	/**
+	 * Permite gestionar que ventana o interfaz se mostrara al dar clic en los botones disponibles
+	 * para esta interfaz, por ejemplo, venta, facturación, etc
+	 * 
+	 * @param panel : recibe el panel que se mostrara
+	 */
 	private void cambiarPagina(JPanel panel) {
 		CONTENIDO_ACTUALIZABLE.removeAll();
 		CONTENIDO_ACTUALIZABLE.add(panel, BorderLayout.CENTER);

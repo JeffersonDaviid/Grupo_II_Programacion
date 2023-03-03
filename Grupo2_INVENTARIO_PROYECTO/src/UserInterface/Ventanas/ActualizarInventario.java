@@ -181,7 +181,7 @@ public class ActualizarInventario extends JPanel {
     /**
      * Método que permite obtener las columnas de la tabla de productos
      * 
-     * @return retorna una lista iterable con los nombres de la tabla
+     * @return : retorna una lista iterable con los nombres de la tabla
      */
     public ArrayList<String> getColumnasTabla() {
         ArrayList<String> titulosList = new ArrayList<String>();
@@ -211,9 +211,9 @@ public class ActualizarInventario extends JPanel {
     /**
      * Método que permite cargar items en un comboBox
      * 
-     * @param combo            elemento donde se insertarán los items
-     * @param lsItem           lista iterable con los nombres de los items
-     * @param comboItemDefecto String con nombre de un elemento valor por defecto
+     * @param combo            : elemento donde se insertarán los items
+     * @param lsItem           : lista iterable con los nombres de los items
+     * @param comboItemDefecto : String con nombre de un elemento valor por defecto
      */
     private void cargarComboItems(JComboBox combo, ArrayList<String> lsItem, String comboItemDefecto) {
         combo.addItem(comboItemDefecto);
@@ -225,8 +225,8 @@ public class ActualizarInventario extends JPanel {
     /**
      * Método que permite cargar items en un comboBox
      * 
-     * @param combo  elemento donde se insertarán los items
-     * @param lsItem lista iterable con los nombres de los items
+     * @param combo  : elemento donde se insertarán los items
+     * @param lsItem : lista iterable con los nombres de los items
      */
     private void cargarComboItems(JComboBox combo, ArrayList<String> lsItem) {
         combo.addItem("Seleccione");
@@ -257,6 +257,12 @@ public class ActualizarInventario extends JPanel {
         // }
     }
 
+    /**
+     * Permite validar que el nombre ingresado solo contenga letras
+     * 
+     * @param valor : recibe el nombre a validar
+     * @return : true si el nombre es válido y false si no e válido
+     */
     public boolean validarNombre(String valor) {
         return valor.trim().matches("^([a-z]|[A-Z]| [a-z]| [A-Z])+$");
     }

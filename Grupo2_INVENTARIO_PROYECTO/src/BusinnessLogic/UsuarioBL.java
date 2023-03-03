@@ -13,8 +13,8 @@ public class UsuarioBL {
      * Método que devuelve todos los usuarios registrados en la base de datos los
      * activos y los inactivos
      * 
-     * @return
-     * @throws Exception
+     * @return : ArrayList<Usuario> lista de usuarios con todos sus atributos
+     * @throws Exception : indica las excepciones que se pueden lanzar durante la ejecución
      */
     public ArrayList<Usuario> getAllUser() throws Exception {
         try {
@@ -47,13 +47,13 @@ public class UsuarioBL {
 
     /**
      * Método que devuelve el usuario que se va a ingresar al sistema, que recibe
-     * como parametros el usuario, contreaña y el rol que ejerce.
+     * como parámetros el usuario, contraseña y el rol que ejerce.
      * 
-     * @param usuario
-     * @param constrasena
-     * @param rol
-     * @return
-     * @throws Exception
+     * @param usuario : recibe el nombre de usuario del personal a buscar
+     * @param constrasena : recibe la contraseña del usuario requerido
+     * @param rol : se envia el rol del personal
+     * @return : retorna los datos del usuario filtrado según los parámetros enviados
+     * @throws Exception : indica las excepciones que se pueden lanzar durante la ejecución
      */
     public Usuario getUserLogin(String usuario, char[] constrasena, int rol) throws Exception {
         try {

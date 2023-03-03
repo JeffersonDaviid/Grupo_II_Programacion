@@ -26,6 +26,7 @@ import BusinnessLogic.ProductoBL;
 import BusinnessLogic.Entities.CategoriaProducto;
 import BusinnessLogic.Entities.Iva;
 import BusinnessLogic.Entities.Producto;
+import Framework.AppException;
 import Framework.Validadores;
 import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomText;
@@ -37,7 +38,12 @@ public class RegistrarProducto extends JPanel {
     ArrayList<Producto> lsProductosRegistrados;
 
     /**
-     * @throws Exception para manejar las excepciones
+     * Constructor de la interfaz Registrar Producto donde se generan todos los
+     * componentes a mostrar
+     * y su funcionalidad
+     * 
+     * @throws Exception : indica las excepciones que se pueden lanzar durante la
+     *                   ejecución
      */
     public RegistrarProducto() throws Exception {
         lsProductosRegistrados = new ArrayList<Producto>();
@@ -213,10 +219,10 @@ public class RegistrarProducto extends JPanel {
         /*
          * Creación de los botones Agregar y Limpiar
          * 
-         * @btnAgregar: se encarga de agregar los datos del producto a la base de datos
+         * btnAgregar: se encarga de agregar los datos del producto a la Base de Datos
          * 
-         * @btnLimpiar: se encarga de limpiar los datos ingresados en los txt y cbx de
-         * la interfaz
+         * btnLimpiar: se encarga de limpiar los datos ingresados en los txt y cbx de la
+         * interfaz
          */
         CustomButton btnAgregar = new CustomButton("Agregar", "images/iconos/save.png");
         btnAgregar.setBackground(Color.RED);
@@ -257,8 +263,12 @@ public class RegistrarProducto extends JPanel {
                     nuevoProducto.setFechaIngreso(formatoFechaHora.format(fechaHoraActual));
                     lsProductosRegistrados.add(nuevoProducto);
                     llenarTabla();
-                    productoRegistrado.getRegistrarProducto(nuevoProducto);
-                    JOptionPane.showMessageDialog(null, "Producto Registrado");
+                    try {
+                        productoRegistrado.getRegistrarProducto(nuevoProducto);
+                        JOptionPane.showMessageDialog(null, "Producto Registrado");
+                    } catch (AppException e) {
+                        e.printStackTrace();
+                    }
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al agregar producto, campos vacíos");
@@ -313,6 +323,10 @@ public class RegistrarProducto extends JPanel {
         modelo.addColumn("FECHA REGISTRO");
     }
 
+    /**
+     * Permite llenar la tabla de registro de productos con los datos ingresados en
+     * el formulario
+     */
     public void llenarTabla() {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
@@ -351,7 +365,7 @@ public class RegistrarProducto extends JPanel {
      * Método para validar que las entradas ingresadas sean solo números enteros, en
      * este caso, ignora entradas como "." y "," entre otros.
      * 
-     * @param evt evento tipo KeyEvent que se activa cada vez que se teclea en la
+     * @param evt : evento tipo KeyEvent que se activa cada vez que se teclea en la
      *            caja de texto
      */
     private void validarNumeroEntero(KeyEvent evt) {
@@ -364,8 +378,8 @@ public class RegistrarProducto extends JPanel {
     /**
      * Método que permite cargar items en un comboBox
      * 
-     * @param combo  elemento donde se insertarán los items
-     * @param lsItem lista iterable con los nombres de los items
+     * @param combo  : elemento donde se insertarán los items
+     * @param lsItem : lista iterable con los nombres de los items
      */
     private void cargarComboItems(JComboBox combo, ArrayList<String> lsItem) {
         combo.addItem("Seleccione");
