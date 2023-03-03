@@ -23,6 +23,7 @@ import UserInterface.Ventanas.Bienvenida;
 import UserInterface.Ventanas.EliminarTrabajador;
 import UserInterface.Ventanas.RegistrarProducto;
 import UserInterface.Ventanas.RegistrarTrabajador;
+import UserInterface.Ventanas.ReporteVenta;
 import UserInterface.Ventanas.RevisarInventario;
 
 public class PrincipalA extends JFrame {
@@ -85,9 +86,9 @@ public class PrincipalA extends JFrame {
 		CONTENIDO_ACTUALIZABLE.setLayout(new GridLayout(0, 1, 0, 0));
 		// Bienvenida bienvenida = new Bienvenida("images/img_bienvenidosApp.jpg");
 		// cambiarPagina(bienvenida);
-		ActualizarInventario inventario;
 		try {
-			inventario = new ActualizarInventario();
+			Bienvenida inventario;
+			inventario = new Bienvenida();
 			cambiarPagina(inventario);
 		} catch (Exception e) {
 			e.printStackTrace();

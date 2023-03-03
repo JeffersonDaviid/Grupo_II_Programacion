@@ -22,6 +22,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 import BusinnessLogic.CategoriaProductoBL;
+import BusinnessLogic.IvaBL;
 import BusinnessLogic.ProductoBL;
 import BusinnessLogic.Entities.CategoriaProducto;
 import BusinnessLogic.Entities.Iva;
@@ -192,7 +193,8 @@ public class RegistrarProducto extends JPanel {
         panelIngresoDatos.add(lbIvaProducto);
 
         JComboBox cbxIvaProducto = new JComboBox();
-        productoRegistrado.getConsultarIVA(cbxIvaProducto); // Consulta en la tabla
+        IvaBL iva = new IvaBL();
+        cargarComboItems(cbxIvaProducto, iva.getAllIvaNombre());
         // iva la expresión almacenado en
         // "NOMBRE"
         panelIngresoDatos.add(cbxIvaProducto);
