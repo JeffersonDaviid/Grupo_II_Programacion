@@ -23,7 +23,6 @@ import UserInterface.Ventanas.Bienvenida;
 import UserInterface.Ventanas.EliminarTrabajador;
 import UserInterface.Ventanas.RegistrarProducto;
 import UserInterface.Ventanas.RegistrarTrabajador;
-import UserInterface.Ventanas.ReporteVenta;
 import UserInterface.Ventanas.RevisarInventario;
 
 public class PrincipalA extends JFrame {
@@ -86,9 +85,9 @@ public class PrincipalA extends JFrame {
 		CONTENIDO_ACTUALIZABLE.setLayout(new GridLayout(0, 1, 0, 0));
 		// Bienvenida bienvenida = new Bienvenida("images/img_bienvenidosApp.jpg");
 		// cambiarPagina(bienvenida);
+		ActualizarInventario inventario;
 		try {
-			Bienvenida inventario;
-			inventario = new Bienvenida();
+			inventario = new ActualizarInventario();
 			cambiarPagina(inventario);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -169,7 +168,6 @@ public class PrincipalA extends JFrame {
 					RegistrarProducto registro = new RegistrarProducto();
 					cambiarPagina(registro);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				setTitle("AGREGAR NUEVO PRODUCTO");

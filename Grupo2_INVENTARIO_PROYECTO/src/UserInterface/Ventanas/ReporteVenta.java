@@ -43,11 +43,11 @@ public class ReporteVenta extends JPanel {
 			e.printStackTrace();
 		}
 
-		factura(lsCompra);
+		generarFactura(lsCompra);
 
 	}
 
-	public static void factura(ArrayList<Compra> lsCompra) {
+	public static void generarFactura(ArrayList<Compra> lsCompra) {
 
 		// File file = new File("/home/jefferson/Escritorio/hello_world.pdf");
 		File file = new File("Facturas/hello_world3.pdf");
@@ -84,12 +84,45 @@ public class ReporteVenta extends JPanel {
 
 			System.out.println("PDF creado");
 
+			Compra c = new Compra(1, lsCompra.get(2).getProducto());
+
+			System.out.println("tamaño" + lsCompra.size());
+			if (!actualizarCantidadRepetido(c, lsCompra)) {
+				lsCompra.add(c);
+				System.out.println("hola ");
+				System.out.println(c.getIntCantidad());
+			}
+			System.out.println("tamaño" + lsCompra.size());
+
+			for (Compra compra : lsCompra) {
+				System.out.println(compra.getIntCantidad());
+			}
+
 		} catch (FileNotFoundException ex) {
 			System.out.println(ex.getMessage());
 		} catch (IOException ex) {
 			System.out.println(ex.getMessage());
 		}
 
+	}
+
+	/**
+	 * Método que se encarga de incrementar la cantidad de un determinado item
+	 * dentro de una lista, si es que este se encuentra en la lista, caso contrario
+	 * no hará nada.
+	 * 
+	 * @param compra   item que se buscará en la lista.
+	 * @param lsCompra lista que contiene el item.
+	 * @return TRUE: Si es que encontro el item, FALSE: si es que no lo encontró.
+	 */
+	public static boolean actualizarCantidadRepetido(Compra compra, ArrayList<Compra> lsCompra) {
+		for (Compra item : lsCompra) {
+			if (item.getProducto().getProducto().equals(compra.getProducto().getProducto())) {
+				item.setIntCantidad(item.getIntCantidad() + 1);
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
