@@ -22,8 +22,9 @@ public abstract class DataHelper {
      */
     public static Connection getConexion() {
         try {
-            conexion = DriverManager.getConnection(APP.GLOBAL.DB_NAME, APP.GLOBAL.DB_USER, APP.GLOBAL.DB_PASSWORD);
-            // JOptionPane.showMessageDialog(null, "conexión exitosa");
+            if (conexion == null || conexion.isClosed()) {
+                conexion = DriverManager.getConnection(APP.GLOBAL.DB_NAME, APP.GLOBAL.DB_USER, APP.GLOBAL.DB_PASSWORD);
+            }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error de conexión en: getConexion() " + e.getMessage());
         }
@@ -77,40 +78,6 @@ public abstract class DataHelper {
             rs = stmt.execute(sql);
         } catch (Exception e) {
             System.out.println("Error al obtener respuesta en : setResultSet(String sql) " + e.getMessage());
-        } finally { // Added finally block to ensure resources are closed properly
-            if (stmt != null) { // Added check for statement object to prevent NullPointerException
-                stmt.close(); // Close statement object
-            }
-
-            if (conn != null) { // Added check for connection object to prevent NullPointerException
-                conn.close(); // Close connection object
-            }
-        }
-        return rs; // Return result set boolean value
-    }
-
-    /**
-     * Permite enviar los nombres de los datos a obtener en las tablas creadas en la
-     * Base de Datos
-     * 
-     * @param sql : String que almacena el comando u orden de SQL para realizar
-     *            consultas, etc
-     * @return : retorna la ejecuciónn del ResultSet acorde a la sentencia
-     *         almacenada en el String
-     * @throws SQLException : indica las excepciones que se pueden lanzar durante la
-     *                      ejecución, del tipo SQLException
-     */
-    protected static int setResultSet1(String sql) throws SQLException {
-        Connection conn = null;
-        Statement stmt = null;
-        int rs = 0;
-
-        try {
-            conn = getConexion();
-            stmt = conn.createStatement(); // CRUD : select * ...
-            rs = stmt.executeUpdate(sql);
-        } catch (Exception e) {
-            System.out.println("Error al obtener respuesta en : setResultSet1(String sql) " + e.getMessage());
         } finally { // Added finally block to ensure resources are closed properly
             if (stmt != null) { // Added check for statement object to prevent NullPointerException
                 stmt.close(); // Close statement object
