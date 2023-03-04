@@ -18,8 +18,6 @@ import javax.swing.border.EmptyBorder;
 import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomJPanel;
 import UserInterface.Ventanas.Bienvenida;
-import UserInterface.Ventanas.Facturacion;
-import UserInterface.Ventanas.ReporteVenta;
 import UserInterface.Ventanas.Ventas;
 
 public class PrincipalT extends JFrame {
@@ -161,9 +159,7 @@ public class PrincipalT extends JFrame {
 		btnFacturacion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Facturacion iFacturacion = new Facturacion();
-				cambiarPagina(iFacturacion);
-				setTitle("FACTURACION");
+
 			}
 		});
 		btnFacturacion.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -174,9 +170,7 @@ public class PrincipalT extends JFrame {
 		btnReporteVenta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ReporteVenta iReporte = new ReporteVenta();
-				cambiarPagina(iReporte);
-				setTitle("REPORTE VENTAS");
+
 			}
 		});
 		btnReporteVenta.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -186,7 +180,8 @@ public class PrincipalT extends JFrame {
 	}
 
 	/**
-	 * Permite gestionar que ventana o interfaz se mostrara al dar clic en los botones disponibles
+	 * Permite gestionar que ventana o interfaz se mostrara al dar clic en los
+	 * botones disponibles
 	 * para esta interfaz, por ejemplo, venta, facturación, etc
 	 * 
 	 * @param panel : recibe el panel que se mostrara

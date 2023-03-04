@@ -1,19 +1,15 @@
 package UserInterface.Ventanas;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Font;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 

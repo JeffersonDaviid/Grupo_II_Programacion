@@ -24,19 +24,21 @@ import BusinnessLogic.ProductoBL;
 import BusinnessLogic.Entities.Producto;
 import Framework.APP;
 import UserInterface.UI_Component.CustomButton;
+import UserInterface.UI_Component.CustomJPanel;
 import UserInterface.UI_Component.CustomText;
 import UserInterface.UI_Component.CustomTable.CustomTable;
 
 public class ActualizarInventario extends JPanel {
     DefaultTableModel modelo = null;
     CustomTable tblInventario;
-    CustomText i_busqueda = new CustomText("Ingrese un valor", "Campo vacio");
+    CustomText txtBusqueda = new CustomText("Ingrese un valor", "Campo vacio");
     public ArrayList<Producto> lsProductos;
     private static ArrayList<String> lsEstadoNombre;
     private static ArrayList<String> lsCategoriaProductoNombre;
     private static ArrayList<String> lsIvaNombre;
 
     public ActualizarInventario() throws Exception {
+        setOpaque(false);
         EstadoBL estadoBL = new EstadoBL();
         lsEstadoNombre = estadoBL.getAllEstadoNombre();
         CategoriaProductoBL categoriaBL = new CategoriaProductoBL();
@@ -46,24 +48,28 @@ public class ActualizarInventario extends JPanel {
 
         ProductoBL productoCategoria = new ProductoBL();
         lsProductos = productoCategoria.getAllProducto();
-        tblInventario = new CustomTable(getColumnasTabla(), lsProductos);
         // productoCategoria.getProductoByCategoria(comboBox.getSelectedIndex () + 1));
         setBackground(new Color(156, 84, 75));
         setLayout(new BorderLayout(0, 0));
-        tblInventario.setBorder(new EmptyBorder(0, 15, 0, 10));
-        add(tblInventario, BorderLayout.CENTER);
+
+        CustomJPanel panelPrincipal = new CustomJPanel("images/img_fondoRegistro.jpeg");
+        add(panelPrincipal, BorderLayout.CENTER);
+        panelPrincipal.setLayout(new BorderLayout(0, 0));
 
         JPanel panelHeader = new JPanel();
-        add(panelHeader, BorderLayout.NORTH);
+        panelPrincipal.add(panelHeader, BorderLayout.NORTH);
+        panelHeader.setOpaque(false);
         panelHeader.setLayout(new GridLayout(0, 1, 0, 0));
 
         JPanel panel_1 = new JPanel();
+        panel_1.setOpaque(false);
         panelHeader.add(panel_1);
 
         JLabel lbTittle = new JLabel("INVENTARIO");
         panel_1.add(lbTittle);
 
         JPanel panelFiltroInventario = new JPanel();
+        panelFiltroInventario.setOpaque(false);
         panelFiltroInventario.setBorder(new EmptyBorder(3, 15, 3, 15));
         panelHeader.add(panelFiltroInventario);
         panelFiltroInventario.setLayout(new GridLayout(2, 5, 15, 8));
@@ -75,15 +81,15 @@ public class ActualizarInventario extends JPanel {
         JComboBox comboCategoria = new JComboBox();
         cargarComboItems(comboCategoria, lsCategoriaProductoNombre, "Categoria");
 
-        CustomButton btn_buscar_filtrar = new CustomButton("FILTRAR");
-        panelFiltroInventario.add(btn_buscar_filtrar);
-        btn_buscar_filtrar.addMouseListener(new MouseAdapter() {
+        CustomButton btnBuscarFiltrar = new CustomButton("FILTRAR");
+        panelFiltroInventario.add(btnBuscarFiltrar);
+        btnBuscarFiltrar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    if (i_busqueda.getText().trim().equals("Ingrese un valor")
-                            || i_busqueda.getText().trim().equals("Campo vacio")
-                            || i_busqueda.getText().trim().isEmpty()) {
+                    if (txtBusqueda.getText().trim().equals("Ingrese un valor")
+                            || txtBusqueda.getText().trim().equals("Campo vacio")
+                            || txtBusqueda.getText().trim().isEmpty()) {
                         if (comboCategoria.getSelectedIndex() == APP.BASE_DATOS_MYSQL.NINGUN_FILTRO) {
                             lsProductos = productoCategoria.getAllProducto();
                             tblInventario.construirTabla(getColumnasTabla(), lsProductos);
@@ -93,7 +99,7 @@ public class ActualizarInventario extends JPanel {
                             // System.out.println(comboCategoria.getSelectedIndex());
                         }
                     } else {
-                        lsProductos = productoCategoria.getProductoPorIdOCodigo(i_busqueda.getText());
+                        lsProductos = productoCategoria.getProductoPorIdOCodigo(txtBusqueda.getText());
                         tblInventario.construirTabla(getColumnasTabla(), lsProductos);
                     }
 
@@ -104,16 +110,16 @@ public class ActualizarInventario extends JPanel {
 
         });
 
-        i_busqueda.addFocusListener(new FocusAdapter() {
+        txtBusqueda.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
 
-                if ((i_busqueda.getText().trim().equals("Ingrese un valor")
-                        || i_busqueda.getText().trim().equals("Campo vacio")
-                        || i_busqueda.getText().trim().isEmpty())) {
-                    btn_buscar_filtrar.setText("FILTRAR");
+                if ((txtBusqueda.getText().trim().equals("Ingrese un valor")
+                        || txtBusqueda.getText().trim().equals("Campo vacio")
+                        || txtBusqueda.getText().trim().isEmpty())) {
+                    btnBuscarFiltrar.setText("FILTRAR");
                 } else {
-                    btn_buscar_filtrar.setText("BUSCAR");
+                    btnBuscarFiltrar.setText("BUSCAR");
                 }
 
             }
@@ -121,17 +127,17 @@ public class ActualizarInventario extends JPanel {
             @Override
             public void focusLost(FocusEvent e) {
 
-                if ((i_busqueda.getText().trim().equals("Ingrese un valor")
-                        || i_busqueda.getText().trim().equals("Campo vacio")
-                        || i_busqueda.getText().trim().isEmpty())) {
-                    btn_buscar_filtrar.setText("FILTRAR");
+                if ((txtBusqueda.getText().trim().equals("Ingrese un valor")
+                        || txtBusqueda.getText().trim().equals("Campo vacio")
+                        || txtBusqueda.getText().trim().isEmpty())) {
+                    btnBuscarFiltrar.setText("FILTRAR");
                 } else {
-                    btn_buscar_filtrar.setText("BUSCAR");
+                    btnBuscarFiltrar.setText("BUSCAR");
                 }
 
             }
         });
-        panelFiltroInventario.add(i_busqueda);
+        panelFiltroInventario.add(txtBusqueda);
 
         JLabel lblNewLabel_1 = new JLabel("");
         panelFiltroInventario.add(lblNewLabel_1);
@@ -148,14 +154,17 @@ public class ActualizarInventario extends JPanel {
         panelFiltroInventario.add(comboCategoria);
 
         JComboBox comboBox_1 = new JComboBox();
+        comboBox_1.setVisible(false);
         cargarComboItems(comboBox_1, lsEstadoNombre, "Estado");
         panelFiltroInventario.add(comboBox_1);
 
         JComboBox comboBox_2 = new JComboBox();
+        comboBox_2.setVisible(false);
         cargarComboItems(comboBox_2, lsIvaNombre, "Iva");
         panelFiltroInventario.add(comboBox_2);
 
         JButton btnNewButton = new JButton("SALIR");
+        btnNewButton.setVisible(false);
         panelFiltroInventario.add(btnNewButton);
         btnNewButton.addMouseListener(new MouseAdapter() {
 
@@ -176,6 +185,9 @@ public class ActualizarInventario extends JPanel {
 
         JLabel lblNewLabel_5 = new JLabel("");
         panelFiltroInventario.add(lblNewLabel_5);
+        tblInventario = new CustomTable(getColumnasTabla(), lsProductos);
+        panelPrincipal.add(tblInventario, BorderLayout.CENTER);
+        tblInventario.setBorder(new EmptyBorder(0, 15, 0, 10));
     }
 
     /**
@@ -197,15 +209,8 @@ public class ActualizarInventario extends JPanel {
         titulosList.add("Descripción");
         titulosList.add("Fec. Registro");
         titulosList.add("Fec. Modificación");
-        // titulosList.add("Imagen");
-        // titulosList.add(" ");
         titulosList.add(" ");
         return titulosList;
-    }
-
-    private void cargarInventario() {
-        ProductoBL producto = new ProductoBL();
-
     }
 
     /**
@@ -233,38 +238,6 @@ public class ActualizarInventario extends JPanel {
         for (String item : lsItem) {
             combo.addItem(item);
         }
-    }
-
-    public void actualizarPorCodigo() {
-
-        // try {
-        // // Variable que almacena sentencia UPDATE
-        // String SQL = "update inventario set
-        // Articulo=?,Unidad=?,Precio=?,Comentario=?,Foto=?,Fecha=?,Hora=? where
-        // Codigo=?";
-
-        // // Crear objeto para igualar a conexion
-        // PreparedStatement pat = conexion.prepareStatement(SQL);
-        // // Referencia a columnas
-        // pat.setString(1, "hola");
-        // pat.execute();
-
-        // JOptionPane.showMessageDialog(null, "ACTUALIZACION EXITOSA");
-
-        // } catch (Exception e) {
-        // JOptionPane.showMessageDialog(null, "No se podido actulizar el inventario " +
-        // e.getMessage());
-        // }
-    }
-
-    /**
-     * Permite validar que el nombre ingresado solo contenga letras
-     * 
-     * @param valor : recibe el nombre a validar
-     * @return : true si el nombre es válido y false si no e válido
-     */
-    public boolean validarNombre(String valor) {
-        return valor.trim().matches("^([a-z]|[A-Z]| [a-z]| [A-Z])+$");
     }
 
 }

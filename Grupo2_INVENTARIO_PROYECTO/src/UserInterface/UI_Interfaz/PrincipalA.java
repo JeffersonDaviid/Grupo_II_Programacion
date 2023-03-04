@@ -15,15 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import Framework.AppException;
 import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomJPanel;
 import UserInterface.Ventanas.ActualizarInventario;
 import UserInterface.Ventanas.Bienvenida;
-import UserInterface.Ventanas.EliminarTrabajador;
 import UserInterface.Ventanas.RegistrarProducto;
 import UserInterface.Ventanas.RegistrarTrabajador;
-import UserInterface.Ventanas.RevisarInventario;
 
 public class PrincipalA extends JFrame {
 
@@ -83,15 +80,8 @@ public class PrincipalA extends JFrame {
 		// -------------------------------------------------------------------------------------------------------------
 		contentPane.add(CONTENIDO_ACTUALIZABLE, BorderLayout.CENTER);
 		CONTENIDO_ACTUALIZABLE.setLayout(new GridLayout(0, 1, 0, 0));
-		// Bienvenida bienvenida = new Bienvenida("images/img_bienvenidosApp.jpg");
-		// cambiarPagina(bienvenida);
-		ActualizarInventario inventario;
-		try {
-			inventario = new ActualizarInventario();
-			cambiarPagina(inventario);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Bienvenida bienvenida = new Bienvenida("images/img_bienvenidosApp.jpg");
+		cambiarPagina(bienvenida);
 
 		// PANEL DE NAVEGACION PRINCIPAL
 		// -------------------------------------------------------------------------------------------------------------
@@ -152,6 +142,9 @@ public class PrincipalA extends JFrame {
 		btnCerrarSesion.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnCerrarSesion.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCerrarSession.add(btnCerrarSesion);
+		
+		JLabel label_1_4 = new JLabel("");
+		panelCerrarSession.add(label_1_4);
 
 		// PANEL DE NAVEGACION ACCIONES
 		JPanel panelNavegacion_Acciones = new JPanel();
@@ -190,32 +183,6 @@ public class PrincipalA extends JFrame {
 		panelNavegacion_Acciones.add(btnRegistrarTrabajador);
 		btnRegistrarTrabajador.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		CustomButton btnEliminarTrabajador = new CustomButton("Eliminar Trabajador");
-		btnEliminarTrabajador.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				EliminarTrabajador et = new EliminarTrabajador();
-				cambiarPagina(et);
-				setTitle("ELIMINAR TRABAJADOR");
-			}
-		});
-		btnEliminarTrabajador.setHorizontalTextPosition(SwingConstants.LEFT);
-		panelNavegacion_Acciones.add(btnEliminarTrabajador);
-		btnEliminarTrabajador.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		CustomButton btnListaInventario = new CustomButton("Revisar Inventario");
-		btnListaInventario.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				RevisarInventario inventario = new RevisarInventario();
-				cambiarPagina(inventario);
-				setTitle("INVENTARIO");
-			}
-		});
-		btnListaInventario.setHorizontalTextPosition(SwingConstants.LEFT);
-		panelNavegacion_Acciones.add(btnListaInventario);
-		btnListaInventario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
 		CustomButton btnActualizarInventario = new CustomButton("Actualizar Inventario");
 		btnActualizarInventario.addMouseListener(new MouseAdapter() {
 			@Override
@@ -233,12 +200,26 @@ public class PrincipalA extends JFrame {
 		btnActualizarInventario.setHorizontalTextPosition(SwingConstants.LEFT);
 		panelNavegacion_Acciones.add(btnActualizarInventario);
 		btnActualizarInventario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		JLabel label = new JLabel("");
+		panelNavegacion_Acciones.add(label);
+		
+		JLabel label_1_1 = new JLabel("");
+		panelNavegacion_Acciones.add(label_1_1);
+		
+		JLabel label_1_1_1 = new JLabel("");
+		panelNavegacion_Acciones.add(label_1_1_1);
+		
+		JLabel label_1 = new JLabel("");
+		panelNavegacion_Acciones.add(label_1);
 
 	}
 
 	/**
-	 * Permite gestionar que ventana o interfaz se mostrara al dar clic en los botones disponibles
-	 * para esta interfaz, por ejemplo, registrar producto, actualizar inventario, etc
+	 * Permite gestionar que ventana o interfaz se mostrara al dar clic en los
+	 * botones disponibles
+	 * para esta interfaz, por ejemplo, registrar producto, actualizar inventario,
+	 * etc
 	 * 
 	 * @param panel : recibe el panel que se mostrara
 	 */

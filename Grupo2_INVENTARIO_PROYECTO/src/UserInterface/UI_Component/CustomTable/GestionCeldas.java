@@ -10,22 +10,17 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-/**
- * Esta clase permite gestionar la tabla y los eventos realizados sobre ella
- * cada celda seria un objeto personalizable
- */
+import UserInterface.UI_Component.CustomLabel;
+
 public class GestionCeldas extends DefaultTableCellRenderer {
 
-    private String tipo = "text";
+    private String tipo = "texto";
 
     // se definen por defecto los tipos de datos a usar
     private Font normal = new Font("Verdana", Font.PLAIN, 12);
     private Font bold = new Font("Verdana", Font.BOLD, 12);
     // etiqueta que almacenará el icono a mostrar
-    private ImageIcon iconoGuardar = null;
-    // private ImageIcon iconoGuardar = new
-    // ImageIcon(getClass().getResource("/iconos/ico_guardar.png"));
-    private JLabel label = new JLabel();
+    private CustomLabel label = new CustomLabel("", "images/iconos/ico_guardar.png");
 
     public GestionCeldas() {
 
@@ -59,7 +54,7 @@ public class GestionCeldas extends DefaultTableCellRenderer {
 
         /*
          * Si la celda del evento es la seleccionada se asigna el fondo por defecto para
-         * la selecci�n
+         * la selección
          */
         if (selected) {
             this.setBackground(colorFondoPorDefecto);
@@ -70,8 +65,7 @@ public class GestionCeldas extends DefaultTableCellRenderer {
 
         /*
          * Se definen los tipos de datos que contendr�n las celdas basado en la
-         * instancia que
-         * se hace en la ventana de la tabla al momento de construirla
+         * instancia que se hace en la ventana de la tabla al momento de construirla
          */
         if (tipo.equals("texto")) {
             // si es tipo texto define el color de fondo del texto y de la celda as� como la
@@ -83,12 +77,9 @@ public class GestionCeldas extends DefaultTableCellRenderer {
             }
             this.setHorizontalAlignment(JLabel.LEFT);
             this.setText((String) value);
-            // this.setForeground( (selected)? new Color(255,255,255) :new Color(0,0,0) );
-            // this.setForeground( (selected)? new Color(255,255,255) :new Color(32,117,32)
-            // );
             this.setBackground((selected) ? colorFondo : Color.WHITE);
             this.setFont(normal);
-            // this.setFont(bold);
+
             return this;
         }
 
@@ -97,24 +88,11 @@ public class GestionCeldas extends DefaultTableCellRenderer {
             // iconos disponibles para ser mostrados en la etiqueta dependiendo de la
             // columna que lo contenga
 
-            // iconoBuscar = new ImageIcon("images/iconos/ico_buscar.png");
-            // iconoGuardar = new ImageIcon("images/iconos/ico_guardar.png");
-
-            // Icon icon_buscar = new ImageIcon(iconoBuscar.getImage());
-            // Icon icon_guardar = new ImageIcon(iconoGuardar.getImage());
-
-            if (String.valueOf(value).equalsIgnoreCase("EVENTO")) {
-                label.setIcon(iconoGuardar);
-                System.out.println("uno");
-            } else if (String.valueOf(value).equalsIgnoreCase("PERFIL")) {
-                System.out.println("uno");
-                // label.setIcon(icon_buscar);
+            if (String.valueOf(value).equals("EVENTO")) {
             }
 
-            // label.setHorizontalAlignment(JLabel.LEFT);
-            //
             label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-            // return boton;
+
             return label;
         }
 
@@ -125,12 +103,10 @@ public class GestionCeldas extends DefaultTableCellRenderer {
             } else {
                 colorFondo = colorFondoPorDefecto;
             }
-            // System.out.println(value);
             this.setHorizontalAlignment(JLabel.CENTER);
             this.setText((String) value);
             this.setForeground((selected) ? new Color(255, 255, 255) : new Color(32, 117, 32));
             this.setBackground((selected) ? colorFondo : Color.WHITE);
-            // this.setBackground( (selected)? colorFondo :Color.MAGENTA);
             this.setFont(bold);
             return this;
         }

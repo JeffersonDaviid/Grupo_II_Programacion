@@ -43,6 +43,7 @@ public class CustomTable extends JPanel implements MouseListener {
 	private int intColumnasTabla;
 
 	public CustomTable(ArrayList<String> lsTitutloTabla, ArrayList<Producto> lsProductos) throws Exception {
+		setOpaque(false);
 		iniciarComponentes();
 		construirTabla(lsTitutloTabla, lsProductos);
 	}
@@ -52,29 +53,6 @@ public class CustomTable extends JPanel implements MouseListener {
 		this.setLayout(new BorderLayout(0, 0));
 
 		JLabel lbTituloTabla = new JLabel("Tabla Productos");
-		lbTituloTabla.setHorizontalAlignment(SwingConstants.CENTER);
-		lbTituloTabla.setHorizontalTextPosition(SwingConstants.CENTER);
-		lbTituloTabla.setFont(new Font("Rockwell", Font.BOLD, 25));
-		this.add(lbTituloTabla, BorderLayout.NORTH);
-
-		scrollPaneTabla = new JScrollPane();
-		add(scrollPaneTabla);
-
-		tblTabla = new JTable();
-		tblTabla.setBackground(Color.WHITE);
-		tblTabla.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		tblTabla.addMouseListener(this);
-		// tblTablaSeguimiento.addKeyListener(this);
-		tblTabla.setOpaque(false);
-		scrollPaneTabla.setViewportView(tblTabla);
-
-	}
-
-	private void iniciarComponentes(String titulo) {
-		this.setBorder(new EmptyBorder(0, 0, 0, 0));
-		this.setLayout(new BorderLayout(0, 0));
-
-		JLabel lbTituloTabla = new JLabel(titulo);
 		lbTituloTabla.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTituloTabla.setHorizontalTextPosition(SwingConstants.CENTER);
 		lbTituloTabla.setFont(new Font("Rockwell", Font.BOLD, 25));
@@ -171,26 +149,29 @@ public class CustomTable extends JPanel implements MouseListener {
 
 		intFilasTabla = tblTabla.getRowCount();
 		intColumnasTabla = tblTabla.getColumnCount();
-		// ---------------------- OJO ----------------------------------------------
-		// se asigna el tipo de dato que tendrán las celdas de cada columna definida
-		// respectivamente para validar su personalización
-		tblTabla.getColumnModel().getColumn(Tabla.STOCK).setCellRenderer(new GestionCeldas("numerico"));
-		tblTabla.getColumnModel().getColumn(Tabla.PRECIO_COMPRA).setCellRenderer(new GestionCeldas("numerico"));
-		tblTabla.getColumnModel().getColumn(Tabla.PRECIO_VENTA).setCellRenderer(new GestionCeldas("numerico"));
-		tblTabla.getColumnModel().getColumn(Tabla.EVENTO).setCellRenderer(new GestionCeldas("icono"));
+
+		// // se asigna el tipo de dato que tendrán las celdas de cada columna definida
+		// // respectivamente para validar su personalización
+		// tblTabla.getColumnModel().getColumn(Tabla.STOCK).setCellRenderer(new
+		// GestionCeldas("numerico"));
+		// tblTabla.getColumnModel().getColumn(Tabla.PRECIO_COMPRA).setCellRenderer(new
+		// GestionCeldas("numerico"));
+		// tblTabla.getColumnModel().getColumn(Tabla.PRECIO_VENTA).setCellRenderer(new
+		// GestionCeldas("numerico"));
 
 		// se recorre y asigna el resto de celdas que serian las que almacenen datos de
 		// tipo texto
 		for (int i = 0; i < titulos.length; i++) {
-			if (i != Tabla.STOCK || i != Tabla.PRECIO_COMPRA || i != Tabla.PRECIO_VENTA
-					| i != Tabla.EVENTO || i != Tabla.ESTADO || i != Tabla.CATEGORIA || i != Tabla.IVA)
-				tblTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
-		}
+			if (i == Tabla.STOCK || i == Tabla.PRECIO_COMPRA || i == Tabla.PRECIO_VENTA)
+				tblTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("numerico"));
 
-		for (int i = 0; i < titulos.length; i++) {
-			if (i == Tabla.ID || i == Tabla.CODIGO || i == Tabla.PRODUCTO
-					| i == Tabla.DESCRIPCION || i == Tabla.FECHA_CREACION || i == Tabla.FECHA_MODIFICACION)
+			if (i == Tabla.ID || i == Tabla.CODIGO || i == Tabla.PRODUCTO || i == Tabla.DESCRIPCION
+					|| i == Tabla.CATEGORIA || i == Tabla.ESTADO || i == Tabla.IVA || i == Tabla.FECHA_CREACION
+					|| i == Tabla.FECHA_MODIFICACION)
 				tblTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
+
+			if (i == Tabla.EVENTO)
+				tblTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("icono"));
 		}
 
 		tblTabla.getTableHeader().setReorderingAllowed(false);
@@ -210,6 +191,16 @@ public class CustomTable extends JPanel implements MouseListener {
 			EstadoBL lsEstados = new EstadoBL();
 			lsEstadoNombre = lsEstados.getAllEstadoNombre();
 			tblTabla.getColumnModel().getColumn(Tabla.ESTADO).setCellEditor(cargarComboItems(lsEstadoNombre));
+
+			CategoriaProductoBL lsCategoriaProducto = new CategoriaProductoBL();
+			lsCategoriaProductoNombre = lsCategoriaProducto.getAllCategoriaNombre();
+			tblTabla.getColumnModel().getColumn(Tabla.CATEGORIA)
+					.setCellEditor(cargarComboItems(lsCategoriaProductoNombre));
+
+			IvaBL lsIva = new IvaBL();
+			lsIvaNombre = lsIva.getAllIvaNombre();
+			tblTabla.getColumnModel().getColumn(Tabla.IVA).setCellEditor(cargarComboItems(lsIvaNombre));
+
 		} catch (Exception e) {
 			throw new AppException(e, getClass(), "Error al crear comboBox Estado " + e.getMessage());
 		}
@@ -217,26 +208,8 @@ public class CustomTable extends JPanel implements MouseListener {
 		tblTabla.getColumnModel().getColumn(Tabla.ESTADO).setPreferredWidth(110);
 		tblTabla.getColumnModel().getColumn(Tabla.ESTADO).setMaxWidth(110);
 
-		try {
-			CategoriaProductoBL lsCategoriaProducto = new CategoriaProductoBL();
-			lsCategoriaProductoNombre = lsCategoriaProducto.getAllCategoriaNombre();
-			tblTabla.getColumnModel().getColumn(Tabla.CATEGORIA)
-					.setCellEditor(cargarComboItems(lsCategoriaProductoNombre));
-		} catch (Exception e) {
-			throw new AppException(e, getClass(), "Error al crear comboBox Estado " + e.getMessage());
-		}
-		// ---------------------------------------------------------------------------------
-
 		tblTabla.getColumnModel().getColumn(Tabla.CATEGORIA).setPreferredWidth(100);
 
-		try {
-			IvaBL lsIva = new IvaBL();
-			lsIvaNombre = lsIva.getAllIvaNombre();
-			tblTabla.getColumnModel().getColumn(Tabla.IVA).setCellEditor(cargarComboItems(lsIvaNombre));
-		} catch (Exception e) {
-			throw new AppException(e, getClass(), "Error al crear comboBox Estado " +
-					e.getMessage());
-		}
 		tblTabla.getColumnModel().getColumn(Tabla.IVA).setPreferredWidth(40);
 		tblTabla.getColumnModel().getColumn(Tabla.PRODUCTO).setPreferredWidth(280);
 		tblTabla.getColumnModel().getColumn(Tabla.STOCK).setPreferredWidth(55);
@@ -297,30 +270,6 @@ public class CustomTable extends JPanel implements MouseListener {
 
 		// teniendo la fila entonces se obtiene el objeto correspondiente para enviarse
 		// como parammetro o imprimir la información
-		System.out.println(
-				"PK_ID_PRODUCTO :\t\t" + tblTabla.getValueAt(fila, Tabla.ID).toString()
-						+ "\nCODIGO_PRODUCTO :\t\t" + tblTabla.getValueAt(fila, Tabla.CODIGO).toString()
-						+ "\nFK_ID_ESTADO :\t\t\t" + tblTabla.getValueAt(fila, Tabla.ESTADO).toString()
-						+ "\nFK_ID_ESTADO :\t\t\t"
-						+ getIndiceComboItemPorNombre(lsEstadoNombre,
-								tblTabla.getValueAt(fila, Tabla.ESTADO).toString())
-						+ "\nFK_ID_CATEGORIA_PRODUCTO :\t" + tblTabla.getValueAt(fila, Tabla.CATEGORIA).toString()
-						+ "\nFK_ID_CATEGORIA_PRODUCTO :\t"
-						+ getIndiceComboItemPorNombre(lsCategoriaProductoNombre,
-								tblTabla.getValueAt(fila, Tabla.CATEGORIA).toString())
-						+ "\nFK_ID_IVA :\t\t\t" + tblTabla.getValueAt(fila, Tabla.IVA).toString()
-						+ "\nFK_ID_IVA :\t\t\t"
-						+ getIndiceComboItemPorNombre(lsIvaNombre, tblTabla.getValueAt(fila, Tabla.IVA).toString())
-						+ "\nPRODUCTO :\t\t\t" + tblTabla.getValueAt(fila, Tabla.PRODUCTO).toString()
-						+ "\nSTOCK :\t\t\t\t" + tblTabla.getValueAt(fila, Tabla.STOCK).toString()
-						+ "\nPRECIO_COMPRA :\t\t\t" + tblTabla.getValueAt(fila, Tabla.PRECIO_COMPRA).toString()
-						+ "\nPRECIO_VENTA :\t\t\t" + tblTabla.getValueAt(fila, Tabla.PRECIO_VENTA).toString()
-						+ "\nDESCRIPCION :\t\t" + tblTabla.getValueAt(fila, Tabla.DESCRIPCION).toString()
-						// + "\nIMAGEN :\t" + tblTabla.getValueAt(fila, Tabla.IMAGEN).toString()
-						+ "\nFECHA_CREACION :\t\t" + tblTabla.getValueAt(fila, Tabla.FECHA_CREACION).toString()
-						+ "\nFECHA_MODIFICACION :\t\t"
-						+ tblTabla.getValueAt(fila, Tabla.FECHA_MODIFICACION).toString());
-
 		Date fechaHoraActual = new Date();
 		SimpleDateFormat formatoFechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -361,8 +310,6 @@ public class CustomTable extends JPanel implements MouseListener {
 		return -1;
 	}
 
-	// estos metododos pueden ser usados dependiendo de nuestra necesidad, por
-	// ejemplo para cambiar el tama�o del icono al ser presionado
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 	}

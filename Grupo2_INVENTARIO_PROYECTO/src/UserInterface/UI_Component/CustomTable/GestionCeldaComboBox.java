@@ -1,7 +1,6 @@
 package UserInterface.UI_Component.CustomTable;
 
 import java.awt.Component;
-import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JTable;

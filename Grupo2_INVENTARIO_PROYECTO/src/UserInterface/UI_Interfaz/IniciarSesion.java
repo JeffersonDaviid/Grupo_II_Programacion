@@ -25,7 +25,6 @@ import javax.swing.border.MatteBorder;
 import BusinnessLogic.UsuarioBL;
 import BusinnessLogic.Entities.Usuario;
 import Framework.APP;
-import Framework.AppException;
 
 public class IniciarSesion extends JFrame {
 
@@ -34,10 +33,10 @@ public class IniciarSesion extends JFrame {
     private JPasswordField i_contrasena;
     private JComboBox combo_rol;
 
-    // public static void main(String[] args) {
-    // IniciarSesion frame = new IniciarSesion();
-    // frame.setVisible(true);
-    // }
+    public static void main(String[] args) throws Exception {
+        IniciarSesion frame = new IniciarSesion();
+        frame.setVisible(true);
+    }
 
     public IniciarSesion() throws Exception {
         try {
@@ -158,9 +157,11 @@ public class IniciarSesion extends JFrame {
     }
 
     /**
-     * Permite gestionar si las credenciales de usuario son correctas para decidir el inicio de sesión
+     * Permite gestionar si las credenciales de usuario son correctas para decidir
+     * el inicio de sesión
      * 
-     * @throws Exception : indica las excepciones que se pueden lanzar durante la ejecución
+     * @throws Exception : indica las excepciones que se pueden lanzar durante la
+     *                   ejecución
      */
     public void iniciarSesion() throws Exception {
 

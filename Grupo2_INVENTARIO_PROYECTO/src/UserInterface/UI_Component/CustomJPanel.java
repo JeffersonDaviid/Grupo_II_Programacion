@@ -24,23 +24,4 @@ public class CustomJPanel extends JPanel {
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
     }
 
-    // public static void main(String[] args) {
-    // JFrame frame = new JFrame("Resizable Background Image");
-    // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    // Container content = frame.getContentPane();
-    // content.setLayout(new GridBagLayout());
-
-    // GridBagConstraints constraints = new GridBagConstraints();
-    // constraints.fill = GridBagConstraints.BOTH;
-    // constraints.weightx = 1.0;
-    // constraints.weighty = 1.0;
-
-    // Lienzo panel = new Lienzo(
-    // "images/img_bienvenidosApp.jpg");
-    // content.add(panel, constraints);
-    // frame.pack();
-    // frame.setVisible(true);
-    // frame.setMinimumSize(new Dimension(960, 540));
-    // }
 }

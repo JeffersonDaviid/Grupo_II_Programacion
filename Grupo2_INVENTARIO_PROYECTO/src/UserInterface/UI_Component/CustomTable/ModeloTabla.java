@@ -28,8 +28,7 @@ public class ModeloTabla extends DefaultTableModel {
 
 	public boolean isCellEditable(int row, int column) {
 		// Definimos si una celda puede ser o no editable
-		if (column == Tabla.CODIGO
-				|| column == Tabla.FECHA_CREACION || column == Tabla.FECHA_MODIFICACION) {
+		if (column == Tabla.CODIGO || column == Tabla.FECHA_CREACION || column == Tabla.FECHA_MODIFICACION) {
 			return false;
 		} else {
 			return true;

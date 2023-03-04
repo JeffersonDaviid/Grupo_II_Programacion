@@ -30,6 +30,7 @@ import BusinnessLogic.Entities.Producto;
 import Framework.AppException;
 import Framework.Validadores;
 import UserInterface.UI_Component.CustomButton;
+import UserInterface.UI_Component.CustomJPanel;
 import UserInterface.UI_Component.CustomText;
 
 public class RegistrarProducto extends JPanel {
@@ -47,12 +48,8 @@ public class RegistrarProducto extends JPanel {
      *                   ejecución
      */
     public RegistrarProducto() throws Exception {
+        setOpaque(false);
         lsProductosRegistrados = new ArrayList<Producto>();
-        // Asignando la fecha "actual"
-        // SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy"); // asigna
-        // el formato requerido para la fecha
-        // Date fecha = new Date(); // obtiene la fecha actual
-        // String fechaActual = formatoFecha.format(fecha);
 
         /*
          * Se crean los paneles necesarios para organizar los componentes del formulario
@@ -60,22 +57,27 @@ public class RegistrarProducto extends JPanel {
          */
         setLayout(new BorderLayout(0, 0));
 
-        JPanel panelPrincipal = new JPanel();
+        CustomJPanel panelPrincipal = new CustomJPanel("images/img_fondoRegistro.jpeg");
+        panelPrincipal.setOpaque(false);
         add(panelPrincipal);
         panelPrincipal.setLayout(new BorderLayout(0, 0));
 
         JPanel panelSuperior = new JPanel();
+        panelSuperior.setOpaque(false);
         panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
 
         JPanel panelLateralIzquierdo = new JPanel();
+        panelLateralIzquierdo.setOpaque(false);
         panelPrincipal.add(panelLateralIzquierdo, BorderLayout.WEST);
         panelLateralIzquierdo.setLayout(new GridLayout(0, 1, 0, 0));
 
         JPanel panelCentral = new JPanel();
+        panelCentral.setOpaque(false);
         panelPrincipal.add(panelCentral, BorderLayout.CENTER);
         panelCentral.setLayout(new BorderLayout(0, 0));
 
         JPanel panelIngresoDatos = new JPanel();
+        panelIngresoDatos.setOpaque(false);
         panelLateralIzquierdo.add(panelIngresoDatos);
         panelIngresoDatos.setLayout(new GridLayout(9, 2, 10, 10));
 
