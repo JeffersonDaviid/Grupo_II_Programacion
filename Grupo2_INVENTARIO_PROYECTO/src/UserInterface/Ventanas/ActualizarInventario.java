@@ -78,8 +78,8 @@ public class ActualizarInventario extends JPanel {
         lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
         panelFiltroInventario.add(lblNewLabel);
 
-        JComboBox comboCategoria = new JComboBox();
-        cargarComboItems(comboCategoria, lsCategoriaProductoNombre, "Categoria");
+        JComboBox<String> cbxCategoria = new JComboBox<>();
+        cargarComboItems(cbxCategoria, lsCategoriaProductoNombre, "Categoria");
 
         CustomButton btnBuscarFiltrar = new CustomButton("FILTRAR");
         panelFiltroInventario.add(btnBuscarFiltrar);
@@ -90,13 +90,13 @@ public class ActualizarInventario extends JPanel {
                     if (txtBusqueda.getText().trim().equals("Ingrese un valor")
                             || txtBusqueda.getText().trim().equals("Campo vacio")
                             || txtBusqueda.getText().trim().isEmpty()) {
-                        if (comboCategoria.getSelectedIndex() == APP.BASE_DATOS_MYSQL.NINGUN_FILTRO) {
+                        if (cbxCategoria.getSelectedIndex() == APP.BASE_DATOS_MYSQL.NINGUN_FILTRO) {
                             lsProductos = productoCategoria.getAllProducto();
                             tblInventario.construirTabla(getColumnasTabla(), lsProductos);
                         } else {
                             tblInventario.construirTabla(getColumnasTabla(),
-                                    productoCategoria.getProductoByCategoria(comboCategoria.getSelectedIndex()));
-                            // System.out.println(comboCategoria.getSelectedIndex());
+                                    productoCategoria.getProductoByCategoria(cbxCategoria.getSelectedIndex()));
+                            // System.out.println(cbxCategoria.getSelectedIndex());
                         }
                     } else {
                         lsProductos = productoCategoria.getProductoPorIdOCodigo(txtBusqueda.getText());
@@ -151,17 +151,17 @@ public class ActualizarInventario extends JPanel {
         JLabel lblNewLabel_2 = new JLabel("");
         panelFiltroInventario.add(lblNewLabel_2);
 
-        panelFiltroInventario.add(comboCategoria);
+        panelFiltroInventario.add(cbxCategoria);
 
-        JComboBox comboBox_1 = new JComboBox();
-        comboBox_1.setVisible(false);
-        cargarComboItems(comboBox_1, lsEstadoNombre, "Estado");
-        panelFiltroInventario.add(comboBox_1);
+        JComboBox<String> cbxEstado = new JComboBox<>();
+        cbxEstado.setVisible(false);
+        cargarComboItems(cbxEstado, lsEstadoNombre, "Estado");
+        panelFiltroInventario.add(cbxEstado);
 
-        JComboBox comboBox_2 = new JComboBox();
-        comboBox_2.setVisible(false);
-        cargarComboItems(comboBox_2, lsIvaNombre, "Iva");
-        panelFiltroInventario.add(comboBox_2);
+        JComboBox<String> cbxIva = new JComboBox<>();
+        cbxIva.setVisible(false);
+        cargarComboItems(cbxIva, lsIvaNombre, "Iva");
+        panelFiltroInventario.add(cbxIva);
 
         JButton btnNewButton = new JButton("SALIR");
         btnNewButton.setVisible(false);
@@ -216,28 +216,13 @@ public class ActualizarInventario extends JPanel {
     /**
      * Método que permite cargar items en un comboBox
      * 
-     * @param combo            : elemento donde se insertarán los items
-     * @param lsItem           : lista iterable con los nombres de los items
-     * @param comboItemDefecto : String con nombre de un elemento valor por defecto
+     * @param cbxContenedor     : elemento donde se insertarán los items
+     * @param lsItem            : lista iterable con los nombres de los items
+     * @param cbxItemPorDefecto : String con nombre de un elemento valor por defecto
      */
-    private void cargarComboItems(JComboBox combo, ArrayList<String> lsItem, String comboItemDefecto) {
-        combo.addItem(comboItemDefecto);
-        for (String item : lsItem) {
-            combo.addItem(item);
-        }
-    }
-
-    /**
-     * Método que permite cargar items en un comboBox
-     * 
-     * @param combo  : elemento donde se insertarán los items
-     * @param lsItem : lista iterable con los nombres de los items
-     */
-    private void cargarComboItems(JComboBox combo, ArrayList<String> lsItem) {
-        combo.addItem("Seleccione");
-        for (String item : lsItem) {
-            combo.addItem(item);
-        }
+    private void cargarComboItems(JComboBox<String> cbxContenedor, ArrayList<String> lsItem, String cbxItemPorDefecto) {
+        cbxContenedor.addItem(cbxItemPorDefecto);
+        lsItem.forEach(cbxContenedor::addItem);
     }
 
 }

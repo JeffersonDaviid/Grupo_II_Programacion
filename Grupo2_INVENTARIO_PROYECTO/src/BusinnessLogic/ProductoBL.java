@@ -3,11 +3,7 @@ package BusinnessLogic;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import javax.swing.JComboBox;
-
 import BusinnessLogic.Entities.Producto;
-import DataAccess.CategoriaProductoDAC;
-import DataAccess.IvaDAC;
 import DataAccess.ProductoDAC;
 import Framework.APP;
 import Framework.AppException;
@@ -155,32 +151,6 @@ public class ProductoBL {
     public void getRegistrarProducto(Producto nuevoProducto) throws AppException {
         ProductoDAC registrarProducto = new ProductoDAC();
         registrarProducto.registrarProducto(nuevoProducto);
-    }
-
-    /**
-     * Obtiene los nombres registrados en la tabla Iva, en este caso "si" y "no"
-     * El objetivo de este método es respetar la arquitectura y pasar de la capa DAC
-     * a la Bl y luego a la GUI
-     * 
-     * @param cbxIvaProducto : recibe un comboBox dado que los datos obtenidos se
-     *                       van a presentar en dicho componente
-     */
-    public void getConsultarIVA(JComboBox cbxIvaProducto) {
-        IvaDAC consultarIva = new IvaDAC();
-        consultarIva.consultarIVA(cbxIvaProducto);
-    }
-
-    /**
-     * Obtiene las categorías registradas en la tabla CategoriaProducto
-     * El objetivo de este método es respetar la arquitectura y pasar de la capa DAC
-     * a la Bl y luego a la GUI
-     * 
-     * @param cbxIvaProducto : recibe un comboBox dado que los datos obtenidos se
-     *                       van a presentar en dicho componente
-     */
-    public void getConsultarCategorias(JComboBox cbxCategoriaProducto) {
-        CategoriaProductoDAC consultarCategoria = new CategoriaProductoDAC();
-        consultarCategoria.consultarCategorias(cbxCategoriaProducto);
     }
 
 }

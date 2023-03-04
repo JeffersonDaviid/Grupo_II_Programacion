@@ -4,11 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,8 +20,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 import BusinnessLogic.CategoriaProductoBL;
 import BusinnessLogic.IvaBL;
@@ -141,7 +141,7 @@ public class RegistrarProducto extends JPanel {
         lbCategoriaProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbCategoriaProducto);
 
-        JComboBox cbxCategoriaProducto = new JComboBox();
+        JComboBox<String> cbxCategoriaProducto = new JComboBox<>();
         CategoriaProductoBL p = new CategoriaProductoBL();
 
         cargarComboItems(cbxCategoriaProducto, p.getAllCategoriaNombre());
@@ -200,7 +200,7 @@ public class RegistrarProducto extends JPanel {
         lbIvaProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbIvaProducto);
 
-        JComboBox cbxIvaProducto = new JComboBox();
+        JComboBox<String> cbxIvaProducto = new JComboBox<>();
         IvaBL iva = new IvaBL();
         cargarComboItems(cbxIvaProducto, iva.getAllIvaNombre());
         // iva la expresión almacenado en
@@ -382,13 +382,12 @@ public class RegistrarProducto extends JPanel {
     /**
      * Método que permite cargar items en un comboBox
      * 
-     * @param combo  : elemento donde se insertarán los items
-     * @param lsItem : lista iterable con los nombres de los items
+     * @param cbxContenedor : elemento donde se insertarán los items
+     * @param lsItem        : lista iterable con los nombres de los items
      */
-    private void cargarComboItems(JComboBox combo, ArrayList<String> lsItem) {
-        combo.addItem("Seleccione");
-        for (String item : lsItem) {
-            combo.addItem(item);
-        }
+    private void cargarComboItems(JComboBox<String> cbxContenedor, ArrayList<String> lsItem) {
+        cbxContenedor.addItem("Seleccione");
+        lsItem.forEach(cbxContenedor::addItem);
     }
+
 }

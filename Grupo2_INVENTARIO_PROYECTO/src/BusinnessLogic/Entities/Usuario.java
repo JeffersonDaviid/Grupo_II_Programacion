@@ -3,19 +3,19 @@ package BusinnessLogic.Entities;
 import javax.swing.ImageIcon;
 
 public class Usuario {
-    int idUsuario;
-    int FkIdEstado;
-    int FkIdRol;
-    String usuario;
-    String contrasena;
-    String email;
-    String primerNombre;
-    String segundoNombre;
-    String apellidoPaterno;
-    String apellidoMaterno;
-    String cedula;
-    String telefono;
-    ImageIcon foto;
+    private int idUsuario;
+    private int FkIdEstado;
+    private int FkIdRol;
+    private String usuario;
+    private String contrasena;
+    private String email;
+    private String primerNombre;
+    private String segundoNombre;
+    private String apellidoPaterno;
+    private String apellidoMaterno;
+    private String cedula;
+    private String telefono;
+    private ImageIcon foto;
 
     public Usuario(int idUsuario, int fkIdEstado, int fkIdRol, String usuario, String contrasena, String email,
             String primerNombre, String segundoNombre, String apellidoPaterno, String apellidoMaterno, String cedula,

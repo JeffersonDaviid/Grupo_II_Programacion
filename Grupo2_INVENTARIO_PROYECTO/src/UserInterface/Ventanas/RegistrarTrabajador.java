@@ -1,31 +1,27 @@
 package UserInterface.Ventanas;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
+
+import BusinnessLogic.Entities.Usuario;
+import DataAccess.UsuarioDAC;
 import UserInterface.UI_Component.CustomButton;
 import UserInterface.UI_Component.CustomJPanel;
 import UserInterface.UI_Component.CustomLabel;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
-import javax.swing.border.MatteBorder;
-import javax.swing.plaf.LabelUI;
-
-import BusinnessLogic.Entities.Usuario;
-import DataAccess.UsuarioDAC;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JPasswordField;
-
 public class RegistrarTrabajador extends CustomJPanel {
-    private JTextField textField;
     private JPasswordField passwordField;
 
     public RegistrarTrabajador() {

@@ -33,14 +33,11 @@ public class CustomTable extends JPanel implements MouseListener {
 
 	private static JScrollPane scrollPaneTabla;
 	private static JTable tblTabla;
-	private static ArrayList<Producto> lsProductos; // Producto de la base de datos
 	private static ArrayList<String> lsEstadoNombre;
 	private static ArrayList<String> lsCategoriaProductoNombre;
 	private static ArrayList<String> lsIvaNombre;
 
 	ModeloTabla modelo;// modelo definido en la clase ModeloTabla
-	private int intFilasTabla;
-	private int intColumnasTabla;
 
 	public CustomTable(ArrayList<String> lsTitutloTabla, ArrayList<Producto> lsProductos) throws Exception {
 		setOpaque(false);
@@ -147,18 +144,6 @@ public class CustomTable extends JPanel implements MouseListener {
 		// se asigna el modelo a la tblTabla
 		tblTabla.setModel(modelo);
 
-		intFilasTabla = tblTabla.getRowCount();
-		intColumnasTabla = tblTabla.getColumnCount();
-
-		// // se asigna el tipo de dato que tendrán las celdas de cada columna definida
-		// // respectivamente para validar su personalización
-		// tblTabla.getColumnModel().getColumn(Tabla.STOCK).setCellRenderer(new
-		// GestionCeldas("numerico"));
-		// tblTabla.getColumnModel().getColumn(Tabla.PRECIO_COMPRA).setCellRenderer(new
-		// GestionCeldas("numerico"));
-		// tblTabla.getColumnModel().getColumn(Tabla.PRECIO_VENTA).setCellRenderer(new
-		// GestionCeldas("numerico"));
-
 		// se recorre y asigna el resto de celdas que serian las que almacenen datos de
 		// tipo texto
 		for (int i = 0; i < titulos.length; i++) {
@@ -234,7 +219,7 @@ public class CustomTable extends JPanel implements MouseListener {
 
 	public DefaultCellEditor cargarComboItems(ArrayList<String> lsItem) {
 
-		JComboBox combo = new JComboBox<>();
+		JComboBox<String> combo = new JComboBox<>();
 		try {
 			for (String item : lsItem) {
 				combo.addItem(item);

@@ -2,9 +2,6 @@ package DataAccess;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.swing.JComboBox;
 
 import Framework.APP;
 import Framework.AppException;
@@ -14,31 +11,14 @@ public class CategoriaProductoDAC extends DataHelper {
     ResultSet rs;
 
     /**
-     * Permite consultar en la Base de Datos específicamente en la tabla CategoriaProducto y así obtener todos los tipos
-     * de categorías disponibles para mostrarlos en el ComboBox de categoría al momento de registrar un producto
-     * 
-     * @param iva : recibe como parámetro el JComboBox de CategoriaProducto
-     */
-    public void consultarCategorias(JComboBox cbxCategoria) {
-        String sql = "SELECT " + APP.BASE_DATOS_MYSQL.NOMBRE + " FROM " + APP.BASE_DATOS_MYSQL.TABLA_CATEGORIA_PRODUCTO;
-        try {
-            ps = DataHelper.getConexion().prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                cbxCategoria.addItem(rs.getString(APP.BASE_DATOS_MYSQL.NOMBRE));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-        }
-    }
-
-    /**
-     * Permite consultar en la Base de Datos específicamente en la tabla CategoriaProducto y así obtener los tipos
+     * Permite consultar en la Base de Datos específicamente en la tabla
+     * CategoriaProducto y así obtener los tipos
      * de categorías disponibles pero filtrado según el id enviado como parámetro
      * 
      * @param id : se envia el id de la categoría requerida
      * @return : retorna la categoría con sus atributos, es decir, id y nombre
-     * @throws AppException : indica las excepciones que se pueden lanzar durante la ejecución, especificadas en la clase AppException
+     * @throws AppException : indica las excepciones que se pueden lanzar durante la
+     *                      ejecución, especificadas en la clase AppException
      */
     public ResultSet getCategoriaById(int id) throws AppException {
 
@@ -57,11 +37,14 @@ public class CategoriaProductoDAC extends DataHelper {
     }
 
     /**
-     * Permite consultar en la Base de Datos específicamente en la tabla CategoriaProducto 
+     * Permite consultar en la Base de Datos específicamente en la tabla
+     * CategoriaProducto
      * y así obtener todos los tipos de categorías disponibles
      * 
-     * @return : retorna todas las categorias registradas en la tabla CategoriaProducto de la Base de Datos
-     * @throws AppException : indica las excepciones que se pueden lanzar durante la ejecución, especificadas en la clase AppException
+     * @return : retorna todas las categorias registradas en la tabla
+     *         CategoriaProducto de la Base de Datos
+     * @throws AppException : indica las excepciones que se pueden lanzar durante la
+     *                      ejecución, especificadas en la clase AppException
      */
     public ResultSet getAllCaterogia() throws AppException {
         try {

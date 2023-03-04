@@ -142,7 +142,7 @@ public class PrincipalA extends JFrame {
 		btnCerrarSesion.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnCerrarSesion.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCerrarSession.add(btnCerrarSesion);
-		
+
 		JLabel label_1_4 = new JLabel("");
 		panelCerrarSession.add(label_1_4);
 
@@ -200,16 +200,16 @@ public class PrincipalA extends JFrame {
 		btnActualizarInventario.setHorizontalTextPosition(SwingConstants.LEFT);
 		panelNavegacion_Acciones.add(btnActualizarInventario);
 		btnActualizarInventario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
+
 		JLabel label = new JLabel("");
 		panelNavegacion_Acciones.add(label);
-		
+
 		JLabel label_1_1 = new JLabel("");
 		panelNavegacion_Acciones.add(label_1_1);
-		
+
 		JLabel label_1_1_1 = new JLabel("");
 		panelNavegacion_Acciones.add(label_1_1_1);
-		
+
 		JLabel label_1 = new JLabel("");
 		panelNavegacion_Acciones.add(label_1);
 
