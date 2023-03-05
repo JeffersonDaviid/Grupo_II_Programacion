@@ -81,7 +81,9 @@ DESCRIBE Iva;
 
 SELECT * FROM Iva;
 
-INSERT INTO Iva (NOMBRE) VALUES ("SI" ),("NO") ;
+INSERT INTO Iva (NOMBRE) VALUES ("SI" );
+
+INSERT INTO Iva (NOMBRE) VALUES ("NO" );
 
 -------------------------------PRODUCTOS-------------------------------
 
@@ -100,7 +102,7 @@ CREATE TABLE
         PRECIO_VENTA FLOAT NOT NULL DEFAULT(1),
         DESCRIPCION VARCHAR(30),
         IMAGEN longblob,
-        FECHA_CREACION VARCHAR(20) DATETIME(SMALLINT) NOT NULL,
+        FECHA_CREACION DATETIME NOT NULL,
         FECHA_MODIFICA VARCHAR(20) NOT NULL,
         PRIMARY KEY(PK_ID_PRODUCTO)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
@@ -122,11 +124,6 @@ DROP TABLE Producto;
 DESCRIBE Producto;
 
 SELECT * FROM Producto;
-
--- Ejecutar luego de ingresar todos los productos
-
-ALTER TABLE
-    Producto MODIFY COLUMN FECHA_CREACION VARCHAR(20) NOT NULL;
 
 SELECT *
 FROM Producto
