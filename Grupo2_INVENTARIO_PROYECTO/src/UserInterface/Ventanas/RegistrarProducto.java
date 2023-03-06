@@ -1,7 +1,6 @@
 package UserInterface.Ventanas;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
@@ -79,7 +78,7 @@ public class RegistrarProducto extends JPanel {
         JPanel panelIngresoDatos = new JPanel();
         panelIngresoDatos.setOpaque(false);
         panelLateralIzquierdo.add(panelIngresoDatos);
-        panelIngresoDatos.setLayout(new GridLayout(9, 2, 10, 10));
+        panelIngresoDatos.setLayout(new GridLayout(10, 2, 10, 10));
 
         /*
          * Labels de ayuda para dar un mejor aspecto a la ubicación de la tabla
@@ -114,7 +113,7 @@ public class RegistrarProducto extends JPanel {
         lbId.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbId);
 
-        CustomText txtId = new CustomText("", "Campo vacío");
+        CustomText txtId = new CustomText("");
         txtId.setColumns(10);
         panelIngresoDatos.add(txtId);
 
@@ -123,7 +122,7 @@ public class RegistrarProducto extends JPanel {
         lbNombreProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbNombreProducto);
 
-        CustomText txtNombreProducto = new CustomText("", "Campo vacío");
+        CustomText txtNombreProducto = new CustomText("");
         txtNombreProducto.setColumns(10);
         panelIngresoDatos.add(txtNombreProducto);
 
@@ -132,9 +131,18 @@ public class RegistrarProducto extends JPanel {
         lbCodigoProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbCodigoProducto);
 
-        CustomText txtCodigoProducto = new CustomText("", "Campo vacío");
+        CustomText txtCodigoProducto = new CustomText("");
         txtCodigoProducto.setColumns(10);
         panelIngresoDatos.add(txtCodigoProducto);
+
+        JLabel lbDescripcion = new JLabel("Descripción:");
+        lbDescripcion.setHorizontalAlignment(SwingConstants.RIGHT);
+        lbDescripcion.setFont(new Font("Berlin Sans FB Demi", Font.BOLD,13));
+        panelIngresoDatos.add(lbDescripcion);
+
+        CustomText txtDescripcion = new CustomText("");
+        txtDescripcion.setColumns(10);
+        panelIngresoDatos.add(txtDescripcion);
 
         JLabel lbCategoriaProducto = new JLabel("Categoría:");
         lbCategoriaProducto.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -143,17 +151,18 @@ public class RegistrarProducto extends JPanel {
 
         JComboBox<String> cbxCategoriaProducto = new JComboBox<>();
         CategoriaProductoBL p = new CategoriaProductoBL();
-
         cargarComboItems(cbxCategoriaProducto, p.getAllCategoriaNombre());
         // productoRegistrado.getConsultarCategorias(cbxCategoriaProducto);
         panelIngresoDatos.add(cbxCategoriaProducto);
+
+        //TODO txt nueva categoria
 
         JLabel lbStockProducto = new JLabel("Stock:");
         lbStockProducto.setHorizontalAlignment(SwingConstants.RIGHT);
         lbStockProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbStockProducto);
 
-        CustomText txtStockProducto = new CustomText("", "Campo vacío");
+        CustomText txtStockProducto = new CustomText("");
         txtStockProducto.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
@@ -170,7 +179,7 @@ public class RegistrarProducto extends JPanel {
         lbPrecioCompraProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbPrecioCompraProducto);
 
-        CustomText txtPrecioCompra = new CustomText("", "Campo vacío");
+        CustomText txtPrecioCompra = new CustomText("");
         txtPrecioCompra.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
@@ -185,7 +194,7 @@ public class RegistrarProducto extends JPanel {
         lbPrecioVentaProducto.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         panelIngresoDatos.add(lbPrecioVentaProducto);
 
-        CustomText txtPrecioVenta = new CustomText("", "Campo vacío");
+        CustomText txtPrecioVenta = new CustomText("");
         txtPrecioVenta.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
@@ -218,6 +227,8 @@ public class RegistrarProducto extends JPanel {
         modelo = new DefaultTableModel();
         tblProductos.setModel(modelo);
         getColumnasTabla();
+        tblProductos.setCellEditor(null);
+        tblProductos.setEnabled(false);
         scroll.setViewportView(tblProductos);
 
         /*
@@ -229,57 +240,66 @@ public class RegistrarProducto extends JPanel {
          * interfaz
          */
         CustomButton btnAgregar = new CustomButton("Agregar", "images/iconos/save.png");
-        btnAgregar.setBackground(Color.RED);
         btnAgregar.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 13));
         btnAgregar.setHorizontalAlignment(SwingConstants.CENTER);
         panelIngresoDatos.add(btnAgregar);
         btnAgregar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
-                // A continuación validamos que los campos del formulario no esten vacíos para
-                // un correcto guardado del producto
-                if (!txtId.getText().isEmpty() &&
-                        !txtNombreProducto.getText().isEmpty() &&
-                        !txtCodigoProducto.getText().isEmpty() &&
-                        !"".equals(cbxCategoriaProducto.getSelectedItem()) &&
-                        !txtStockProducto.getText().isEmpty() &&
-                        !txtPrecioCompra.getText().isEmpty() &&
-                        !txtPrecioVenta.getText().isEmpty() &&
-                        !"".equals(cbxIvaProducto.getSelectedItem())) {
-                    Date fechaHoraActual = new Date();
-                    SimpleDateFormat formatoFechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String idProducto = txtId.getText();
+                String codigoProducto = txtCodigoProducto.getText();
+                String nombreProducto = txtNombreProducto.getText();
 
-                    Producto nuevoProducto = new Producto();
-                    nuevoProducto.setIdProducto(txtId.getText());
-                    nuevoProducto.setProducto(txtNombreProducto.getText());
-                    nuevoProducto.setCodigoProducto(txtCodigoProducto.getText());
-                    CategoriaProducto categoria = new CategoriaProducto();
-                    int idCategoria = (cbxCategoriaProducto.getSelectedIndex());
-                    categoria.setIdCategoriaProducto(idCategoria);
-                    nuevoProducto.setFkCategoriaProducto(categoria);
-                    nuevoProducto.setStock(Integer.parseInt(txtStockProducto.getText()));
-                    nuevoProducto.setPrecioCompra(Float.parseFloat(txtPrecioCompra.getText()));
-                    nuevoProducto.setPrecioVenta(Float.parseFloat(txtPrecioVenta.getText()));
-                    Iva iva = new Iva();
-                    System.out.println(cbxIvaProducto.getSelectedIndex());
-                    int idIva = (cbxIvaProducto.getSelectedIndex());
-                    iva.setId(idIva);
-                    nuevoProducto.setFkIva(iva);
-                    nuevoProducto.setFechaIngreso(formatoFechaHora.format(fechaHoraActual));
-                    lsProductosRegistrados.add(nuevoProducto);
-                    try {
+                try {
+                    String productoDuplicado = productoRegistrado.getValidarProducto(idProducto, codigoProducto, nombreProducto);
+                    if (productoDuplicado != null) {
+                        JOptionPane.showMessageDialog(null, "El " + productoDuplicado + " del producto ya se encuentra registrado");
+                        return;
+                    } 
+                    
+                    boolean camposValidos = !idProducto.isEmpty() && !nombreProducto.isEmpty()
+                                            && !codigoProducto.isEmpty() && !txtDescripcion.getText().isEmpty()
+                                            && !"Seleccione".equals(cbxCategoriaProducto.getSelectedItem())
+                                            && !txtStockProducto.getText().isEmpty() && !txtPrecioCompra.getText().isEmpty()
+                                            && !txtPrecioVenta.getText().isEmpty() && !"Seleccione".equals(cbxIvaProducto.getSelectedItem());
+
+                    if (camposValidos) {
+                        Date fechaHoraActual = new Date();
+                        SimpleDateFormat formatoFechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                        Producto nuevoProducto = new Producto();
+                        nuevoProducto.setIdProducto(txtId.getText());
+                        nuevoProducto.setProducto(txtNombreProducto.getText());
+                        nuevoProducto.setCodigoProducto(txtCodigoProducto.getText());
+
+                        CategoriaProducto categoria = new CategoriaProducto();
+                        int idCategoria = (cbxCategoriaProducto.getSelectedIndex());
+                        categoria.setIdCategoriaProducto(idCategoria);
+                        nuevoProducto.setFkCategoriaProducto(categoria);
+
+                        nuevoProducto.setDescripcion(txtDescripcion.getText());
+                        nuevoProducto.setStock(Integer.parseInt(txtStockProducto.getText()));
+                        nuevoProducto.setPrecioCompra(Float.parseFloat(txtPrecioCompra.getText()));
+                        nuevoProducto.setPrecioVenta(Float.parseFloat(txtPrecioVenta.getText()));
+
+                        Iva iva = new Iva();
+                        System.out.println(cbxIvaProducto.getSelectedIndex());
+                        int idIva = (cbxIvaProducto.getSelectedIndex());
+                        iva.setId(idIva);
+                        nuevoProducto.setFkIva(iva);
+                        nuevoProducto.setFechaIngreso(formatoFechaHora.format(fechaHoraActual));
+
+                        lsProductosRegistrados.add(nuevoProducto);
                         llenarTabla();
                         productoRegistrado.getRegistrarProducto(nuevoProducto);
                         JOptionPane.showMessageDialog(null, "Producto Registrado");
-                    } catch (AppException e) {
-                        JOptionPane.showMessageDialog(null, "No se ha podido registrar el producto");
-                        e.printStackTrace();
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al agregar producto, campos vacíos");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Error al agregar producto, campos vacíos o incorrectos");
+                    }   
+                } catch (AppException e) {
+                    JOptionPane.showMessageDialog(null, "Error al verificar el producto en la base de datos");
+                    e.printStackTrace();
                 }
-
             }
         });
 
@@ -293,6 +313,7 @@ public class RegistrarProducto extends JPanel {
                 txtId.setText("");
                 txtNombreProducto.setText("");
                 txtCodigoProducto.setText("");
+                txtDescripcion.setText("");
                 cbxCategoriaProducto.setSelectedIndex(0);
                 txtStockProducto.setText("");
                 txtPrecioCompra.setText("");
@@ -308,6 +329,7 @@ public class RegistrarProducto extends JPanel {
         Validadores.deshabilitarCVX(txtId);
         Validadores.deshabilitarCVX(txtNombreProducto);
         Validadores.deshabilitarCVX(txtCodigoProducto);
+        Validadores.deshabilitarCVX(txtDescripcion);
         Validadores.deshabilitarCVX(txtStockProducto);
         Validadores.deshabilitarCVX(txtPrecioCompra);
         Validadores.deshabilitarCVX(txtPrecioVenta);
@@ -321,6 +343,7 @@ public class RegistrarProducto extends JPanel {
         modelo.addColumn("ID");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("CÓDIGO");
+        modelo.addColumn("DESCRIPCIÓN");
         modelo.addColumn("CATEGORÍA");
         modelo.addColumn("STOCK");
         modelo.addColumn("PRECIO COMPRA");
@@ -338,16 +361,17 @@ public class RegistrarProducto extends JPanel {
             modelo.removeRow(0);
         }
         for (Producto nuevoProducto : lsProductosRegistrados) {
-            Object[] fila = new Object[9];
+            Object[] fila = new Object[10];
             fila[0] = nuevoProducto.getIdProducto();
             fila[1] = nuevoProducto.getProducto();
             fila[2] = nuevoProducto.getCodigoProducto();
-            fila[3] = nuevoProducto.getFkCategoriaProducto().getIdCategoriaProducto();
-            fila[4] = nuevoProducto.getStock();
-            fila[5] = nuevoProducto.getPrecioCompra();
-            fila[6] = nuevoProducto.getPrecioVenta();
-            fila[7] = nuevoProducto.getFkIva().getId();
-            fila[8] = nuevoProducto.getFechaIngreso();
+            fila[3] = nuevoProducto.getDescripcion();
+            fila[4] = nuevoProducto.getFkCategoriaProducto().getIdCategoriaProducto();
+            fila[5] = nuevoProducto.getStock();
+            fila[6] = nuevoProducto.getPrecioCompra();
+            fila[7] = nuevoProducto.getPrecioVenta();
+            fila[8] = nuevoProducto.getFkIva().getId();
+            fila[9] = nuevoProducto.getFechaIngreso();
             modelo.addRow(fila);
         }
     }

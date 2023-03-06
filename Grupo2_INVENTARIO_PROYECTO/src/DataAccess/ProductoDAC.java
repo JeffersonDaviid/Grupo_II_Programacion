@@ -2,6 +2,7 @@ package DataAccess;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 
@@ -36,7 +37,7 @@ public class ProductoDAC extends DataHelper {
             ps.setInt(7, pro.getStock()); // stock
             ps.setDouble(8, pro.getPrecioCompra()); // preciocompra
             ps.setDouble(9, pro.getPrecioVenta()); // precioventa
-            ps.setString(10, ""); // descripcion
+            ps.setString(10, pro.getDescripcion()); // descripcion
             ps.setString(11, null); // imagen
             ps.setString(12, pro.getFechaIngreso()); // fecha creacion
             ps.setString(13, "No modificado"); // fecha modificación, por defecto es no modificado
@@ -44,16 +45,51 @@ public class ProductoDAC extends DataHelper {
             DataHelper.cerrarConexion();
         } catch (Exception e) {
             throw new AppException(e, getClass(), "registrarProducto() " + e.getMessage());
-            // JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+     /**
+      * Permite verificar si el id, nombre o codigo ingresado al momento de registrar un producto ya se encuentran registrado en la Base de Datos
+      *
+      * @param idProducto Id del producto a validar si ya se encuentra registrado
+      * @param codigoProducto Codigo del producto a validar
+      * @param nombreProducto Nombre del producto a validar
+      * @return Retorna un mensaje de si el id, código o nombre del producto ya se encuentra registrado
+      * @throws AppException Indica las excepciones que se pueden lanzar durante la ejecución, especificadas en la clase AppException
+      */
+    public String validarExistenciaProducto(String idProducto, String codigoProducto, String nombreProducto) throws AppException{
+        String existeProducto = null;
+        String sql = "SELECT " + APP.BASE_DATOS_MYSQL.PK_ID_PRODUCTO + ", " + APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO + ", " + APP.BASE_DATOS_MYSQL.PRODUCTO +
+                      " FROM " + APP.BASE_DATOS_MYSQL.TABLA_PRODUCTO + " WHERE " + APP.BASE_DATOS_MYSQL.PK_ID_PRODUCTO + " = ? OR "
+                      + APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO + " = ? OR "+ APP.BASE_DATOS_MYSQL.PRODUCTO + " = ?";
+        try {
+            ps = DataHelper.getConexion().prepareStatement(sql);
+            ps.setString(1, idProducto);
+            ps.setString(2, codigoProducto);
+            ps.setString(3, nombreProducto);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                if(rs.getString(APP.BASE_DATOS_MYSQL.PK_ID_PRODUCTO).equals(idProducto)){
+                    existeProducto = "id";
+                }else if(rs.getString(APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO).equals(codigoProducto)){
+                    existeProducto = "código";
+                }else if(rs.getString(APP.BASE_DATOS_MYSQL.PRODUCTO).equals(nombreProducto)){
+                    existeProducto = "nombre";
+                }
+            }
+            DataHelper.cerrarConexion();
+        } catch (SQLException e) {
+            throw new AppException(e, getClass(), "validarProducto(String idProducto) " + e.getMessage());
+        }
+        return existeProducto;
     }
 
     /**
      * Consulta y obtiene todos los productos registrados en la Base de Datos
      * 
-     * @return : retorna el producto que se encuentra en la tabla Productos de la
+     * @return Retorna el producto que se encuentra en la tabla Productos de la
      *         Base de Datos
-     * @throws AppException : indica las excepciones que se pueden lanzar durante la
+     * @throws AppException Indica las excepciones que se pueden lanzar durante la
      *                      ejecución, especificadas en la clase AppException
      */
     public ResultSet getProductoDisponible() throws AppException {
@@ -86,9 +122,9 @@ public class ProductoDAC extends DataHelper {
      * Permite obtener un producto de la Base de Datos por medio de su categoría
      * específica
      * 
-     * @param idCategoria : se envia el id de la categoría del producto requerido
-     * @return : retorna el producto según la categoría solicitada
-     * @throws AppException : indica las excepciones que se pueden lanzar durante la
+     * @param idCategoria Se envia el id de la categoría del producto requerido
+     * @return Retorna el producto según la categoría solicitada
+     * @throws AppException Indica las excepciones que se pueden lanzar durante la
      *                      ejecución, especificadas en la clase AppException
      */
     public ResultSet getProductoByCategoria(int idCategoria) throws AppException {
@@ -121,9 +157,9 @@ public class ProductoDAC extends DataHelper {
      * Obtiene un producto de la Base de Datos por medio del código o del id del
      * producto enviado
      * 
-     * @param codigo : se envia el código del producto requerido
-     * @return : retorna el producto filtrado según el código del mismo
-     * @throws AppException : indica las excepciones que se pueden lanzar durante la
+     * @param codigo Se envia el código del producto requerido
+     * @return Retorna el producto filtrado según el código del mismo
+     * @throws AppException Indica las excepciones que se pueden lanzar durante la
      *                      ejecución, especificadas en la clase AppException
      */
     public ResultSet getProductoPorIdOCodigo(String codigo) throws AppException {
@@ -158,33 +194,33 @@ public class ProductoDAC extends DataHelper {
      * Permite realizar cambios en las características de un producto, utilizado
      * cuando se requiere actualizar un producto
      * 
-     * @param id                : envia un nuevo id si se modifica dicho valor en la
+     * @param id                Envia un nuevo id si se modifica dicho valor en la
      *                          tabla de actualizar
-     * @param codigo            : envia un nuevo código si se modifica dicho valor
+     * @param codigo            Envia un nuevo código si se modifica dicho valor
      *                          en la tabla de actualizar
-     * @param estado            : envia un nuevo estado si se modifica dicho valor
+     * @param estado            Envia un nuevo estado si se modifica dicho valor
      *                          en la tabla de actualizar
-     * @param categoriaProducto : envia un nuevo categoría si se modifica dicho
+     * @param categoriaProducto Envia un nuevo categoría si se modifica dicho
      *                          valor en la tabla de actualizar
-     * @param iva               : envia un nuevo iva si se modifica dicho valor en
+     * @param iva               Envia un nuevo iva si se modifica dicho valor en
      *                          la tabla de actualizar
-     * @param producto          : envia un nuevo nombre del producto si se modifica
+     * @param producto          Envia un nuevo nombre del producto si se modifica
      *                          dicho valor en la tabla de actualizar
-     * @param stock             : envia un nuevo stock si se modifica dicho valor en
+     * @param stock             Envia un nuevo stock si se modifica dicho valor en
      *                          la tabla de actualizar
-     * @param precioCompra      : envia un nuevo precio de compra si se modifica
+     * @param precioCompra      Envia un nuevo precio de compra si se modifica
      *                          dicho valor en la tabla de actualizar
-     * @param precioVenta       : envia un nuevo precio de venta si se modifica
+     * @param precioVenta       Envia un nuevo precio de venta si se modifica
      *                          dicho valor en la tabla de actualizar
-     * @param descripcion       : envia una nueva descripcion si se modifica dicho
+     * @param descripcion       Envia una nueva descripcion si se modifica dicho
      *                          valor en la tabla de actualizar
-     * @param imagen            : envia una nueva imagen si se modifica dicho valor
+     * @param imagen            Envia una nueva imagen si se modifica dicho valor
      *                          en la tabla de actualizar
-     * @param fechaModificacion : envia una fecha de modificación si se modifica
+     * @param fechaModificacion Envia una fecha de modificación si se modifica
      *                          dicho valor en la tabla de actualizar
-     * @return : retorna el producto con los atributos actualizados según hayan sido
+     * @return Retorna el producto con los atributos actualizados según hayan sido
      *         modificados
-     * @throws Exception : indica las excepciones que se pueden lanzar durante la
+     * @throws Exception Indica las excepciones que se pueden lanzar durante la
      *                   ejecución
      */
     public boolean setProducto(String id, String codigo, int estado, int categoriaProducto, int iva, String producto,
@@ -196,7 +232,6 @@ public class ProductoDAC extends DataHelper {
                     + APP.BASE_DATOS_MYSQL.TABLA_PRODUCTO
                     + " SET "
                     + APP.BASE_DATOS_MYSQL.PK_ID_PRODUCTO + " = '" + id + "' ,"
-                    // + APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO + " = "+ +" ," // NUNCA CAMBIA
                     + APP.BASE_DATOS_MYSQL.FK_ID_ESTADO + " = " + estado + " ,"
                     + APP.BASE_DATOS_MYSQL.FK_ID_CATEGORIA_PRODUCTO + " = " + categoriaProducto + " ,"
                     + APP.BASE_DATOS_MYSQL.FK_ID_IVA + " = " + iva + " ,"
@@ -205,15 +240,9 @@ public class ProductoDAC extends DataHelper {
                     + APP.BASE_DATOS_MYSQL.PRECIO_COMPRA + " = " + precioCompra + " ,"
                     + APP.BASE_DATOS_MYSQL.PRECIO_VENTA + " = " + precioVenta + " ,"
                     + APP.BASE_DATOS_MYSQL.DESCRIPCION + " = '" + descripcion + "' ,"
-                    // + APP.BASE_DATOS_MYSQL.IMAGEN + " = " + imagen + " ," // PROXIMA
-                    // ACTUALIZACION
-                    // + APP.BASE_DATOS_MYSQL.FECHA_CREACION + " = "+ +" ," // NUNCA CAMBIA
                     + APP.BASE_DATOS_MYSQL.FECHA_MODIFICACION + " = '" + fechaModificacion + "'"
                     + " WHERE "
                     + APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO + " = '" + codigo + "'";
-
-            // JOptionPane.showMessageDialog(null, "ACTUALIZACION EXITOSA");
-
             return setResultSet(sql);
 
         } catch (Exception e) {
