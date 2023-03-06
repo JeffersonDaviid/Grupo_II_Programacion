@@ -267,11 +267,12 @@ public class RegistrarProducto extends JPanel {
                     nuevoProducto.setFkIva(iva);
                     nuevoProducto.setFechaIngreso(formatoFechaHora.format(fechaHoraActual));
                     lsProductosRegistrados.add(nuevoProducto);
-                    llenarTabla();
                     try {
+                        llenarTabla();
                         productoRegistrado.getRegistrarProducto(nuevoProducto);
                         JOptionPane.showMessageDialog(null, "Producto Registrado");
                     } catch (AppException e) {
+                        JOptionPane.showMessageDialog(null, "No se ha podido registrar el producto");
                         e.printStackTrace();
                     }
 

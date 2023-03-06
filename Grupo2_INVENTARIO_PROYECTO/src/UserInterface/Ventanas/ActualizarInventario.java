@@ -62,7 +62,7 @@ public class ActualizarInventario extends JPanel {
         panelHeader.setLayout(new GridLayout(0, 1, 0, 0));
 
         JPanel panel_1 = new JPanel();
-        panel_1.setOpaque(false);
+        panelHeader.setOpaque(false);
         panelHeader.add(panel_1);
 
         JLabel lbTittle = new JLabel("INVENTARIO");

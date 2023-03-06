@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -207,10 +208,9 @@ public class RegistrarTrabajador extends CustomJPanel {
                         Apellido_2.getText().trim(),
                         Cedula.getText().trim(),
                         Telefono.getText().trim());
-
                 try {
                     UsuarioDAC u = new UsuarioDAC();
-                    u.setUser(
+                    if (u.setUser(
                             user.getUsuario(),
                             user.getContrasena(),
                             user.getEmail(),
@@ -219,11 +219,16 @@ public class RegistrarTrabajador extends CustomJPanel {
                             user.getApellidoPaterno(),
                             user.getApellidoMaterno(),
                             user.getCedula(),
-                            user.getTelefono());
+                            user.getTelefono())) {
+
+                    }
+                    JOptionPane.showMessageDialog(null, "Usuario Registrado");
+
                 } catch (Exception ex) {
                 }
             }
         });
+
         panel_1.add(btnNewButton);
 
         CustomLabel lblNewLabel20 = new CustomLabel("");
@@ -248,6 +253,7 @@ public class RegistrarTrabajador extends CustomJPanel {
         FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
         flowLayout.setHgap(30);
         panel_2.setOpaque(false);
+
         add(panel_2, BorderLayout.EAST);
 
         CustomLabel lblNewLabel26 = new CustomLabel("", "images/img_agregar_usuario.png");
