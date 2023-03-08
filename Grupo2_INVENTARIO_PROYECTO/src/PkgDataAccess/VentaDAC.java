@@ -17,7 +17,8 @@ public class VentaDAC extends DataHelper {
 		try {
 			ps = DataHelper.getConexion().prepareStatement(sql);
 			ps.setString(1, v.getCliente());
-			ps.setString(2, v.getVendedor());
+			// ps.setString(2, v.getVendedor());
+			ps.setString(2, null);
 			ps.setDouble(3, v.getTotal());
 			ps.execute();
 		} catch (SQLException e) {
