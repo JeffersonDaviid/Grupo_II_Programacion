@@ -1,4 +1,4 @@
-package PkgUserInterface.Ventanas;
+package UserInterface.Ventanas;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -12,26 +12,29 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+//import com.itextpdf.layout.element.List;
+//import com.mysql.fabric.xmlrpc.base.Array;
+
 import javax.swing.JTextPane;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
-import PkgBusinnessLogic.Entities.Producto;
-import PkgBusinnessLogic.Entities.Venta;
-import PkgDataAccess.VentaDAC;
-import PkgUserInterface.UI_Component.CustomJPanel;
+import BusinnessLogic.Entities.Producto;
+import BusinnessLogic.Entities.Venta;
+import DataAccess.VentaDAC;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ScrollPaneConstants;
 
-public class VVentas extends CustomJPanel {
+public class Ventas extends JPanel {
+
 	JTable tblProductos;
 	DefaultTableModel modelo;
 
@@ -53,8 +56,7 @@ public class VVentas extends CustomJPanel {
 	private JTextField txtCedula;
 	private JTextField txtDireccion;
 
-	public VVentas() {
-		super("images/img_fondoRegistro.jpeg");
+	public Ventas() {
 		setBackground(new Color(255, 0, 255));
 		setLayout(new BorderLayout(0, 0));
 
@@ -447,5 +449,4 @@ public class VVentas extends CustomJPanel {
 		modelo.addColumn("CANTIDAD");
 
 	}
-
 }

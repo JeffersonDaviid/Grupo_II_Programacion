@@ -1,4 +1,4 @@
--- Active: 1677234517062@@127.0.0.1@3306@DB_INVENTARIO
+-- Active: 1674251157284@@127.0.0.1@3306@test
 
 /** 
  @AUTOR : JEFFERSON CHILENO
@@ -87,6 +87,10 @@ CREATE TABLE
 DESCRIBE Iva;
 
 SELECT * FROM Iva2;
+
+INSERT INTO Iva (NOMBRE)
+VALUES ("SI"), ("NO")
+ORDER BY PK_ID_IVA DESC;
 
 INSERT INTO Iva2 (NOMBRE) VALUES ("NO") ORDER BY PK_ID_IVA DESC;
 
@@ -381,8 +385,8 @@ VALUES (
         "09XXXXXXXX"
     ), (
         2,
-        "thomas.germain17",
-        "271001",
+        "user",
+        "12345",
         "thomasgermain@gmail.com",
         "Thomas",
         "Daniel",
