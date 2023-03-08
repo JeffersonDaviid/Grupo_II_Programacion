@@ -14,9 +14,9 @@ public class IvaDAC extends DataHelper {
     /**
      * Consulta y obtiene el iva registrado en la tabla Iva según el id del mismo
      * 
-     * @param id : se envia el id del iva requerido para realizar la consulta
-     * @return : retorna el iva filtrado segun el id enviado
-     * @throws AppException : indica las excepciones que se pueden lanzar durante la
+     * @param id Se envia el id del iva requerido para realizar la consulta
+     * @return Retorna el iva filtrado segun el id enviado
+     * @throws AppException Indica las excepciones que se pueden lanzar durante la
      *                      ejecución, especificadas en la clase AppException
      */
     public ResultSet getIvaById(int id) throws AppException {
@@ -36,8 +36,8 @@ public class IvaDAC extends DataHelper {
     /**
      * Consulta y obtiene todos los casos de iva registrados en la tabla Iva
      * 
-     * @return : retorna todos los casos posibles para el iva
-     * @throws AppException : indica las excepciones que se pueden lanzar durante la
+     * @return Retorna todos los casos posibles para el iva
+     * @throws AppException Indica las excepciones que se pueden lanzar durante la
      *                      ejecución, especificadas en la clase AppException
      */
     public ResultSet getIvaNombre() throws AppException {

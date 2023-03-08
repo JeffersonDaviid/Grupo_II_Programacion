@@ -152,10 +152,8 @@ public class RegistrarProducto extends JPanel {
         JComboBox<String> cbxCategoriaProducto = new JComboBox<>();
         CategoriaProductoBL p = new CategoriaProductoBL();
         cargarComboItems(cbxCategoriaProducto, p.getAllCategoriaNombre());
-        // productoRegistrado.getConsultarCategorias(cbxCategoriaProducto);
         panelIngresoDatos.add(cbxCategoriaProducto);
 
-        //TODO txt nueva categoria
 
         JLabel lbStockProducto = new JLabel("Stock:");
         lbStockProducto.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -212,8 +210,6 @@ public class RegistrarProducto extends JPanel {
         JComboBox<String> cbxIvaProducto = new JComboBox<>();
         IvaBL iva = new IvaBL();
         cargarComboItems(cbxIvaProducto, iva.getAllIvaNombre());
-        // iva la expresión almacenado en
-        // "NOMBRE"
         panelIngresoDatos.add(cbxIvaProducto);
 
         /*
@@ -275,6 +271,8 @@ public class RegistrarProducto extends JPanel {
                         CategoriaProducto categoria = new CategoriaProducto();
                         int idCategoria = (cbxCategoriaProducto.getSelectedIndex());
                         categoria.setIdCategoriaProducto(idCategoria);
+                        String nombreCategoria = (String) cbxCategoriaProducto.getSelectedItem();
+                        categoria.setNombre(nombreCategoria);
                         nuevoProducto.setFkCategoriaProducto(categoria);
 
                         nuevoProducto.setDescripcion(txtDescripcion.getText());
@@ -283,9 +281,10 @@ public class RegistrarProducto extends JPanel {
                         nuevoProducto.setPrecioVenta(Float.parseFloat(txtPrecioVenta.getText()));
 
                         Iva iva = new Iva();
-                        System.out.println(cbxIvaProducto.getSelectedIndex());
                         int idIva = (cbxIvaProducto.getSelectedIndex());
                         iva.setId(idIva);
+                        String nombreIva = (String) cbxIvaProducto.getSelectedItem();
+                        iva.setNombre(nombreIva);
                         nuevoProducto.setFkIva(iva);
                         nuevoProducto.setFechaIngreso(formatoFechaHora.format(fechaHoraActual));
 
@@ -366,11 +365,11 @@ public class RegistrarProducto extends JPanel {
             fila[1] = nuevoProducto.getProducto();
             fila[2] = nuevoProducto.getCodigoProducto();
             fila[3] = nuevoProducto.getDescripcion();
-            fila[4] = nuevoProducto.getFkCategoriaProducto().getIdCategoriaProducto();
+            fila[4] = nuevoProducto.getFkCategoriaProducto().getNombre();
             fila[5] = nuevoProducto.getStock();
             fila[6] = nuevoProducto.getPrecioCompra();
             fila[7] = nuevoProducto.getPrecioVenta();
-            fila[8] = nuevoProducto.getFkIva().getId();
+            fila[8] = nuevoProducto.getFkIva().getNombre();
             fila[9] = nuevoProducto.getFechaIngreso();
             modelo.addRow(fila);
         }
