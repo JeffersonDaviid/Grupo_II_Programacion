@@ -19,7 +19,7 @@ public class VBienvenida extends JPanel {
     public VBienvenida(String imagePath) {
         setLayout(new BorderLayout(0, 0));
 
-        JLabel lblBienvenido = new JLabel("BIENVENIDO");
+        JLabel lblBienvenido = new JLabel("BIENVENID@");
         lblBienvenido.setBorder(new CompoundBorder(new EmptyBorder(0, 0, 0, 37), null));
         lblBienvenido.setFont(new Font("Dialog", Font.BOLD, 23));
         add(lblBienvenido, BorderLayout.EAST);
@@ -34,7 +34,7 @@ public class VBienvenida extends JPanel {
     public VBienvenida() {
         setLayout(new BorderLayout(0, 0));
 
-        JLabel lblBienvenido = new JLabel("BIENVENIDO");
+        JLabel lblBienvenido = new JLabel("BIENVENID@");
         lblBienvenido.setBorder(new CompoundBorder(new EmptyBorder(0, 0, 0, 37), null));
         lblBienvenido.setFont(new Font("Dialog", Font.BOLD, 23));
 
