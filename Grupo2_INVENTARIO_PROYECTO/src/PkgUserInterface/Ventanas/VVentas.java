@@ -366,7 +366,7 @@ public class VVentas extends CustomJPanel {
 						}
 
 						do {
-							for (int i = 0; i <= modelo.getRowCount(); i++) {
+							for (int i = 0; i < modelo.getRowCount(); i++) {
 								modelo.removeRow(i);
 							}
 						} while (modelo.getRowCount() != 0);

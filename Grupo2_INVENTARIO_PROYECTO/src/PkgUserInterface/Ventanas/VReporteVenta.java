@@ -125,7 +125,7 @@ public class VReporteVenta extends JPanel {
 
                         Cell cellSubtotalUnitario = new Cell().add(
                                         new Paragraph(df.format(
-                                                        itemCompra.getProducto().getStock()
+                                                        itemCompra.getIntCantidad()
                                                                         * itemCompra.getProducto().getPrecioVenta())
                                                         + ""))
                                         .setTextAlignment(TextAlignment.RIGHT)
