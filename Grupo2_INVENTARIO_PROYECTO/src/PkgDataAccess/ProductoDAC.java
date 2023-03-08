@@ -257,4 +257,23 @@ public class ProductoDAC extends DataHelper {
         }
     }
 
+    public boolean setProductoVendido(String codigo, int estado, int stock)
+            throws Exception {
+        try {
+            String sql = "UPDATE "
+                    + APP.BASE_DATOS_MYSQL.TABLA_PRODUCTO
+                    + " SET "
+                    + APP.BASE_DATOS_MYSQL.FK_ID_ESTADO + " = " + estado + " ,"
+                    + APP.BASE_DATOS_MYSQL.STOCK + " = " + stock
+
+                    + " WHERE "
+                    + APP.BASE_DATOS_MYSQL.CODIGO_PRODUCTO + " = '" + codigo + "'";
+            return setResultSet(sql);
+
+        } catch (Exception e) {
+            throw new AppException(e, getClass(), "Error en setProducto() " + e.getMessage());
+
+        }
+    }
+
 }

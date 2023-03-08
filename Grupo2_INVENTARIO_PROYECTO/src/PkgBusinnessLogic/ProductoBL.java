@@ -105,7 +105,7 @@ public class ProductoBL {
      * @throws Exception Indica las excepciones que se pueden lanzar durante la
      *                   ejecución
      */
-    public ArrayList<Producto> getProductoPorIdOCodigo(String codigo) throws Exception {
+    public static ArrayList<Producto> getProductoPorIdOCodigo(String codigo) throws Exception {
         try {
             ArrayList<Producto> productos = new ArrayList<Producto>();
             ProductoDAC productoDac = new ProductoDAC();
@@ -135,7 +135,7 @@ public class ProductoBL {
             }
             return productos;
         } catch (Exception e) {
-            throw new AppException(e, getClass(), "Error en getProductoPorIdOCodigo(String codigo):" + e.getMessage());
+            throw new AppException(e, "Error en getProductoPorIdOCodigo(String codigo):" + e.getMessage());
         }
     }
 

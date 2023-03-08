@@ -53,6 +53,7 @@ public class VActualizarInventario extends JPanel {
         setLayout(new BorderLayout(0, 0));
 
         CustomJPanel panelPrincipal = new CustomJPanel("images/img_fondoRegistro.jpeg");
+        panelPrincipal.setOpaque(false);
         add(panelPrincipal, BorderLayout.CENTER);
         panelPrincipal.setLayout(new BorderLayout(0, 0));
 
@@ -62,6 +63,7 @@ public class VActualizarInventario extends JPanel {
         panelHeader.setLayout(new GridLayout(0, 1, 0, 0));
 
         JPanel panel_1 = new JPanel();
+        panel_1.setOpaque(false);
         panelHeader.setOpaque(false);
         panelHeader.add(panel_1);
 
@@ -99,7 +101,7 @@ public class VActualizarInventario extends JPanel {
                             // System.out.println(cbxCategoria.getSelectedIndex());
                         }
                     } else {
-                        lsProductos = productoCategoria.getProductoPorIdOCodigo(txtBusqueda.getText());
+                        lsProductos = ProductoBL.getProductoPorIdOCodigo(txtBusqueda.getText());
                         tblInventario.construirTabla(getColumnasTabla(), lsProductos);
                     }
 

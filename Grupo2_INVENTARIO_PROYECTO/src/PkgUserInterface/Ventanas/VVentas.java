@@ -1,43 +1,40 @@
 package PkgUserInterface.Ventanas;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Color;
 import java.awt.BorderLayout;
-import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JTextPane;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.table.DefaultTableModel;
 
+import PkgBusinnessLogic.ProductoBL;
 import PkgBusinnessLogic.Entities.Producto;
 import PkgBusinnessLogic.Entities.Venta;
 import PkgDataAccess.VentaDAC;
 import PkgUserInterface.UI_Component.CustomJPanel;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
-import javax.swing.JScrollPane;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.ScrollPaneConstants;
-
 public class VVentas extends CustomJPanel {
 	JTable tblProductos;
 	DefaultTableModel modelo;
+	private ArrayList<Venta> lsCompra = new ArrayList<>();
+	Producto pro;
 
-	Venta v = new Venta();
 	VentaDAC vDAC = new VentaDAC();
-	Producto pro = new Producto();
 	double total = 0;
 	Object[] fila = new Object[4];
 
@@ -59,6 +56,7 @@ public class VVentas extends CustomJPanel {
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel panelSuperior = new JPanel();
+		panelSuperior.setOpaque(false);
 		add(panelSuperior, BorderLayout.NORTH);
 
 		JLabel lbTituloPanelSuperior = new JLabel("VENTAS");
@@ -70,6 +68,7 @@ public class VVentas extends CustomJPanel {
 		txtTotal.setBackground(Color.BLACK);
 
 		JPanel panelLateralIzquierdo = new JPanel();
+		panelLateralIzquierdo.setOpaque(false);
 		add(panelLateralIzquierdo, BorderLayout.WEST);
 		txtCodigoProducto = new JTextField();
 		txtCodigoProducto.addKeyListener(new KeyAdapter() {
@@ -78,14 +77,20 @@ public class VVentas extends CustomJPanel {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String cod = txtCodigoProducto.getText();
 					if (!"".equals(txtCodigoProducto.getText())) {
-						pro = vDAC.BuscarPro(cod);
-						if (pro.getProducto() != null) {
+						// pro = vDAC.BuscarPro(cod);
 
-							fila[0] = (txtCodigoProducto.getText());
-							fila[1] = (pro.getProducto());
-							fila[2] = (pro.getPrecioVenta());
-							txtCantidad.requestFocus();
+						try {
+							pro = ProductoBL.getProductoPorIdOCodigo(cod).get(0);
 
+							if (pro.getProducto() != null) {
+
+								fila[0] = (txtCodigoProducto.getText());
+								fila[1] = (pro.getProducto());
+								fila[2] = (pro.getPrecioVenta());
+								txtCantidad.requestFocus();
+
+							}
+						} catch (Exception e1) {
 						}
 					}
 				}
@@ -137,24 +142,36 @@ public class VVentas extends CustomJPanel {
 				if (!"".equals(txtCantidad.getText()) && !"".equals(txtCodigoProducto.getText())) {
 					if (e.getButton() == 1) {
 						String cod = txtCodigoProducto.getText();
-						pro = vDAC.BuscarPro(cod);
+						try {
+							Producto pro = ProductoBL.getProductoPorIdOCodigo(cod).get(0);
+							// pro = vDAC.BuscarPro(cod);
 
-						if (pro.getStock() >= Integer.parseInt(txtCantidad.getText())) {
-							fila[0] = (txtCodigoProducto.getText());
-							fila[1] = (pro.getProducto());
-							fila[2] = (pro.getPrecioVenta());
-							fila[3] = (txtCantidad.getText());
-							modelo.addRow(fila);
+							if (pro.getStock() >= Integer.parseInt(txtCantidad.getText())) {
+								fila[0] = (txtCodigoProducto.getText());
+								fila[1] = (pro.getProducto());
+								fila[2] = (pro.getPrecioVenta());
+								fila[3] = (txtCantidad.getText());
+								modelo.addRow(fila);
 
-							total = total
-									+ ((Integer.parseInt(fila[3].toString()) * Double.parseDouble(fila[2].toString())));
+								Venta v = new Venta(Integer.parseInt(txtCantidad.getText()), pro);
+								total = total
+										+ ((Integer.parseInt(fila[3].toString())
+												* Double.parseDouble(fila[2].toString())));
 
-							txtCodigoProducto.setText("");
-							txtCantidad.setText("");
-							txtTotal.setText(String.format("%.2f", total));
-						} else {
-							JOptionPane.showMessageDialog(null,
-									"La cantidad ingresada supera el stock, stock disponible: " + pro.getStock());
+								txtCodigoProducto.setText("");
+								txtCantidad.setText("");
+								txtTotal.setText(String.format("%.2f", total));
+
+								if (!actualizarCantidadRepetido(v, v.getIntCantidad(),
+										lsCompra))
+									lsCompra.add(v);
+
+							} else {
+								JOptionPane.showMessageDialog(null,
+										"La cantidad ingresada supera el stock, stock disponible: " + pro.getStock());
+							}
+						} catch (Exception e1) {
+							e1.printStackTrace();
 						}
 
 					}
@@ -190,9 +207,9 @@ public class VVentas extends CustomJPanel {
 
 		JLabel lbCantidad = new JLabel("CANTIDAD:");
 
-		JLabel lbCodigoProducto = new JLabel("COD_PRODUCTO:");
+		JLabel lbCodigoProducto = new JLabel("COD. PRODUCTO:");
 
-		JLabel lbTituloPanelIzquierdo = new JLabel("INGREO DE PRODUCTOS");
+		JLabel lbTituloPanelIzquierdo = new JLabel("INGRESO DE PRODUCTOS");
 		GroupLayout gl_panelLateralIzquierdo = new GroupLayout(panelLateralIzquierdo);
 		gl_panelLateralIzquierdo.setHorizontalGroup(
 				gl_panelLateralIzquierdo.createParallelGroup(Alignment.LEADING)
@@ -297,6 +314,7 @@ public class VVentas extends CustomJPanel {
 		 * 
 		 */
 		JPanel panelInferior = new JPanel();
+		panelInferior.setOpaque(false);
 		add(panelInferior, BorderLayout.SOUTH);
 
 		txtNombre = new JTextField();
@@ -331,12 +349,14 @@ public class VVentas extends CustomJPanel {
 				if (!"".equals(txtNombre.getText()) && !"".equals(txtCedula.getText())
 						&& !"".equals(txtTelefono.getText()) && !"".equals(txtDireccion.getText())) {
 					if (e.getButton() == 1) {
-						v.setCliente(txtNombre.getText());
-						v.setCedula(txtCedula.getText());
-						v.setTelefono(txtTelefono.getText());
-						v.setDireccion(txtDireccion.getText());
-						v.setTotal(total);
-						vDAC.registrarVenta(v);
+
+						// v.setCliente(txtNombre.getText());
+						// v.setCedula(txtCedula.getText());
+						// v.setTelefono(txtTelefono.getText());
+						// v.setDireccion(txtDireccion.getText());
+						// v.setTotal(total);
+						// vDAC.registrarVenta(v);
+
 						String[] codProductos = new String[modelo.getRowCount() - 1];
 						int[] canProductos = new int[modelo.getRowCount() - 1];
 
@@ -350,11 +370,17 @@ public class VVentas extends CustomJPanel {
 								modelo.removeRow(i);
 							}
 						} while (modelo.getRowCount() != 0);
+
+						VReporteVenta.generarFactura(txtNombre.getText(), txtCedula.getText(), txtDireccion.getText(),
+								txtTelefono.getText(),
+								lsCompra,
+								total);
 						txtTotal.setText("");
 						txtNombre.setText("");
 						txtCedula.setText("");
 						txtTelefono.setText("");
 						txtDireccion.setText("");
+
 					}
 				}
 			}
@@ -429,6 +455,7 @@ public class VVentas extends CustomJPanel {
 		// panel 3
 		//
 		JScrollPane panelCentral = new JScrollPane();
+		panelCentral.setOpaque(false);
 		panelCentral.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(panelCentral, BorderLayout.CENTER);
 		tblProductos = new JTable();
@@ -446,6 +473,25 @@ public class VVentas extends CustomJPanel {
 		modelo.addColumn("PRECIO VENTA");
 		modelo.addColumn("CANTIDAD");
 
+	}
+
+	/**
+	 * Método que se encarga de incrementar la cantidad de un determinado item
+	 * dentro de una lista, si es que este se encuentra en la lista, caso contrario
+	 * no hará nada.
+	 * 
+	 * @param compra   item que se buscará en la lista.
+	 * @param lsCompra lista que contiene el item.
+	 * @return TRUE: Si es que encontro el item, FALSE: si es que no lo encontró.
+	 */
+	public static boolean actualizarCantidadRepetido(Venta compra, int cantidad, ArrayList<Venta> lsCompra) {
+		for (Venta item : lsCompra) {
+			if (item.getProducto().getProducto().equals(compra.getProducto().getProducto())) {
+				item.setIntCantidad(item.getIntCantidad() + cantidad);
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

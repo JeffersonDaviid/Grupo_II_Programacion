@@ -1,75 +1,28 @@
 package PkgBusinnessLogic.Entities;
 
 public class Venta {
-	private int id;
-	private String cliente;
-	private String cedula;
-	private String direccion;
-	private String telefono;
+	private int intCantidad;
+	private Producto producto;
 
-	private double total;
-
-	public Venta() {
-
+	public Venta(int intCantidad, Producto producto) {
+		this.intCantidad = intCantidad;
+		this.producto = producto;
 	}
 
-	public Venta(int id, String cliente, String cedula, String direccion, String telefono, double total,
-			String fechaIngreso) {
-		super();
-		this.id = id;
-		this.cliente = cliente;
-		this.cedula = cedula;
-		this.direccion = direccion;
-		this.telefono = telefono;
-		this.total = total;
+	public int getIntCantidad() {
+		return intCantidad;
 	}
 
-	public int getId() {
-		return id;
+	public void setIntCantidad(int intCantidad) {
+		this.intCantidad = intCantidad;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Producto getProducto() {
+		return producto;
 	}
 
-	public String getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
-	}
-
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getCedula() {
-		return cedula;
-	}
-
-	public void setCedula(String cedula) {
-		this.cedula = cedula;
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
 
 }

@@ -20,31 +20,15 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 
-import PkgBusinnessLogic.ProductoBL;
-import PkgBusinnessLogic.Entities.Compra;
-import PkgBusinnessLogic.Entities.Producto;
+import PkgBusinnessLogic.Entities.Venta;
+import PkgDataAccess.ProductoDAC;
 
 public class VReporteVenta extends JPanel {
 
-        private ArrayList<Compra> lsCompra = new ArrayList<Compra>();
+        private static double doubleTotal = 0;
 
-        public VReporteVenta() {
-                try {
-                        ProductoBL p = new ProductoBL();
-                        for (Producto item : p.getAllProducto()) {
-                                Compra c = new Compra(1, item);
-                                lsCompra.add(c);
-                        }
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
-
-                generarFactura("Jefferson Chileno", "Quito - Guamani", "juanitoperez13@gmail.com", lsCompra);
-
-        }
-
-        public static void generarFactura(String cliente, String direccion, String correo,
-                        ArrayList<Compra> lsCompra) {
+        public static void generarFactura(String cliente, String cedula, String direccion, String telefono,
+                        ArrayList<Venta> lsCompra, double total) {
 
                 Date fechaFactura = new Date();
                 SimpleDateFormat sdfFormatoFactura = new SimpleDateFormat("ddMMyyHHmm");
@@ -67,15 +51,16 @@ public class VReporteVenta extends JPanel {
                         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
                         Document document = new Document(pdfDocument);
 
-                        for (Paragraph itemParagraphEncabezado : llenarPdfEncabezado(cliente, direccion, correo,
+                        for (Paragraph itemParagraphEncabezado : llenarPdfEncabezado(cliente, direccion, telefono,
+                                        cedula,
                                         stringFechaFactura,
                                         stringNumeroFactura)) {
                                 document.add(itemParagraphEncabezado);
                         }
 
-                        document.add(llenarPdfTabla(lsCompra));
+                        document.add(llenarPdfTabla(lsCompra, total));
 
-                        Cell cell1 = new Cell().add(new Paragraph("Cantidad"))
+                        Cell cell1 = new Cell().add(new Paragraph("TOTAL:\t\t\t\t\t " + df.format(doubleTotal)))
                                         .setTextAlignment(TextAlignment.RIGHT)
                                         .setBackgroundColor(ColorConstants.ORANGE);
 
@@ -86,11 +71,6 @@ public class VReporteVenta extends JPanel {
 
                         System.out.println("PDF creado");
 
-                        Compra c = new Compra(1, lsCompra.get(2).getProducto());
-                        if (!actualizarCantidadRepetido(c, lsCompra)) {
-                                lsCompra.add(c);
-                        }
-
                 } catch (FileNotFoundException ex) {
                         System.out.println(ex.getMessage());
                 } catch (IOException ex) {
@@ -99,26 +79,7 @@ public class VReporteVenta extends JPanel {
 
         }
 
-        /**
-         * Método que se encarga de incrementar la cantidad de un determinado item
-         * dentro de una lista, si es que este se encuentra en la lista, caso contrario
-         * no hará nada.
-         * 
-         * @param compra   item que se buscará en la lista.
-         * @param lsCompra lista que contiene el item.
-         * @return TRUE: Si es que encontro el item, FALSE: si es que no lo encontró.
-         */
-        public static boolean actualizarCantidadRepetido(Compra compra, ArrayList<Compra> lsCompra) {
-                for (Compra item : lsCompra) {
-                        if (item.getProducto().getProducto().equals(compra.getProducto().getProducto())) {
-                                item.setIntCantidad(item.getIntCantidad() + 1);
-                                return true;
-                        }
-                }
-                return false;
-        }
-
-        public static Table llenarPdfTabla(ArrayList<Compra> lsCompra) {
+        public static Table llenarPdfTabla(ArrayList<Venta> lsCompra, double total) {
                 DecimalFormat df = new DecimalFormat("#,###.00");
 
                 Table pdfTabla = new Table(4);
@@ -145,10 +106,10 @@ public class VReporteVenta extends JPanel {
                 pdfTabla.addCell(cell3);
                 pdfTabla.addCell(cell4);
 
-                for (Compra itemCompra : lsCompra) {
+                for (Venta itemCompra : lsCompra) {
 
                         Cell cellCantidad = new Cell().add(
-                                        new Paragraph(itemCompra.getProducto().getStock() + ""))
+                                        new Paragraph(itemCompra.getIntCantidad() + ""))
                                         .setFontSize(10);
 
                         Cell cellDescripcion = new Cell().add(
@@ -171,6 +132,29 @@ public class VReporteVenta extends JPanel {
                                         .setFontSize(10)
                                         .setWidth(UnitValue.createPercentValue(20));
 
+                        doubleTotal += itemCompra.getIntCantidad()
+                                        * itemCompra.getProducto().getPrecioVenta();
+
+                        ProductoDAC productoDACActualizar = new ProductoDAC();
+
+                        try {
+                                if (itemCompra.getProducto().getStock() - itemCompra.getIntCantidad() == 0) {
+                                        productoDACActualizar.setProductoVendido(
+                                                        itemCompra.getProducto().getCodigoProducto(),
+                                                        2,
+                                                        itemCompra.getProducto().getStock()
+                                                                        - itemCompra.getIntCantidad());
+                                } else {
+                                        productoDACActualizar.setProductoVendido(
+                                                        itemCompra.getProducto().getCodigoProducto(),
+                                                        itemCompra.getProducto().getFkEstado().getIdEstado(),
+                                                        itemCompra.getProducto().getStock()
+                                                                        - itemCompra.getIntCantidad());
+                                }
+                        } catch (Exception e) {
+                                e.printStackTrace();
+                        }
+
                         pdfTabla.addCell(cellCantidad);
                         pdfTabla.addCell(cellDescripcion);
                         pdfTabla.addCell(cellPrecioUnitario);
@@ -182,6 +166,7 @@ public class VReporteVenta extends JPanel {
         }
 
         public static ArrayList<Paragraph> llenarPdfEncabezado(String cliente, String direccion, String correo,
+                        String cedula,
                         String fechaFactura,
                         String numeroFactura) {
                 ArrayList<Paragraph> lsItemsPdfEncabezado = new ArrayList<>();
@@ -217,10 +202,10 @@ public class VReporteVenta extends JPanel {
                                 .add("DIRECCIÓN: " + direccion + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tFECHA: " + fechaFactura)
                                 .setTextAlignment(TextAlignment.JUSTIFIED);
 
-                paragraphEncabezadoPdf6.add("CORREO: " + correo)
+                paragraphEncabezadoPdf6.add("TELEFONO: " + correo)
                                 .setTextAlignment(TextAlignment.JUSTIFIED);
 
-                paragraphEncabezadoPdf7.add("Direccion: " + direccion)
+                paragraphEncabezadoPdf7.add("CEDULA: " + cedula)
                                 .setTextAlignment(TextAlignment.JUSTIFIED);
 
                 paragraphEncabezadoPdf8.add(

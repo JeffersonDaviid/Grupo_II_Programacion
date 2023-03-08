@@ -26,10 +26,10 @@ public class PrincipalT extends JFrame {
 	// FondoPanel contentPane = new FondoPanel();
 	JPanel CONTENIDO_ACTUALIZABLE = new JPanel();
 
-	public static void main(String[] args) {
-		PrincipalT frame = new PrincipalT();
-		frame.setVisible(true);
-	}
+	// public static void main(String[] args) {
+	// PrincipalT frame = new PrincipalT();
+	// frame.setVisible(true);
+	// }
 
 	public PrincipalT() {
 		try {
@@ -142,7 +142,7 @@ public class PrincipalT extends JFrame {
 		panelNavegacion.add(panelNavegacion_Acciones);
 		panelNavegacion_Acciones.setLayout(new GridLayout(7, 0, 0, 15));
 
-		CustomButton btnVenta = new CustomButton("VENTAS", "images/iconos/paquete.png");
+		CustomButton btnVenta = new CustomButton("VENTAS", "images/iconos/icon_ventas.png");
 		btnVenta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -155,7 +155,8 @@ public class PrincipalT extends JFrame {
 		panelNavegacion_Acciones.add(btnVenta);
 		btnVenta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		CustomButton btnFacturacion = new CustomButton("FACTURACION");
+		CustomButton btnFacturacion = new CustomButton("    ");
+		btnFacturacion.setEnabled(false);
 		btnFacturacion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -166,7 +167,8 @@ public class PrincipalT extends JFrame {
 		panelNavegacion_Acciones.add(btnFacturacion);
 		btnFacturacion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		CustomButton btnReporteVenta = new CustomButton("REPORTE VENTAS");
+		CustomButton btnReporteVenta = new CustomButton("   ");
+		btnReporteVenta.setEnabled(false);
 		btnReporteVenta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

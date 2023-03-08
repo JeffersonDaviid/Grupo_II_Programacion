@@ -28,10 +28,10 @@ public class PrincipalA extends JFrame {
 	// FondoPanel contentPane = new FondoPanel();
 	JPanel CONTENIDO_ACTUALIZABLE = new JPanel();
 
-	public static void main(String[] args) {
-		PrincipalA frame = new PrincipalA();
-		frame.setVisible(true);
-	}
+	// public static void main(String[] args) {
+	// PrincipalA frame = new PrincipalA();
+	// frame.setVisible(true);
+	// }
 
 	public PrincipalA() {
 		try {
@@ -152,7 +152,8 @@ public class PrincipalA extends JFrame {
 		panelNavegacion.add(panelNavegacion_Acciones);
 		panelNavegacion_Acciones.setLayout(new GridLayout(7, 0, 0, 15));
 
-		CustomButton btnRegistrarProducto = new CustomButton("Registrar Producto", "images/iconos/paquete.png");
+		CustomButton btnRegistrarProducto = new CustomButton("Registrar Producto",
+				"images/iconos/icon_addProducto.png");
 		btnRegistrarProducto.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -170,7 +171,8 @@ public class PrincipalA extends JFrame {
 		panelNavegacion_Acciones.add(btnRegistrarProducto);
 		btnRegistrarProducto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		CustomButton btnRegistrarTrabajador = new CustomButton("Registrar Trabajador");
+		CustomButton btnRegistrarTrabajador = new CustomButton("Registrar Trabajador",
+				"images/iconos/icon_addUser.png");
 		btnRegistrarTrabajador.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -183,7 +185,8 @@ public class PrincipalA extends JFrame {
 		panelNavegacion_Acciones.add(btnRegistrarTrabajador);
 		btnRegistrarTrabajador.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		CustomButton btnActualizarInventario = new CustomButton("Actualizar Inventario");
+		CustomButton btnActualizarInventario = new CustomButton("Actualizar Inventario",
+				"images/iconos/icon_updateProducto.png");
 		btnActualizarInventario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
